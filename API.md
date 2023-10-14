@@ -2,19 +2,19 @@
 
 ## GET api/regions 
 
-список всех регионов, отсортированный по общему *score*
+список всех регионов, отсортированный по *score* (общий балл по всем критериям) 
 
 ### ok: \[region\]
 ```
 [
   {
-    "id": "int",
-    "name": "string",
-    "score": "int",
+    "id": int, 
+    "name": string,
+    "score": int,
     "achievements": [
       {
-        "projection": "projection",
-        "score": "int"
+        "projection": projection
+        "score": int
       }
     ]
   }
@@ -23,7 +23,7 @@
 
 ## GET api/regions?projection={int}
 
-список всех регионов, отсортированный *score* определенного комплексного критерия
+список всех регионов, отсортированный *score* (балл по определенному комплексному критерию_
 
 ### ok: \[region\]
 ```
