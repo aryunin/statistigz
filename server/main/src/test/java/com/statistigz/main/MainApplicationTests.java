@@ -1,10 +1,10 @@
-package com.statistigz.server;
+package com.statistigz.main;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ServerApplicationTests {
+class MainApplicationTests {
 
 	@Test
 	void contextLoads() {

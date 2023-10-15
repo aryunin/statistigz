@@ -16,10 +16,10 @@ CREATE TABLE Criteria (
     FOREIGN KEY (projectionId) REFERENCES Projection(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE City_Criteria (
+CREATE TABLE Region_Criteria (
     regionId bigint REFERENCES Region(id) ON DELETE CASCADE ON UPDATE CASCADE,
     criteriaId bigint REFERENCES Criteria(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    "year" integer NOT NULL,
+    "updateDate" date NOT NULL,
     "value" double precision NOT NULL,
-    PRIMARY KEY(regionId, criteriaId, "year")
+    PRIMARY KEY(regionId, criteriaId, "updateDate")
 );
