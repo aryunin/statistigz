@@ -24,7 +24,7 @@ public class RegionsServiceImpl implements RegionsService {
         var regions = regionRepository.findAll();
         return regions.stream()
                 .map(this::mapToDto)
-                .toList();
+                .toList(); // TODO N + 1 problem ???
     }
 
     @Override

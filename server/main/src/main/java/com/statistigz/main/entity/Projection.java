@@ -12,6 +12,6 @@ public class Projection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany(mappedBy = "projection")
+    @OneToMany(mappedBy = "projection", fetch = FetchType.LAZY)
     private List<Criteria> criteria;
 }

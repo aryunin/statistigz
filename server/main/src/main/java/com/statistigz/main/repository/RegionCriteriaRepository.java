@@ -24,4 +24,16 @@ public interface RegionCriteriaRepository extends Repository<RegionCriteria, Reg
             )
             """)
     List<RegionCriteria> findActualByRegionAndProjection(long regionId, long projectionId);
+
+    @Query("""
+            FROM RegionCriteria rc\s
+            WHERE rc.id.region.id = :regionId\s
+            AND rc.id.updateDate = (
+                SELECT MAX(id.updateDate)\s
+                FROM RegionCriteria\s
+                WHERE id.region.id = :regionId\s
+                AND id.criteria.id = rc.id.criteria.id
+            )
+            """)
+    List<RegionCriteria> findActualByRegion(long regionId);
 }

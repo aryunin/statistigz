@@ -5,6 +5,7 @@ import com.statistigz.main.repository.RegionCriteriaRepository;
 import com.statistigz.main.service.ScoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +19,16 @@ public class ScoreServiceImpl implements ScoreService {
     private final RegionCriteriaRepository rcRepository;
 
     @Override
+    @Cacheable(value = "score")
     public double calculate(long regionId) {
-        return 0;
+        return rcRepository.findActualByRegion(regionId)
+                .stream()
+                .mapToDouble(RegionCriteria::getValue)
+                .average().orElse(0.) * MAX_SCORE;
     }
 
     @Override
+    @Cacheable(value = "score_projection")
     public double calculate(long regionId, long projectionId) {
         return rcRepository.findActualByRegionAndProjection(regionId, projectionId)
                 .stream()
