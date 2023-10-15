@@ -11,6 +11,6 @@ public class Criteria {
     private Long id;
     private String name;
     @ManyToOne
-    @JoinColumn(name="projectionId")
+    @JoinColumn(name="projectionid")
     private Projection projection;
 }

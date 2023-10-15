@@ -15,10 +15,10 @@ import java.time.LocalDate;
 @Embeddable
 public class RegionCriteriaId implements Serializable {
     @ManyToOne
-    @JoinColumn(name = "regionId")
+    @JoinColumn(name = "regionid")
     private Region region;
     @ManyToOne
-    @JoinColumn(name = "criteriaId")
+    @JoinColumn(name = "criteriaid")
     private Criteria criteria;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
