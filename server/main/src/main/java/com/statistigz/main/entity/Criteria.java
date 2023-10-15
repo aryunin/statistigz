@@ -10,7 +10,7 @@ public class Criteria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="projectionid")
     private Projection projection;
 }
