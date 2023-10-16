@@ -23,3 +23,29 @@ CREATE TABLE Region_Criteria (
     "value" double precision NOT NULL,
     PRIMARY KEY(regionId, criteriaId, updateDate)
 );
+
+CREATE OR REPLACE VIEW achievement AS
+WITH CTE AS (
+    SELECT
+        rc.regionid AS regionid,
+        pr.id AS projectionid,
+        AVG("value") AS score,
+        RANK() OVER (PARTITION BY pr.id ORDER BY AVG("value") DESC) AS rnk
+    FROM region_criteria rc
+    JOIN criteria cr
+		ON rc.criteriaid = cr.id
+    JOIN projection pr
+		ON cr.projectionid = pr.id
+	WHERE rc.updatedate = (
+		SELECT updatedate
+		FROM region_criteria
+		WHERE criteriaid = cr.id
+		AND projectionid = pr.id
+		ORDER BY updatedate DESC
+		LIMIT 1
+	)
+    GROUP BY rc.regionid, pr.id
+)
+SELECT regionid, projectionid, score
+FROM CTE
+WHERE rnk = 1;

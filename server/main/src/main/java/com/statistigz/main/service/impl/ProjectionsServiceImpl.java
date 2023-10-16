@@ -1,8 +1,7 @@
 package com.statistigz.main.service.impl;
 
-import com.statistigz.common.dto.CriteriaDTO;
 import com.statistigz.common.dto.ProjectionDTO;
-import com.statistigz.main.entity.Projection;
+import com.statistigz.main.mapper.ProjectionDtoMapper;
 import com.statistigz.main.repository.ProjectionRepository;
 import com.statistigz.main.service.ProjectionsService;
 import lombok.RequiredArgsConstructor;
@@ -20,15 +19,7 @@ public class ProjectionsServiceImpl implements ProjectionsService {
     @Override
     public List<ProjectionDTO> findAll() {
         return projectionRepository.findAll().stream()
-                .map(ProjectionsServiceImpl::mapToDto)
+                .map(ProjectionDtoMapper::mapToDto)
                 .toList();
-    }
-
-    private static ProjectionDTO mapToDto(Projection projection) {
-        var criteria = projection.getCriteria().stream()
-                .map(c -> new CriteriaDTO(c.getId(), c.getName()))
-                .toList();
-
-        return new ProjectionDTO(projection.getId(), projection.getName(), criteria);
     }
 }
