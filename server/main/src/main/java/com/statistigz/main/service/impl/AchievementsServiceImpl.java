@@ -7,10 +7,10 @@ import com.statistigz.main.repository.AchievementRepository;
 import com.statistigz.main.service.AchievementsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -23,7 +23,7 @@ public class AchievementsServiceImpl implements AchievementsService {
     private final AchievementRepository achievementRepository;
 
     @Override
-    @Cacheable("achievement")
+//    @Cacheable("achievement")
     public List<AchievementDTO> calculate(Region region) {
         return achievementRepository.findByRegion(region)
                 .stream()
@@ -32,6 +32,7 @@ public class AchievementsServiceImpl implements AchievementsService {
                         dto.projection(),
                         dto.score() * MAX_SCORE
                 ))
+                .sorted(Comparator.comparing(AchievementDTO::score).reversed())
                 .toList();
     }
 }

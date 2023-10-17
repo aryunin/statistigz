@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProjectionRepository extends JpaRepository<Projection, Long> {
-    @Query("FROM Projection p JOIN FETCH p.criteria c")
+    @Query("FROM Projection p JOIN FETCH p.criteria c ORDER BY p.name ASC, c.name")
     List<Projection> findAllJoin();
 }
