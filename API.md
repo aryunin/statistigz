@@ -13,7 +13,7 @@
     "score": int,
     "achievements": [
       {
-        "projection": projection
+        "projection": projection (without criteria),
         "score": int
       }
     ]
@@ -23,19 +23,19 @@
 
 ## GET api/regions?projection={int}
 
-список всех регионов, отсортированный *score* (балл по определенному комплексному критерию_
+список всех регионов, отсортированный *score* (балл по определенному комплексному критерию)
 
 ### ok: \[region\]
 ```
 [
   {
-    "id": "int",
-    "name": "string",
-    "score": "int",
+    "id": int,
+    "name": string,
+    "score": int,
     "achievements": [
       {
-        "projection": "projection",
-        "score": "int"
+        "projection": projection (without criteria),
+        "score": int
       }
     ]
   }
@@ -44,8 +44,8 @@
 ### projection not found: error
 ```
 {
-  "code": "int",
-  "message": "string"
+  "code": int,
+  "message": string
 }
 ```
 
@@ -57,12 +57,12 @@
 ```
 [
   {
-    "id": "int",
-    "name": "string",
+    "id": int,
+    "name": string,
     "criteria": [
       {
-        "id": "int",
-        "name": "string"
+        "id": int,
+        "name": string
       }
     ]
   }
