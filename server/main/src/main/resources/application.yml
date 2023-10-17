@@ -21,3 +21,4 @@ server:
 
 constants:
   max-score: 5
+  cache-lifetime: 30

@@ -1,3 +1,3 @@
 package com.statistigz.common.dto;
 
-public record AchievementDTO(ProjectionSimpleDTO projection, Double score) { }
+public record AchievementDTO(ProjectionDTO projection, Double score) { }

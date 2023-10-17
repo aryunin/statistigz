@@ -1,6 +1,6 @@
 package com.statistigz.main.entity;
 
-import com.statistigz.main.entity.id.AchievementID;
+import com.statistigz.main.entity.id.RegionProjectionID;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import lombok.Data;
@@ -9,8 +9,8 @@ import org.hibernate.annotations.Immutable;
 @Entity
 @Data
 @Immutable
-public class Achievement {
+public class RegionProjection {
     @EmbeddedId
-    private AchievementID id;
+    private RegionProjectionID id;
     private Double score;
 }

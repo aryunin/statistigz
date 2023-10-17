@@ -1,6 +1,7 @@
 package com.statistigz.main.service.impl;
 
 import com.statistigz.common.dto.AchievementDTO;
+import com.statistigz.main.entity.Region;
 import com.statistigz.main.mapper.AchievementDtoMapper;
 import com.statistigz.main.repository.AchievementRepository;
 import com.statistigz.main.service.AchievementsService;
@@ -23,8 +24,8 @@ public class AchievementsServiceImpl implements AchievementsService {
 
     @Override
     @Cacheable("achievement")
-    public List<AchievementDTO> calculate(long regionId) {
-        return achievementRepository.findByRegion(regionId)
+    public List<AchievementDTO> calculate(Region region) {
+        return achievementRepository.findByRegion(region)
                 .stream()
                 .map(AchievementDtoMapper::mapToDTO)
                 .map(dto -> new AchievementDTO(

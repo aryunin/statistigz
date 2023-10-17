@@ -1,21 +1,18 @@
 package com.statistigz.main.repository;
 
 import com.statistigz.main.entity.Achievement;
-import com.statistigz.main.entity.id.AchievementId;
+import com.statistigz.main.entity.Region;
+import com.statistigz.main.entity.id.AchievementID;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.Repository;
 
 import java.util.List;
 
-public interface AchievementRepository extends Repository<Achievement, AchievementId> {
-
+public interface AchievementRepository extends JpaRepository<Achievement, AchievementID> {
     @Query("""
             FROM Achievement ach
-            JOIN FETCH Region r
-            ON ach.id.region.id = r.id
-            JOIN FETCH Projection p
-            ON ach.id.projection.id = p.id
-            WHERE r.id = :regionId
+            WHERE ach.id.region = :region
             """)
-    List<Achievement> findByRegion(long regionId);
+    List<Achievement> findByRegion(Region region);
+
 }

@@ -11,6 +11,6 @@ public class Criteria {
     private Long id;
     private String name;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="projectionid")
+    @JoinColumn(name="projection_id")
     private Projection projection;
 }

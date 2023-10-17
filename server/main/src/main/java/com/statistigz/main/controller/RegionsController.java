@@ -2,6 +2,7 @@ package com.statistigz.main.controller;
 
 import com.statistigz.common.dto.RegionDTO;
 import com.statistigz.main.exception.NotFoundException;
+import com.statistigz.main.service.ProjectionsService;
 import com.statistigz.main.service.RegionsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RegionsController {
     private final RegionsService regionsService;
+    private final ProjectionsService projectionsService;
 
     @GetMapping
     public Iterable<RegionDTO> findAll(@RequestParam Optional<String> projectionId) {
@@ -24,8 +26,12 @@ public class RegionsController {
         }
         else {
             try {
-              Long id = Long.parseLong(projectionId.get());
-              return regionsService.findAll(id);
+              var parsedId = Long.parseLong(projectionId.get());
+              var projection = projectionsService.findById(parsedId)
+                        .orElseThrow(() ->
+                                new NotFoundException("Projection " + projectionId + " not found")
+                        );
+              return regionsService.findAll(projection);
             }
             catch (NumberFormatException ex) {
                 throw new NotFoundException("Projection " + projectionId.get() + " not found");

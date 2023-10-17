@@ -1,7 +1,24 @@
 package com.statistigz.main.service;
 
-public interface ScoreService {
-    double calculate(long regionId);
+import com.statistigz.main.entity.Projection;
+import com.statistigz.main.entity.Region;
 
-    double calculate(long regionId, long projectionId);
+/**
+ * @brief region score calculating service
+ */
+public interface ScoreService {
+    /**
+     * @brief calculates region's score
+     * @param region region
+     * @return score
+     */
+    double calculate(Region region);
+
+    /**
+     * @brief calculates region's score for the projection
+     * @param region region
+     * @param projection projection
+     * @return score
+     */
+    double calculate(Region region, Projection projection);
 }
