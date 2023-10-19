@@ -1,8 +1,6 @@
 package com.statistigz.main.entity;
 
-import com.statistigz.main.entity.id.RegionProjectionID;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Immutable;
 

@@ -21,7 +21,7 @@ public class ProjectionsServiceImpl implements ProjectionsService {
     @Override
     public List<ProjectionCriteriaDTO> findAll() {
         return projectionRepository.findAllJoin().stream()
-                .map(ProjectionDtoMapper::mapToDto)
+                .map(ProjectionDtoMapper::mapToDtoWithCriteria)
                 .toList();
     }
 

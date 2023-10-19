@@ -1,6 +1,5 @@
 package com.statistigz.main.service;
 
-import com.statistigz.main.entity.Projection;
 import com.statistigz.main.entity.Region;
 
 /**
@@ -8,17 +7,16 @@ import com.statistigz.main.entity.Region;
  */
 public interface ScoreService {
     /**
-     * @brief calculates region's score
+     * @brief calculates and sets region's score from its projections
      * @param region region
-     * @return score
+     * @return the same region
      */
-    double calculate(Region region);
+    Region calculate(Region region);
 
     /**
-     * @brief calculates region's score for the projection
+     * @brief scales and sets the region's score (and achievements' score inside of it)
      * @param region region
-     * @param projection projection
-     * @return score
+     * @return the same region
      */
-    double calculate(Region region, Projection projection);
+    Region scale(Region region);
 }

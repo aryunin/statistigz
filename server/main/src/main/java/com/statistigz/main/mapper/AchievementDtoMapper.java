@@ -5,8 +5,9 @@ import com.statistigz.main.entity.Achievement;
 
 public class AchievementDtoMapper {
     public static AchievementDTO mapToDTO(Achievement achievement) {
+        var projection = ProjectionDtoMapper.mapToDto(achievement.getId().getProjection());
         return new AchievementDTO(
-                ProjectionDtoMapper.mapToSimpleDto(achievement.getId().getProjection()),
+                projection,
                 achievement.getScore()
         );
     }
