@@ -19,7 +19,7 @@ CREATE TABLE Criteria (
 CREATE TABLE Region_Criteria (
     region_id bigint REFERENCES Region(id) ON DELETE CASCADE ON UPDATE CASCADE,
     criteria_id bigint REFERENCES Criteria(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    update_date date NOT NULL,
+    update_year int NOT NULL,
     "value" double precision NOT NULL,
-    PRIMARY KEY(region_id, criteria_id, update_date)
+    PRIMARY KEY(region_id, criteria_id, update_year)
 );
