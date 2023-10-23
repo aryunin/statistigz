@@ -29,7 +29,7 @@ public class RegionsController {
               var parsedId = Long.parseLong(projectionId.get());
               var projection = projectionsService.findById(parsedId)
                         .orElseThrow(() ->
-                                new NotFoundException("Projection " + projectionId + " not found")
+                                new NotFoundException("Projection " + parsedId + " not found")
                         );
               return regionsService.findAll(projection);
             }

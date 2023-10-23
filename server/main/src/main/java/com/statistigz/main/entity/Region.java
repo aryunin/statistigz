@@ -14,7 +14,7 @@ public class Region {
     private String name;
     private String description;
     @OneToMany(mappedBy = "id.region")
-    private List<RegionProjection> projections;
+    private List<RegionProjection> regionProjections;
     @OneToMany(mappedBy = "id.region")
     private List<Achievement> achievements;
     @Transient

@@ -15,7 +15,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public Region calculate(Region region) {
-        var score = region.getProjections().stream()
+        var score = region.getRegionProjections().stream()
                 .mapToDouble(RegionProjection::getScore)
                 .average().orElse(0);
         region.setScore(score);

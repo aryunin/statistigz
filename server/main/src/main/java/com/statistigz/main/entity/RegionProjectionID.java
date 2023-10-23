@@ -16,4 +16,5 @@ public class RegionProjectionID {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "projection_id")
     private Projection projection;
+    private Integer updateYear;
 }
