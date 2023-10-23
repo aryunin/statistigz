@@ -24,3 +24,8 @@ WITH CTE AS (
 SELECT region_id, projection_id, update_year, score
 FROM CTE
 WHERE rnk = 1;
+
+CREATE INDEX rp_year ON region_projection(update_year);
+CREATE INDEX rp_projection_year ON region_projection(projection_id, update_year);
+CREATE UNIQUE INDEX rp_id ON region_projection(region_id, projection_id, update_year);
+CREATE UNIQUE INDEX ach_id ON achievement(region_id, projection_id, update_year);
