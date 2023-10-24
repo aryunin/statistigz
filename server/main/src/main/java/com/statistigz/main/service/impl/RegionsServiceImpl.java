@@ -49,12 +49,13 @@ public class RegionsServiceImpl implements RegionsService {
     public List<RegionDTO> findAll() {
         var year = 2020; // TODO
         var regions = findAllByYearFetch(year);
-        return regions.stream()
+        var result = regions.stream()
                 .map(scoreService::calculate)
                 .map(scoreService::scale)
                 .map(RegionDtoMapper::mapToDto)
                 .sorted(Comparator.comparing(RegionDTO::score).reversed())
                 .toList();
+        return scoreService.renormalize(result);
     }
 
     @Override
