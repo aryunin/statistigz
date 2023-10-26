@@ -24,28 +24,12 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public Region calculate(Region region) {
-        var score = region.getRegionProjections().stream()
-                .mapToDouble(RegionProjection::getScore)
-                .average().orElse(0);
-        region.setScore(score);
-        return region;
-    }
+    public List<RegionDTO> normalize(List<RegionDTO> regions) {
+        if (regions.size() < 3)
+            return regions.stream()
+                    .map(r -> new RegionDTO(r.id(), r.name(), scale(r.score()), r.achievements()))
+                    .toList();
 
-    @Override
-    public Region scale(Region region) {
-        var score = scale(region.getScore());
-        region.setScore(score);
-        region.getAchievements()
-                .forEach(a -> {
-                    var aScore = a.getScore();
-                    a.setScore(scale(aScore));
-                });
-        return region;
-    }
-
-    @Override
-    public List<RegionDTO> renormalize(List<RegionDTO> regions) {
         var max = regions.get(0).score();
         var min = regions.get(regions.size() - 1).score();
         var diff = max - min;

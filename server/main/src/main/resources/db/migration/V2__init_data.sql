@@ -16,6 +16,7 @@ INSERT INTO Projection(name) VALUES ('Финансы');
 INSERT INTO Projection(name) VALUES ('Инновации');
 INSERT INTO Projection(name) VALUES ('Торговля и услуги');
 INSERT INTO Projection(name) VALUES ('Жильё');
+INSERT INTO Projection(name) VALUES ('Общий критерий');
 
 -- Критерии
 
@@ -67,6 +68,7 @@ INSERT INTO Criteria(name, projection_id) VALUES('Объем платных ус
 INSERT INTO Criteria(name, projection_id) VALUES('Ввод в действие жилых домов на душу населения', 16);
 INSERT INTO Criteria(name, projection_id) VALUES('Площадь жилья на одного жителя', 16);
 INSERT INTO Criteria(name, projection_id) VALUES('Удельный вес расходов на ЖКХ в общей сумме потребительских расходов', 16);
+INSERT INTO Criteria(name, projection_id) VALUES('Общий критерий', 17);
 
 -- Регионы
 

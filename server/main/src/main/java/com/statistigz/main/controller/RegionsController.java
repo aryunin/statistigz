@@ -21,21 +21,20 @@ public class RegionsController {
 
     @GetMapping
     public Iterable<RegionDTO> findAll(@RequestParam Optional<String> projectionId) {
-        if (projectionId.isEmpty()) {
-            return regionsService.findAll();
+        final var commonProjectionId = 17;
+
+        long parsedId;
+        try {
+            parsedId = projectionId.isEmpty() ? commonProjectionId : Long.parseLong(projectionId.get());
+        } catch (NumberFormatException ex) {
+            throw new NotFoundException("Projection " + projectionId.get() + " not found");
         }
-        else {
-            try {
-              var parsedId = Long.parseLong(projectionId.get());
-              var projection = projectionsService.findById(parsedId)
-                        .orElseThrow(() ->
-                                new NotFoundException("Projection " + parsedId + " not found")
-                        );
-              return regionsService.findAll(projection);
-            }
-            catch (NumberFormatException ex) {
-                throw new NotFoundException("Projection " + projectionId.get() + " not found");
-            }
-        }
+
+        var projection = projectionsService.findById(parsedId)
+                .orElseThrow(() ->
+                        new NotFoundException("Projection " + parsedId + " not found")
+                );
+
+        return regionsService.findAll(projection);
     }
 }

@@ -1,15 +1,32 @@
 CREATE MATERIALIZED VIEW region_projection AS
+WITH CTE AS (
+	SELECT
+		region_id,
+		projection_id,
+		update_year,
+		score,
+	MIN(score) OVER (PARTITION BY projection_id, update_year) AS xmin,
+	MAX(score) OVER (PARTITION BY projection_id, update_year) AS xmax
+	FROM (
+        SELECT
+            rc.region_id AS region_id,
+            pr.id AS projection_id,
+            rc.update_year AS update_year,
+        AVG(rc."value") AS score
+        FROM region_criteria rc
+        JOIN criteria cr
+            ON cr.id = rc.criteria_id
+        JOIN projection pr
+            ON pr.id = cr.projection_id
+        GROUP BY rc.region_id, pr.id, update_year
+	) AS CTE2
+)
 SELECT
-	rc.region_id AS region_id,
-	pr.id AS projection_id,
-	rc.update_year AS update_year,
-	AVG(rc."value") AS score
-FROM region_criteria rc
-JOIN criteria cr
-	ON cr.id = rc.criteria_id
-JOIN projection pr
-	ON pr.id = cr.projection_id
-GROUP BY rc.region_id, pr.id, update_year;
+	region_id,
+	projection_id,
+	update_year,
+	(score - xmin) / (xmax - xmin) AS score
+FROM CTE;
 
 CREATE MATERIALIZED VIEW achievement AS
 WITH CTE AS (

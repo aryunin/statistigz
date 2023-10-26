@@ -10,11 +10,6 @@ import java.util.List;
  */
 public interface RegionsService {
     /**
-     * @return all regions in the "common" projection, i.e. regions overall rating, sorted by score
-     */
-    List<RegionDTO> findAll();
-
-    /**
      * @param projection projection
      * @return all regions in the required projection, sorted by score
      */

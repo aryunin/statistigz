@@ -10,7 +10,6 @@ public class RegionDtoMapper {
     public static RegionDTO mapToDto(Region region) {
         var achievements = region.getAchievements().stream()
                 .map(AchievementDtoMapper::mapToDTO)
-                .sorted(Comparator.comparing(AchievementDTO::score).reversed())
                 .toList();
 
         return new RegionDTO(
