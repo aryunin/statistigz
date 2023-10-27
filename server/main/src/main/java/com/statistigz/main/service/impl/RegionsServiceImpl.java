@@ -1,6 +1,7 @@
 package com.statistigz.main.service.impl;
 
 import com.statistigz.common.dto.RegionDTO;
+import com.statistigz.common.dto.RegionScoredDTO;
 import com.statistigz.common.dto.RegionWithProjectionsDTO;
 import com.statistigz.main.entity.Projection;
 import com.statistigz.main.entity.Region;
@@ -42,13 +43,13 @@ public class RegionsServiceImpl implements RegionsService {
     }
 
     @Override // TODO cacheable
-    public List<RegionDTO> findAll(Projection projection) {
+    public List<RegionScoredDTO> findAll(Projection projection) {
         var year = 2020; // TODO
         var regions = findAllByProjectionAndYearFetch(projection, year);
         return regions.stream()
                 .peek(this::setScoreFromFirstProjection)
-                .map(RegionDtoMapper::mapToDto)
-                .sorted(Comparator.comparing(RegionDTO::score).reversed())
+                .map(RegionDtoMapper::mapToScoredDTO)
+                .sorted(Comparator.comparing(RegionScoredDTO::score).reversed())
                 .toList();
     }
 
@@ -59,6 +60,14 @@ public class RegionsServiceImpl implements RegionsService {
                 () -> new NotFoundException("Region with id " + id + " not found")
         );
         return RegionDtoMapper.mapToDtoWithProjections(region);
+    }
+
+    @Override // TODO cacheable
+    public List<RegionDTO> findByName(String name) {
+        return regionRepository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(RegionDtoMapper::mapToDTO)
+                .toList();
     }
 
     private void setScoreFromFirstProjection(Region region) {

@@ -1,8 +1,6 @@
 package com.statistigz.main.service.impl;
 
-import com.statistigz.common.dto.RegionDTO;
-import com.statistigz.main.entity.Region;
-import com.statistigz.main.entity.RegionProjection;
+import com.statistigz.common.dto.RegionScoredDTO;
 import com.statistigz.main.service.ScoreService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,10 +22,10 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public List<RegionDTO> normalize(List<RegionDTO> regions) {
+    public List<RegionScoredDTO> normalize(List<RegionScoredDTO> regions) {
         if (regions.size() < 3)
             return regions.stream()
-                    .map(r -> new RegionDTO(r.id(), r.name(), scale(r.score()), r.achievements()))
+                    .map(r -> new RegionScoredDTO(r.id(), r.name(), scale(r.score()), r.achievements()))
                     .toList();
 
         var max = regions.get(0).score();
@@ -37,7 +35,7 @@ public class ScoreServiceImpl implements ScoreService {
                 .map(region -> {
                     var score = region.score();
                     score = scale((score - min) / diff);
-                    return new RegionDTO(region.id(), region.name(), score, region.achievements());
+                    return new RegionScoredDTO(region.id(), region.name(), score, region.achievements());
                 })
                 .toList();
     }

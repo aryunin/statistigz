@@ -1,7 +1,6 @@
 package com.statistigz.main.service;
 
-import com.statistigz.common.dto.RegionDTO;
-import com.statistigz.main.entity.Region;
+import com.statistigz.common.dto.RegionScoredDTO;
 
 import java.util.List;
 
@@ -14,5 +13,5 @@ public interface ScoreService {
      * @param regions regions
      * @return regions with normalized score
      */
-    List<RegionDTO> normalize(List<RegionDTO> regions);
+    List<RegionScoredDTO> normalize(List<RegionScoredDTO> regions);
 }

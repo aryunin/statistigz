@@ -1,17 +1,22 @@
 package com.statistigz.main.mapper;
 
 import com.statistigz.common.dto.RegionDTO;
+import com.statistigz.common.dto.RegionScoredDTO;
 import com.statistigz.common.dto.RegionProjectionDTO;
 import com.statistigz.common.dto.RegionWithProjectionsDTO;
 import com.statistigz.main.entity.Region;
 
 public class RegionDtoMapper {
-    public static RegionDTO mapToDto(Region region) {
+    public static RegionDTO mapToDTO(Region region) {
+        return new RegionDTO(region.getId(), region.getName(), region.getDescription());
+    }
+
+    public static RegionScoredDTO mapToScoredDTO(Region region) {
         var achievements = region.getAchievements().stream()
                 .map(AchievementDtoMapper::mapToDTO)
                 .toList();
 
-        return new RegionDTO(
+        return new RegionScoredDTO(
                 region.getId(),
                 region.getName(),
                 region.getScore(),

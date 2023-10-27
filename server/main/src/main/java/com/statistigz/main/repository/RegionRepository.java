@@ -44,4 +44,6 @@ public interface RegionRepository extends JpaRepository<Region, Long> {
             AND rp.id.projection = :projection
             """)
     List<Region> findAllByProjectionAndYearFetchProjection(Projection projection, int year);
+
+    List<Region> findByNameContainingIgnoreCase(String name);
 }

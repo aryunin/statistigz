@@ -1,14 +1,7 @@
 package com.statistigz.common.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.statistigz.common.dto.serializer.ScoreSerializer;
-
-import java.util.List;
-
 public record RegionDTO(
-        Long id,
+        long id,
         String name,
-        @JsonSerialize(using = ScoreSerializer.class)
-        Double score,
-        List<AchievementDTO> achievements
+        String description
 ) { }

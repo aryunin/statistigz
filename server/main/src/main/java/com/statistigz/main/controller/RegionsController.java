@@ -1,7 +1,9 @@
 package com.statistigz.main.controller;
 
 import com.statistigz.common.dto.RegionDTO;
+import com.statistigz.common.dto.RegionScoredDTO;
 import com.statistigz.common.dto.RegionWithProjectionsDTO;
+import com.statistigz.main.exception.InvalidRequestException;
 import com.statistigz.main.exception.NotFoundException;
 import com.statistigz.main.service.ProjectionsService;
 import com.statistigz.main.service.RegionsService;
@@ -18,7 +20,7 @@ public class RegionsController {
     private final ProjectionsService projectionsService;
 
     @GetMapping
-    public Iterable<RegionDTO> findAll(@RequestParam Optional<String> projectionId) {
+    public Iterable<RegionScoredDTO> findAll(@RequestParam Optional<String> projectionId) {
         final var commonProjectionId = 17;
 
         long parsedId;
@@ -39,5 +41,13 @@ public class RegionsController {
     @GetMapping("/{id}")
     public RegionWithProjectionsDTO findById(@PathVariable Long id) {
         return regionsService.findById(id);
+    }
+
+    @GetMapping("/search")
+    public Iterable<RegionDTO> findByName(@RequestParam Optional<String> name) {
+        String sName = name.orElseThrow(
+                () -> new InvalidRequestException("No text to search")
+        );
+        return regionsService.findByName(sName);
     }
 }
