@@ -13,6 +13,7 @@ public interface RegionRepository extends JpaRepository<Region, Long> {
     @Query("""
             FROM Region r
             JOIN FETCH r.regionProjections rp
+            JOIN FETCH rp.id.projection
             WHERE rp.id.updateYear = :year
             AND rp.id.region.id = :id
             """)
