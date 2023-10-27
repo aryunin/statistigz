@@ -1,27 +1,18 @@
-CREATE PROCEDURE calculate_common_score()
-LANGUAGE plpgsql
-AS $$
-BEGIN
+CREATE PROCEDURE calculate_common_score() AS $$
     INSERT INTO Region_Criteria(region_id, criteria_id, update_year, "value")
 		SELECT
 		region_id,
 		49,
 		update_year,
-		AVG(score)
-		FROM region_projection
+		AVG("value") AS "value"
+		FROM region_criteria
 		GROUP BY region_id, update_year
 		ON CONFLICT (region_id, criteria_id, update_year) DO UPDATE
-		SET "value" = EXCLUDED."value";
-END;
-$$;
+		SET "value" = EXCLUDED."value"
+$$ LANGUAGE SQL;
 
-CREATE PROCEDURE refresh_all()
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    REFRESH MATERIALIZED VIEW region_projection; -- TODO ради одной строчки в calculate_common_score. Нужно делать не вьюхи, а таблицы
+CREATE PROCEDURE refresh_all() AS $$
 	CALL calculate_common_score();
-    REFRESH MATERIALIZED VIEW region_projection;
-	REFRESH MATERIALIZED VIEW achievement;
-END;
-$$;
+    REFRESH MATERIALIZED VIEW CONCURRENTLY region_projection;
+	REFRESH MATERIALIZED VIEW CONCURRENTLY achievement;
+$$ LANGUAGE SQL;

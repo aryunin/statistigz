@@ -1,6 +1,7 @@
 package com.statistigz.main.service;
 
 import com.statistigz.common.dto.RegionDTO;
+import com.statistigz.common.dto.RegionWithProjectionsDTO;
 import com.statistigz.main.entity.Projection;
 
 import java.util.List;
@@ -14,4 +15,10 @@ public interface RegionsService {
      * @return all regions in the required projection, sorted by score
      */
     List<RegionDTO> findAll(Projection projection);
+
+    /**
+     * @param id region's id
+     * @return region with required id filled with projections
+     */
+    RegionWithProjectionsDTO findById(long id);
 }

@@ -4,8 +4,8 @@ CREATE PROCEDURE calculate_common_score() AS $$
 		region_id,
 		49,
 		update_year,
-		AVG(score)
-		FROM region_projection
+		AVG("value") AS "value"
+		FROM region_criteria
 		GROUP BY region_id, update_year
 		ON CONFLICT (region_id, criteria_id, update_year) DO UPDATE
 		SET "value" = EXCLUDED."value"

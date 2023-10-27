@@ -1,8 +1,10 @@
 package com.statistigz.main.service.impl;
 
 import com.statistigz.common.dto.RegionDTO;
+import com.statistigz.common.dto.RegionWithProjectionsDTO;
 import com.statistigz.main.entity.Projection;
 import com.statistigz.main.entity.Region;
+import com.statistigz.main.exception.NotFoundException;
 import com.statistigz.main.mapper.RegionDtoMapper;
 import com.statistigz.main.repository.RegionRepository;
 import com.statistigz.main.service.RegionsService;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -33,16 +36,29 @@ public class RegionsServiceImpl implements RegionsService {
                 regions;
     }
 
+    private Optional<Region> findByIdAndYearFetch(long id, int year) {
+        var withAchievemnts = regionRepository.findByIdAndYearFetchAchievements(id, year);
+        return regionRepository.findByIdAndYearFetchProjections(id, year);
+    }
+
     @Override // TODO cacheable
     public List<RegionDTO> findAll(Projection projection) {
         var year = 2020; // TODO
         var regions = findAllByProjectionAndYearFetch(projection, year);
-        var result = regions.stream()
+        return regions.stream()
                 .peek(this::setScoreFromFirstProjection)
                 .map(RegionDtoMapper::mapToDto)
                 .sorted(Comparator.comparing(RegionDTO::score).reversed())
                 .toList();
-        return result;
+    }
+
+    @Override // TODO cacheable
+    public RegionWithProjectionsDTO findById(long id) {
+        var year = 2020; // TODO
+        var region = findByIdAndYearFetch(id, year).orElseThrow(
+                () -> new NotFoundException("Region with id " + id + " not found")
+        );
+        return RegionDtoMapper.mapToDtoWithProjections(region);
     }
 
     private void setScoreFromFirstProjection(Region region) {

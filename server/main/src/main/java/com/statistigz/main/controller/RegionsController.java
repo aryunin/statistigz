@@ -1,14 +1,12 @@
 package com.statistigz.main.controller;
 
 import com.statistigz.common.dto.RegionDTO;
+import com.statistigz.common.dto.RegionWithProjectionsDTO;
 import com.statistigz.main.exception.NotFoundException;
 import com.statistigz.main.service.ProjectionsService;
 import com.statistigz.main.service.RegionsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -36,5 +34,10 @@ public class RegionsController {
                 );
 
         return regionsService.findAll(projection);
+    }
+
+    @GetMapping("/{id}")
+    public RegionWithProjectionsDTO findById(@PathVariable Long id) {
+        return regionsService.findById(id);
     }
 }
