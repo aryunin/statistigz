@@ -24,5 +24,6 @@ server:
     context-path: /api
 
 constants:
+  common-projection-id: 17
   max-score: 5
-  cache-lifetime: 30
+  cache-lifetime: 60

@@ -1,17 +1,23 @@
 package com.statistigz.main.service;
 
-import com.statistigz.common.dto.RegionScoredDTO;
-
-import java.util.List;
+import com.statistigz.common.dto.region.RegionProjectionsDTO;
+import com.statistigz.common.dto.region.RegionScoreDTO;
 
 /**
  * @brief region score calculating service
  */
 public interface ScoreService {
     /**
-     * @brief normalize regions score
-     * @param regions regions
-     * @return regions with normalized score
+     * @brief масштабирует score региона
+     * @param region регион
+     * @return тот же регион с масштабированным score
      */
-    List<RegionScoredDTO> normalize(List<RegionScoredDTO> regions);
+    RegionScoreDTO scale(RegionScoreDTO region);
+
+    /**
+     * @brief масштабирует score региона
+     * @param region регион
+     * @return тот же регион с масштабированным score
+     */
+    RegionProjectionsDTO scale(RegionProjectionsDTO region);
 }

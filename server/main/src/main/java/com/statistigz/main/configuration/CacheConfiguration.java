@@ -26,7 +26,7 @@ public class CacheConfiguration {
                 return new ConcurrentMapCache(
                         name,
                         CacheBuilder.newBuilder()
-                                .expireAfterWrite(CACHE_LIFETIME, TimeUnit.DAYS)
+                                .expireAfterWrite(CACHE_LIFETIME, TimeUnit.MINUTES)
                                 .build().asMap(),
                         false);
             }

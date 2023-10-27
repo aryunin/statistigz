@@ -1,4 +1,4 @@
-package com.statistigz.common.dto;
+package com.statistigz.common.dto.region;
 
 public record RegionDTO(
         long id,

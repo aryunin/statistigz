@@ -1,7 +1,6 @@
 package com.statistigz.common.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.statistigz.common.dto.serializer.ScoreSerializer;
+import com.statistigz.common.dto.projection.ProjectionDTO;
 
 public record AchievementDTO(
         ProjectionDTO projection

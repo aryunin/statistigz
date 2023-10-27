@@ -1,16 +1,14 @@
 package com.statistigz.main.service.impl;
 
-import com.statistigz.common.dto.RegionScoredDTO;
+import com.statistigz.common.dto.RegionProjectionDTO;
+import com.statistigz.common.dto.region.RegionProjectionsDTO;
+import com.statistigz.common.dto.region.RegionScoreDTO;
 import com.statistigz.main.service.ScoreService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
 public class ScoreServiceImpl implements ScoreService {
     @Value("${constants.max-score}")
     private double MAX_SCORE;
@@ -22,22 +20,21 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public List<RegionScoredDTO> normalize(List<RegionScoredDTO> regions) {
-        if (regions.size() < 3)
-            return regions.stream()
-                    .map(r -> new RegionScoredDTO(r.id(), r.name(), scale(r.score()), r.achievements()))
-                    .toList();
+    public RegionScoreDTO scale(RegionScoreDTO region) {
+        var score = scale(region.score());
+        return new RegionScoreDTO(region.id(), region.name(), score, region.achievements());
+    }
 
-        var max = regions.get(0).score();
-        var min = regions.get(regions.size() - 1).score();
-        var diff = max - min;
-        return regions.stream()
-                .map(region -> {
-                    var score = region.score();
-                    score = scale((score - min) / diff);
-                    return new RegionScoredDTO(region.id(), region.name(), score, region.achievements());
+    @Override
+    public RegionProjectionsDTO scale(RegionProjectionsDTO region) {
+        var rps = region.projections()
+                .stream()
+                .map((rp) -> {
+                    var score = scale(rp.score());
+                    return new RegionProjectionDTO(rp.projection(), score);
                 })
                 .toList();
+        return new RegionProjectionsDTO(region.id(), region.name(), region.projections(), region.achievements());
     }
 
     private double scale(double score) {

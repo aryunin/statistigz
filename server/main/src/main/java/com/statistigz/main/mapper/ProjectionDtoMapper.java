@@ -1,7 +1,7 @@
 package com.statistigz.main.mapper;
 
-import com.statistigz.common.dto.ProjectionCriteriaDTO;
-import com.statistigz.common.dto.ProjectionDTO;
+import com.statistigz.common.dto.projection.ProjectionCriteriaDTO;
+import com.statistigz.common.dto.projection.ProjectionDTO;
 import com.statistigz.main.entity.Projection;
 
 public class ProjectionDtoMapper {

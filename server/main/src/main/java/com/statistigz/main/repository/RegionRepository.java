@@ -25,7 +25,7 @@ public interface RegionRepository extends JpaRepository<Region, Long> {
             LEFT JOIN FETCH r.achievements.id.projection
             WHERE
             (ach = null OR ach.id.updateYear = :year)
-            AND ach.id.region.id = :id
+            AND r.id = :id
             """)
     Optional<Region> findByIdAndYearFetchAchievements(long id, int year);
 

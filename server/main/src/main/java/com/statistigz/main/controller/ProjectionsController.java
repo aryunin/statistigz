@@ -1,6 +1,6 @@
 package com.statistigz.main.controller;
 
-import com.statistigz.common.dto.ProjectionCriteriaDTO;
+import com.statistigz.common.dto.projection.ProjectionCriteriaDTO;
 import com.statistigz.main.service.ProjectionsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

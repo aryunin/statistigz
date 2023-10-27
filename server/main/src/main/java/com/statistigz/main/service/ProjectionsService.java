@@ -1,6 +1,6 @@
 package com.statistigz.main.service;
 
-import com.statistigz.common.dto.ProjectionCriteriaDTO;
+import com.statistigz.common.dto.projection.ProjectionCriteriaDTO;
 import com.statistigz.main.entity.Projection;
 
 import java.util.List;

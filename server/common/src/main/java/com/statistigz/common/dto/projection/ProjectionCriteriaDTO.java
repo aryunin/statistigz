@@ -1,4 +1,6 @@
-package com.statistigz.common.dto;
+package com.statistigz.common.dto.projection;
+
+import com.statistigz.common.dto.CriteriaDTO;
 
 import java.util.List;
 

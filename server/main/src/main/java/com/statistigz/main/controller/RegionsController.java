@@ -1,13 +1,14 @@
 package com.statistigz.main.controller;
 
-import com.statistigz.common.dto.RegionDTO;
-import com.statistigz.common.dto.RegionScoredDTO;
-import com.statistigz.common.dto.RegionWithProjectionsDTO;
+import com.statistigz.common.dto.region.RegionDTO;
+import com.statistigz.common.dto.region.RegionScoreDTO;
+import com.statistigz.common.dto.region.RegionProjectionsDTO;
 import com.statistigz.main.exception.InvalidRequestException;
 import com.statistigz.main.exception.NotFoundException;
 import com.statistigz.main.service.ProjectionsService;
 import com.statistigz.main.service.RegionsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -19,13 +20,14 @@ public class RegionsController {
     private final RegionsService regionsService;
     private final ProjectionsService projectionsService;
 
-    @GetMapping
-    public Iterable<RegionScoredDTO> findAll(@RequestParam Optional<String> projectionId) {
-        final var commonProjectionId = 17;
+    @Value("${constants.common-projection-id}")
+    private Long COMMON_PROJECTION_ID;
 
+    @GetMapping
+    public Iterable<RegionScoreDTO> findAll(@RequestParam Optional<String> projectionId) {
         long parsedId;
         try {
-            parsedId = projectionId.isEmpty() ? commonProjectionId : Long.parseLong(projectionId.get());
+            parsedId = projectionId.map(Long::parseLong).orElseGet(() -> COMMON_PROJECTION_ID);
         } catch (NumberFormatException ex) {
             throw new NotFoundException("Projection " + projectionId.get() + " not found");
         }
@@ -39,7 +41,7 @@ public class RegionsController {
     }
 
     @GetMapping("/{id}")
-    public RegionWithProjectionsDTO findById(@PathVariable Long id) {
+    public RegionProjectionsDTO findById(@PathVariable Long id) {
         return regionsService.findById(id);
     }
 
