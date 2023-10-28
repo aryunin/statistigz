@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  api:
+    image: 'main:latest'
+    build:
+      context: ./main
+    container_name: main
+    depends_on: 
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=statistigz
+      - DB_USER=
+      - DB_PASSWORD=
+    ports: 
+      - 8080:8080
+    restart: always
+
+  db:
+    image: 'postgres:latest'
+    build:
+      context: ./db
+    container_name: db
+    environment:
+      - POSTGRES_USER=
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=statistigz
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      
+volumes:
+  pgdata:
+    
