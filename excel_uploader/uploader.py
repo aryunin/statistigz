@@ -32,4 +32,9 @@ for excel_file_name in excel_file_name_list:
                 df = pd.read_excel(xls, sheet)
                 df.to_sql(name='region_criteria', con=engine, if_exists='append', index=False)
 
+connection = create_connection("db", "postgres", "0000", "localhost", "5432")
+
+sql_query = "Call refresh_all()"
+
+data_base_refresh_query(connection, sql_query)
 
