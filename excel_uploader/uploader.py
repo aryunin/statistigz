@@ -1,7 +1,11 @@
 import pandas as pd
 from sqlalchemy import create_engine
+from data_base_connection import *
+import os
+from dotenv import load_dotenv, dotenv_values
 import psycopg2                            #твой логин:пароль             имя бд
-engine=create_engine("postgresql+psycopg2://postgres:0000@localhost:5432/db") #здесь указываешь свои данные от postgres
+load_dotenv()
+engine=create_engine(os.getenv('BD_URL')) #здесь указываешь свои данные от postgres
 
 excel_file_name_list = ['1.xlsx', '2.xlsx', '3.xlsx', '4.xlsx']
 
@@ -32,7 +36,7 @@ for excel_file_name in excel_file_name_list:
                 df = pd.read_excel(xls, sheet)
                 df.to_sql(name='region_criteria', con=engine, if_exists='append', index=False)
 
-connection = create_connection("db", "postgres", "0000", "localhost", "5432") #данные для create_connection такие же как и для create_engine
+connection = create_connection(os.getenv('DB_NAME'), os.getenv('BD_USER'), os.getenv('DB_PASSWORD'), os.getenv('HOST'), os.getenv('PORT')) #данные для create_connection такие же как и для create_engine
 
 sql_query = "Call refresh_all()"
 
