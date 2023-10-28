@@ -114,7 +114,7 @@ ErrorResponse
 [ Region ]
 ```
 
-**name didn't provided** (code 2, status 400):
+**name didn't provide** (code 2, status 400):
 ```
 ErrorResponse
 ```
