@@ -4,6 +4,7 @@ from data_base_connection import *
 import os
 from dotenv import load_dotenv, dotenv_values
 import psycopg2                            #твой логин:пароль             имя бд
+
 load_dotenv()
 engine=create_engine(os.getenv('DB_URL')) #здесь указываешь свои данные от postgres
 

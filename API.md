@@ -1,71 +1,129 @@
 # API specification
 
-## GET api/regions 
-
-список всех регионов, отсортированный по убыванию *score* (общий балл по всем критериям) 
-
-### ok: \[region\]
+## DTO
+### Criteria
 ```
-[
-  {
-    "id": int, 
-    "name": string,
-    "score": int,
-    "achievements": [
-      {
-        "projection": projection (without criteria),
-        "score": int
-      }
-    ]
-  }
-]
+{
+  "id": long,
+  "name": string
+}
 ```
-
-## GET api/regions?projection={int}
-
-список всех регионов, отсортированный убыванию *score* (балл по определенному комплексному критерию)
-
-### ok: \[region\]
+### Region
 ```
-[
-  {
-    "id": int,
-    "name": string,
-    "score": int,
-    "achievements": [
-      {
-        "projection": projection (without criteria),
-        "score": int
-      }
-    ]
-  }
-]
+{
+  "id": long,
+  "name": string,
+  "description": string
+}
 ```
-### projection not found: error
+### Projection
+```
+{
+  "id": long,
+  "name": string
+} 
+```
+### ProjectionCriteria
+```
+{
+  "id": long,
+  "name": string,
+  "criteria": [ Criteria ]
+}
+```
+### RegionProjection
+```
+{
+  "projection": Projection,
+  "score": double (precision = 2)
+}
+```
+### Achievement
+```
+{
+  "projection": Projection
+}
+```
+### RegionProjections
+```
+{
+  "id": long,
+  "name": string,
+  "projections": [ RegionProjection ],
+  "achievements": [ Achievement ]
+}
+```
+### RegionScore
+```
+{
+  "id": long,
+  "name": string,
+  "score": double (precision = 2),
+  "achievements": [ Achievement ]
+}
+```
+### ErrorResponse
 ```
 {
   "code": int,
   "message": string
 }
 ```
+---
+## Endpoints
+### GET api/regions 
 
-## GET api/projections
+**params**: 
+* *projectionId* (optional, id of projection or else common projection)
 
-список всех комплексных критериев с информацией об идентификаторах, отсортированный по названию КК в алфавитном порядке
+**description**: список всех регионов в проекции (если указана, иначе общаяя проекция), отсортированных по убыванию *score*
 
-### ok: \[projection\]
+**ok**:
 ```
-[
-  {
-    "id": int,
-    "name": string,
-    "criteria": [
-      {
-        "id": int,
-        "name": string
-      }
-    ]
-  }
-]
+[ RegionScore ]
 ```
 
+**projection not found** (code 1, status 404):
+```
+ErrorResponse
+```
+
+### GET api/regions/{id}
+
+**description**: регион с id=*id* со всеми проекциями и их *score*, отсортированными по убыванию *score* 
+
+**ok**:
+```
+RegionProjections
+```
+
+**region not found** (code 1, status 404):
+```
+ErrorResponse
+```
+
+### GET api/regions/search
+
+**params**: 
+* *name* (required, part of region name)
+
+**description**: поиск региона по имени. В результате список регионов без какой либо лишней информации, отсортированный по возрастанию в алфавитном порядке
+
+**ok**:
+```
+[ Region ]
+```
+
+**name didn't provide** (code 2, status 400):
+```
+ErrorResponse
+```
+
+### GET api/projections
+
+**description**: список всех проекций с включенными в них критериями, отсортированный по названию проекций в алфавитном порядке. Критерии внутри также отсортированы по возрастанию в алфавитном порядке
+
+**ok**:
+```
+[ ProjectionCriteria ]
+```
