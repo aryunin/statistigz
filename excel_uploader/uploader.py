@@ -4,7 +4,7 @@ from data_base_connection import *
 import os
 from dotenv import load_dotenv, dotenv_values
 import psycopg2                            #твой логин:пароль             имя бд
-load_dotenv()
+
 engine=create_engine(os.getenv('BD_URL')) #здесь указываешь свои данные от postgres
 
 excel_file_name_list = ['1.xlsx', '2.xlsx', '3.xlsx', '4.xlsx']

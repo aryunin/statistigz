@@ -19,6 +19,7 @@
     <modules>
         <module>main</module>
         <module>common</module>
+        <module>migration</module>
     </modules>
 
     <properties>
