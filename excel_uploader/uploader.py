@@ -1,7 +1,7 @@
 import pandas as pd
 from sqlalchemy import create_engine
 import psycopg2                            #твой логин:пароль             имя бд
-engine=create_engine("postgresql+psycopg2://postgres:0000@localhost:5432/db") #здесь указываешь свои данные от postgres
+engine=create_engine("postgresql+psycopg2://postgres:postgres@db:5432/statistigz") #здесь указываешь свои данные от postgres
 
 excel_file_name_list = ['1.xlsx', '2.xlsx', '3.xlsx', '4.xlsx']
 
