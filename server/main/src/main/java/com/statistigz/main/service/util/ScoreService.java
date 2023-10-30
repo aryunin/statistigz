@@ -31,7 +31,7 @@ public class ScoreService {
                     return new RegionProjectionDTO(rp.projection(), score);
                 })
                 .toList();
-        return new RegionProjectionsDTO(region.region(), rps, region.achievements());
+        return new RegionProjectionsDTO(region.region(), region.place(), rps, region.achievements());
     }
 
     private double scale(double score) {

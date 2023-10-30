@@ -37,6 +37,6 @@ public class RegionDtoMapper {
                 .map(AchievementDtoMapper::mapToDTO)
                 .toList();
 
-        return new RegionProjectionsDTO(mapToDTO(region), projections, achievements);
+        return new RegionProjectionsDTO(mapToDTO(region), region.getPlace(), projections, achievements);
     }
 }

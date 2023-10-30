@@ -1,4 +1,4 @@
-CREATE MATERIALIZED VIEW region_projection AS
+CREATE MATERIALIZED VIEW IF NOT EXISTS region_projection AS
 WITH CTE AS (
 	SELECT
 		region_id,
@@ -28,7 +28,7 @@ SELECT
 	(score - xmin) / (xmax - xmin) AS score
 FROM CTE;
 
-CREATE MATERIALIZED VIEW achievement AS
+CREATE MATERIALIZED VIEW IF NOT EXISTS achievement AS
 WITH CTE AS (
     SELECT
         rp.region_id AS region_id,
@@ -42,7 +42,16 @@ SELECT region_id, projection_id, update_year, score
 FROM CTE
 WHERE rnk = 1;
 
+CREATE MATERIALIZED VIEW IF NOT EXISTS region_place AS
+SELECT
+    region_id,
+    update_year,
+    RANK() OVER (PARTITION BY update_year ORDER BY score DESC) AS place
+FROM region_projection rp
+WHERE projection_id = 17;
+
 CREATE INDEX rp_year ON region_projection(update_year);
 CREATE INDEX rp_projection_year ON region_projection(projection_id, update_year);
 CREATE UNIQUE INDEX rp_id ON region_projection(region_id, projection_id, update_year);
 CREATE UNIQUE INDEX ach_id ON achievement(region_id, projection_id, update_year);
+CREATE UNIQUE INDEX peg_place_id ON region_place(region_id, update_year);

@@ -18,5 +18,7 @@ public class Region {
     @OneToMany(mappedBy = "id.region")
     private List<Achievement> achievements;
     @Transient
+    private int place = 0;
+    @Transient
     private double score = 0;
 }

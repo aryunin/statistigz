@@ -7,6 +7,7 @@ import java.util.List;
 
 public record RegionProjectionsDTO(
     RegionDTO region,
+    Integer place,
     List<RegionProjectionDTO> projections,
     List<AchievementDTO> achievements
 ) {}
