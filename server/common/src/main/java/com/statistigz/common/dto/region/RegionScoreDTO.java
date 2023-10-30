@@ -7,8 +7,7 @@ import com.statistigz.common.dto.serializer.ScoreSerializer;
 import java.util.List;
 
 public record RegionScoreDTO(
-        Long id,
-        String name,
+        RegionDTO region,
         @JsonSerialize(using = ScoreSerializer.class)
         Double score,
         List<AchievementDTO> achievements

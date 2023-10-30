@@ -4,4 +4,4 @@ import com.statistigz.common.dto.CriteriaDTO;
 
 import java.util.List;
 
-public record ProjectionCriteriaDTO(Long id, String name, List<CriteriaDTO> criteria) { }
+public record ProjectionCriteriaDTO(ProjectionDTO projection, List<CriteriaDTO> criteria) { }

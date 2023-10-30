@@ -11,7 +11,7 @@ import com.statistigz.main.mapper.RegionDtoMapper;
 import com.statistigz.main.provider.RegionProvider;
 import com.statistigz.main.provider.YearProvider;
 import com.statistigz.main.service.RegionsService;
-import com.statistigz.main.service.ScoreService;
+import com.statistigz.main.service.util.ScoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
