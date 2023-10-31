@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_application_1/pages/first_page.dart' ;
+import 'package:flutter_application_1/pages/second_page.dart';
+import 'package:flutter_application_1/pages/third_page.dart';
 void main(){
   runApp(const HomePage());
 }
@@ -28,8 +30,8 @@ class AppBarLine extends StatelessWidget{
   Widget build(BuildContext context) {
   
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final Color oddItemColor = colorScheme.primary.withOpacity(0.05);
-    final Color evenItemColor = colorScheme.primary.withOpacity(0.15);
+    //final Color oddItemColor = colorScheme.primary.withOpacity(0.05);
+    //final Color evenItemColor = colorScheme.primary.withOpacity(0.15);
     const int tabsCount = 3;
     return DefaultTabController(
       length: tabsCount,
@@ -52,6 +54,13 @@ class AppBarLine extends StatelessWidget{
           ),
         ],),
 
+      ),
+      body: TabBarView(       
+        children: [
+          first_page(),
+          second_page(),
+          third_page(),
+        ]
       ),
       drawer: Drawer(),
     )
