@@ -36,7 +36,7 @@ class AppBarLine extends StatelessWidget{
       child: Scaffold(
         appBar: AppBar(
         title: Text("МПРР"),
-        backgroundColor: Color.fromARGB(255, 255, 204, 142),
+        backgroundColor: Color.fromARGB(255, 146, 194, 186),
         foregroundColor: Color.fromARGB(255, 31, 76, 106),
         scrolledUnderElevation: 4.0,
         shadowColor: Theme.of(context).shadowColor,
