@@ -6,8 +6,8 @@ import com.statistigz.common.dto.RegionProjectionDTO;
 import java.util.List;
 
 public record RegionProjectionsDTO(
-    RegionDTO region,
-    Integer place,
+    Long id,
+    String name,
     List<RegionProjectionDTO> projections,
     List<AchievementDTO> achievements
 ) {}

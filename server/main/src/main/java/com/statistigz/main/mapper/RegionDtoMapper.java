@@ -17,7 +17,8 @@ public class RegionDtoMapper {
                 .toList();
 
         return new RegionScoreDTO(
-                mapToDTO(region),
+                region.getId(),
+                region.getName(),
                 region.getScore(),
                 achievements
         );
@@ -37,6 +38,6 @@ public class RegionDtoMapper {
                 .map(AchievementDtoMapper::mapToDTO)
                 .toList();
 
-        return new RegionProjectionsDTO(mapToDTO(region), region.getPlace(), projections, achievements);
+        return new RegionProjectionsDTO(region.getId(), region.getName(), projections, achievements);
     }
 }

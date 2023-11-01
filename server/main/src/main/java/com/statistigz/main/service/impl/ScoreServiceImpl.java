@@ -1,14 +1,15 @@
-package com.statistigz.main.service.util;
+package com.statistigz.main.service.impl;
 
 import com.statistigz.common.dto.RegionProjectionDTO;
 import com.statistigz.common.dto.region.RegionProjectionsDTO;
 import com.statistigz.common.dto.region.RegionScoreDTO;
+import com.statistigz.main.service.ScoreService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
-public class ScoreService {
+@Service
+public class ScoreServiceImpl implements ScoreService {
     @Value("${constants.max-score}")
     private double MAX_SCORE;
 
@@ -18,11 +19,13 @@ public class ScoreService {
             throw new RuntimeException("Max score less than 2");
     }
 
+    @Override
     public RegionScoreDTO scale(RegionScoreDTO region) {
         var score = scale(region.score());
-        return new RegionScoreDTO(region.region(), score, region.achievements());
+        return new RegionScoreDTO(region.id(), region.name(), score, region.achievements());
     }
 
+    @Override
     public RegionProjectionsDTO scale(RegionProjectionsDTO region) {
         var rps = region.projections()
                 .stream()
@@ -31,7 +34,7 @@ public class ScoreService {
                     return new RegionProjectionDTO(rp.projection(), score);
                 })
                 .toList();
-        return new RegionProjectionsDTO(region.region(), region.place(), rps, region.achievements());
+        return new RegionProjectionsDTO(region.id(), region.name(), region.projections(), region.achievements());
     }
 
     private double scale(double score) {

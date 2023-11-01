@@ -9,7 +9,7 @@ public class ProjectionDtoMapper {
         var criteria = projection.getCriteria().stream()
                 .map(CriteriaDtoMapper::mapToDto)
                 .toList();
-        return new ProjectionCriteriaDTO(mapToDto(projection), criteria);
+        return new ProjectionCriteriaDTO(projection.getId(), projection.getName(), criteria);
     }
 
     public static ProjectionDTO mapToDto(Projection projection) {

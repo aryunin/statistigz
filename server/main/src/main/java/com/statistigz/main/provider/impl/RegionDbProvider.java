@@ -2,9 +2,7 @@ package com.statistigz.main.provider.impl;
 
 import com.statistigz.main.entity.Projection;
 import com.statistigz.main.entity.Region;
-import com.statistigz.main.entity.RegionPlaceID;
 import com.statistigz.main.provider.RegionProvider;
-import com.statistigz.main.repository.RegionPlaceRepository;
 import com.statistigz.main.repository.RegionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,22 +14,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RegionDbProvider implements RegionProvider {
     private final RegionRepository regionRepository;
-    private final RegionPlaceRepository placeRepository;
 
     @Override
     public Optional<Region> findByIdAndYear(long id, int year) {
         // using hibernate cache (see multiple bag fetch)
         var withAchievemnts = regionRepository.findByIdAndYearFetchAchievements(id, year);
-        var withProjections = regionRepository.findByIdAndYearFetchProjections(id, year);
-        if (withProjections.isPresent()) {
-            var region = withProjections.get();
-            RegionPlaceID regionPlaceID = new RegionPlaceID(region, year);
-            var regionPlace = placeRepository.findById(regionPlaceID).orElseThrow(
-                    () -> new RuntimeException("No place for region " + region.getId())
-            );
-            region.setPlace(regionPlace.getPlace());
-        }
-        return withProjections;
+        return regionRepository.findByIdAndYearFetchProjections(id, year);
     }
 
     @Override
