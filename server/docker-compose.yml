@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   uploader:
-    image: 'aryunin/marr:uploader-0.0.1-SNAPSHOT'
+    image: 'aryunin/marr-uploader:v0.0.1-SNAPSHOT'
     container_name: uploader
     depends_on:
       - api
@@ -16,7 +16,7 @@ services:
     entrypoint: su -c "./wait-for-it.sh api:8080 -- python -u uploader.py"
 
   api:
-    image: 'aryunin/marr:api-0.0.1-SNAPSHOT'
+    image: 'aryunin/marr-server:v0.0.1-SNAPSHOT'
     entrypoint: su -c "java -jar application.jar"
     container_name: main
     depends_on: 
