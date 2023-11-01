@@ -11,7 +11,7 @@ import com.statistigz.main.mapper.RegionDtoMapper;
 import com.statistigz.main.provider.RegionProvider;
 import com.statistigz.main.provider.YearProvider;
 import com.statistigz.main.service.RegionsService;
-import com.statistigz.main.service.ScoreService;
+import com.statistigz.main.util.ScoreTool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ import java.util.List;
 public class RegionsServiceImpl implements RegionsService {
     private final RegionProvider regionProvider;
     private final YearProvider yearProvider;
-    private final ScoreService scoreService;
+    private final ScoreTool scoreTool;
 
     @Override
     @Cacheable("regionByProjection")
@@ -36,7 +36,7 @@ public class RegionsServiceImpl implements RegionsService {
                 .stream()
                 .peek(this::setScoreFromFirstProjection)
                 .map(RegionDtoMapper::mapToScoredDTO)
-                .map(scoreService::scale)
+                .map(scoreTool::scale)
                 .sorted(Comparator.comparing(RegionScoreDTO::score).reversed())
                 .toList();
     }
@@ -50,7 +50,7 @@ public class RegionsServiceImpl implements RegionsService {
         );
         region.getRegionProjections().sort(Comparator.comparing(RegionProjection::getScore).reversed());
         var dto = RegionDtoMapper.mapToDtoWithProjections(region);
-        return scoreService.scale(dto);
+        return scoreTool.scale(dto);
     }
 
     @Override
