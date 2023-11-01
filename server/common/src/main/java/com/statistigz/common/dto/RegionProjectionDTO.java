@@ -7,5 +7,6 @@ import com.statistigz.common.dto.serializer.ScoreSerializer;
 public record RegionProjectionDTO (
     ProjectionDTO projection,
     @JsonSerialize(using = ScoreSerializer.class)
-    Double score
+    Double score,
+    Integer place
 ) {}

@@ -8,6 +8,7 @@ import java.util.List;
 public record RegionProjectionsDTO(
     Long id,
     String name,
+    String description,
     List<RegionProjectionDTO> projections,
     List<AchievementDTO> achievements
 ) {}
