@@ -35,7 +35,8 @@
 ```
 {
   "projection": Projection,
-  "score": double (precision = 2)
+  "score": double (precision = 2),
+  "place": int
 }
 ```
 ### Achievement
@@ -49,6 +50,7 @@
 {
   "id": long,
   "name": string,
+  "description": string,
   "projections": [ RegionProjection ],
   "achievements": [ Achievement ]
 }
