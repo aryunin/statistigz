@@ -7,3 +7,4 @@ WORKDIR /code
 COPY --from=builder /root/.local /root/.local
 COPY . .
 ENV PATH=/root/.local:$PATH
+RUN chmod +x ./wait-for-it.sh
