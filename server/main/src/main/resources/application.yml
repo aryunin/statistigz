@@ -1,0 +1,25 @@
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: none
+  flyway:
+    url: jdbc:postgresql://${DB_HOST}/${DB_NAME}
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+constants:
+  common-projection-id: 17
+  max-score: 5
+  cache-lifetime: 60
