@@ -1,4 +1,4 @@
-CREATE MATERIALIZED VIEW region_projection AS
+CREATE MATERIALIZED VIEW IF NOT EXISTS region_projection AS
 WITH CTE AS (
 	SELECT
 		region_id,
@@ -25,10 +25,11 @@ SELECT
 	region_id,
 	projection_id,
 	update_year,
-	(score - xmin) / (xmax - xmin) AS score
+	(score - xmin) / (xmax - xmin) AS score,
+	RANK() OVER (PARTITION BY projection_id, update_year ORDER BY score DESC) AS place
 FROM CTE;
 
-CREATE MATERIALIZED VIEW achievement AS
+CREATE MATERIALIZED VIEW IF NOT EXISTS achievement AS
 WITH CTE AS (
     SELECT
         rp.region_id AS region_id,

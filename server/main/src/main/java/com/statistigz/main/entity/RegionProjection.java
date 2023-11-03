@@ -12,4 +12,5 @@ public class RegionProjection {
     @EmbeddedId
     private RegionProjectionID id;
     private Double score;
+    private Integer place;
 }
