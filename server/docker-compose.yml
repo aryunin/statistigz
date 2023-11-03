@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  uploader:
+    image: 'aryunin/marr-uploader:v0.0.1-SNAPSHOT'
+    container_name: uploader
+    depends_on:
+      - api
+    environment:
+      - HOST=db
+      - PORT=5432
+      - DB_NAME=statistigz
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_URL=postgresql+psycopg2://postgres:postgres@db:5432/statistigz
+    entrypoint: su -c "./wait-for-it.sh api:8080 -- python -u uploader.py"
+
+  api:
+    image: 'aryunin/marr-server:v0.0.1-SNAPSHOT'
+    entrypoint: su -c "java -jar application.jar"
+    container_name: main
+    depends_on: 
+      db:
+        condition: service_healthy 
+    environment:
+      - DB_HOST=db
+      - DB_NAME=statistigz
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+    ports: 
+      - 8080:8080
+    restart: always
+
+  db:
+    image: 'postgres:16.0'
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=statistigz
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      
+volumes:
+  pgdata:
+    
