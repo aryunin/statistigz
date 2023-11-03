@@ -10,9 +10,9 @@ services:
       - HOST=db
       - PORT=5432
       - DB_NAME=statistigz
-      - BD_USER=postgres
+      - DB_USER=postgres
       - DB_PASSWORD=postgres
-      - BD_URL=postgresql+psycopg2://postgres:postgres@db:5432/statistigz
+      - DB_URL=postgresql+psycopg2://postgres:postgres@db:5432/statistigz
     entrypoint: su -c "./wait-for-it.sh api:8080 -- python -u uploader.py"
 
   api:
