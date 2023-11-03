@@ -1,4 +1,4 @@
-name: server
+name: CI
 on:
   push:
     branches:
@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-java-server:
+  java_server:
     runs-on: ubuntu-latest
     env:
       working-directory: ./server
@@ -26,12 +26,6 @@ jobs:
       - name: Build with Maven
         run: mvn -B package
         working-directory: ${{env.working-directory}}
-  push_server_to_hub:
-    runs-on: ubuntu-latest
-    env:
-      working-directory: ./server/main
-    steps:
-      - uses: actions/checkout@v4
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
@@ -45,12 +39,12 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
-          context: ${{env.working-directory}}
+          context: ${{env.working-directory}}/main
           file: ./Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-  push_loader_to_hub:
+  excel_loader:
     runs-on: ubuntu-latest
     env:
       working-directory: ./excel_uploader
@@ -73,4 +67,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}  
+
