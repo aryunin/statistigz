@@ -6,7 +6,11 @@ from dotenv import load_dotenv, dotenv_values
 import psycopg2                            #твой логин:пароль             имя бд
 
 load_dotenv()
-engine=create_engine(os.getenv('DB_URL')) #здесь указываешь свои данные от postgres
+engine = create_engine(os.getenv('DB_URL')) #здесь указываешь свои данные от postgres
+
+connection = create_connection(os.getenv('DB_NAME'), os.getenv('DB_USER'), os.getenv('DB_PASSWORD'), os.getenv('HOST'), os.getenv('PORT'))
+sql_query = "TRUNCATE TABLE region_criteria;"
+data_base_query(connection, sql_query)
 
 excel_file_name_list = ['1.xlsx', '2.xlsx', '3.xlsx', '4.xlsx']
 
@@ -23,23 +27,22 @@ for excel_file_name in excel_file_name_list:
         if excel_file_name == '1.xlsx':
             for sheet in sheets_for_1:
                 df = pd.read_excel(xls, sheet)
-                df.to_sql(name='region_criteria', con=engine, index=False)
+                df.to_sql(name='region_criteria', con=engine, if_exists='append', index=False)
         elif excel_file_name == '2.xlsx':
             for sheet in sheets_for_2:
                 df = pd.read_excel(xls, sheet)
-                df.to_sql(name='region_criteria', con=engine, index=False)
+                df.to_sql(name='region_criteria', con=engine, if_exists='append', index=False)
         elif excel_file_name == '3.xlsx':
             for sheet in sheets_for_3:
                 df = pd.read_excel(xls, sheet)
-                df.to_sql(name='region_criteria', con=engine, index=False)
+                df.to_sql(name='region_criteria', con=engine, if_exists='append', index=False)
         else:
             for sheet in sheets_for_4:
                 df = pd.read_excel(xls, sheet)
-                df.to_sql(name='region_criteria', con=engine, index=False)
-
-connection = create_connection(os.getenv('DB_NAME'), os.getenv('DB_USER'), os.getenv('DB_PASSWORD'), os.getenv('HOST'), os.getenv('PORT')) #данные для create_connection такие же как и для create_engine
+                df.to_sql(name='region_criteria', con=engine, if_exists='append', index=False)
 
 sql_query = "Call refresh_all()"
 
-data_base_refresh_query(connection, sql_query)
+data_base_query(connection, sql_query)
 
+connection.close()
