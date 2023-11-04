@@ -1,14 +1,16 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_application_1/models/post.dart';
+import 'package:flutter_application_1/models/projection_criteria.dart';
 import 'package:http/http.dart' as http;
 
 class RemoteService {
   Future<List<Posts>?> getPosts() async {
     try {
-      var uri = Uri.parse("http://10.0.2.2:8080/api/regions");
-      var response =
-          await Future.delayed(Duration(seconds: 5), () => http.get(uri));
+      var uri = Uri.parse(ApiConstants.baseUrl + ApiConstants.regionsEndpoint);
+      var response = await Future.delayed(
+          const Duration(seconds: 3), () => http.get(uri)); // TODO del
       if (response.statusCode == 200) {
         var json = response.body;
         List<Posts> _model = postsFromJson(response.body);
@@ -18,9 +20,23 @@ class RemoteService {
       log(e.toString());
     }
   }
+
+  Future<List<ProjectionCriteria>> getProjections() async {
+    var uri =
+        Uri.parse(ApiConstants.baseUrl + ApiConstants.projectionsEndpoint);
+    var response =
+        await Future.delayed(const Duration(seconds: 3), () => http.get(uri));
+    if (response.statusCode == 200) {
+      return projectionCriteriaFromJson(utf8.decode(response.bodyBytes));
+    }
+    throw Error();
+  }
 }
 
 class ApiConstants {
-  static String baseUrl = 'http://10.0.2.2:8080/api/regions';
-  static String usersEndPoint = '/users';
+  static String projectionsEndpoint = '/projections';
+  static String regionsEndpoint = '/regions';
+  static String host = '10.0.2.2';
+  static String port = '8080';
+  static String baseUrl = 'http://$host:$port/api';
 }
