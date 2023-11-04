@@ -5,6 +5,7 @@ import 'package:flutter_application_1/services/remote_serveices.dart';
 
 class first_page extends StatefulWidget{
   first_page ({super.key});
+
   @override
   State<first_page> createState() => _first_page();
 
@@ -12,8 +13,8 @@ class first_page extends StatefulWidget{
 
 class _first_page extends State<first_page>{
 
-  List<Posts>? post;
-  var isLoaded = false;
+  List<Posts>? post =[];
+  
   @override
   void initState(){
     super.initState();
@@ -21,28 +22,23 @@ class _first_page extends State<first_page>{
   }
 
   getData() async {
-    post = await await RemoteService().getPosts();
-    if (post != null){
-      setState(() {
-        isLoaded = true;
-      });
+    post = (await RemoteService().getPosts());
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    
     }
+    
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(title: const Text('Рейтинг привлекательности регионов')),
+          body: post == null || post!.isEmpty 
+            ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: post!.length,
+              itemBuilder: (context, index){
+                Text(post![index].name);
+              })
+        );
+      } 
   }
-
-    @override 
-    Widget build(BuildContext context){
-      return Container(
-        color: Color.fromARGB(255, 255, 204, 142),
-        //alignment: Alignment.topCenter,
-        child: const Padding( 
-          //настройки отступов для дочерних виджетов
-          padding: EdgeInsets.only(top: 20),
-          // child: Text(
-            
-          // ),
-        ),
-        
-      );
-     
-    }
-}
+  
