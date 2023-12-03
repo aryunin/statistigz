@@ -39,7 +39,7 @@ class AppBarLine extends StatelessWidget{
         appBar: AppBar(
         title: Text("МПРР"),
         backgroundColor: Color.fromARGB(255, 146, 194, 186),
-        foregroundColor: Color.fromARGB(255, 31, 76, 106),
+        foregroundColor: Color.fromARGB(255, 47, 126, 113),
         scrolledUnderElevation: 4.0,
         shadowColor: Theme.of(context).shadowColor,
         bottom: TabBar(tabs: <Widget>[
@@ -62,7 +62,7 @@ class AppBarLine extends StatelessWidget{
           third_page(),
         ]
       ),
-      drawer: Drawer(),
+      //drawer: Drawer(),
     )
 
     );

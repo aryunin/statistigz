@@ -6,19 +6,18 @@ import 'package:flutter_application_1/models/projection_criteria.dart';
 import 'package:http/http.dart' as http;
 
 class RemoteService {
-  Future<List<Posts>?> getPosts() async {
-    try {
+  Future <List<Posts>> getPosts() async {
       var uri = Uri.parse(ApiConstants.baseUrl + ApiConstants.regionsEndpoint);
       var response = await Future.delayed(
-          const Duration(seconds: 3), () => http.get(uri)); // TODO del
+          const Duration(seconds: 1), () => http.get(uri)); // TODO del
       if (response.statusCode == 200) {
-        var json = response.body;
-        List<Posts> _model = postsFromJson(response.body);
-        return _model;
+        //var json = response.body;
+        final data = json.decode(response.body) as List<dynamic>;
+        // utf8.decode('asda');
+        return postsFromJson(utf8.decode(response.bodyBytes));
       }
-    } catch (e) {
-      log(e.toString());
-    }
+      else {throw Exception('failed to load');}
+   
   }
 
   Future<List<ProjectionCriteria>> getProjections() async {
@@ -31,6 +30,8 @@ class RemoteService {
     }
     throw Error();
   }
+
+
 }
 
 class ApiConstants {
