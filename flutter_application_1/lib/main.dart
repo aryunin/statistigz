@@ -32,7 +32,7 @@ class AppBarLine extends StatelessWidget{
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     //final Color oddItemColor = colorScheme.primary.withOpacity(0.05);
     //final Color evenItemColor = colorScheme.primary.withOpacity(0.15);
-    const int tabsCount = 3;
+    const int tabsCount = 2;
     return DefaultTabController(
       length: tabsCount,
       child: Scaffold(
@@ -46,9 +46,9 @@ class AppBarLine extends StatelessWidget{
           Tab(
             text: title[0],
           ),
-          Tab(
-            text: title[1],
-          ),
+          // Tab(
+          //   text: title[1],
+          // ),
           Tab(
             text: title[2],
           ),
@@ -58,7 +58,7 @@ class AppBarLine extends StatelessWidget{
       body: TabBarView(       
         children: [
           first_page(),
-          second_page(),
+          //second_page(),
           third_page(),
         ]
       ),

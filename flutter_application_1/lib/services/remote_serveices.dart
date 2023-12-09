@@ -24,7 +24,7 @@ class RemoteService {
     var uri =
         Uri.parse(ApiConstants.baseUrl + ApiConstants.projectionsEndpoint);
     var response =
-        await Future.delayed(const Duration(seconds: 3), () => http.get(uri));
+        await Future.delayed(const Duration(seconds: 1), () => http.get(uri));
     if (response.statusCode == 200) {
       return projectionCriteriaFromJson(utf8.decode(response.bodyBytes));
     }
