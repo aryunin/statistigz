@@ -25,6 +25,8 @@ class _second_page extends State<second_page>{
 
   _second_page({required this.regionsId});
 
+  String search = '';
+
   @override
   Widget build(BuildContext context){
     return Container (
@@ -39,7 +41,7 @@ class _second_page extends State<second_page>{
       body: Container(
         color: Color.fromARGB(255, 255, 204, 142),
         child: FutureBuilder<List<Posts>>(
-          future: RemoteService().getPosts(),
+          future: RemoteService().getPosts(search),
           builder: (BuildContext context, AsyncSnapshot<List<Posts>> snapshot){
             if (snapshot.connectionState == ConnectionState.waiting){
                 return Center(child: CircularProgressIndicator());
@@ -54,7 +56,7 @@ class _second_page extends State<second_page>{
                     child: Container(
                       margin: EdgeInsets.all(10),
                       color: Color.fromARGB(255, 255, 255, 255),
-                     
+                      
                     ),
                   ),
                 );

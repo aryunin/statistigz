@@ -44,13 +44,13 @@ class AppBarLine extends StatelessWidget{
         shadowColor: Theme.of(context).shadowColor,
         bottom: TabBar(tabs: <Widget>[
           Tab(
-            text: title[0],
+            child: Text(title[0], style: TextStyle(color: Color.fromARGB(255, 47, 126, 113)),), 
           ),
           // Tab(
           //   text: title[1],
           // ),
           Tab(
-            text: title[2],
+            child: Text(title[2], style: TextStyle(color: Color.fromARGB(255, 47, 126, 113)),),
           ),
         ],),
 
@@ -63,9 +63,7 @@ class AppBarLine extends StatelessWidget{
         ]
       ),
       //drawer: Drawer(),
-    )
-
+      )
     );
   }
-
 }

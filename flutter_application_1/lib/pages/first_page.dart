@@ -5,8 +5,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/post.dart';
+import 'package:flutter_application_1/models/projection_criteria.dart';
 import 'package:flutter_application_1/pages/second_page.dart';
 import 'package:flutter_application_1/services/remote_serveices.dart';
+import 'package:http/http.dart';
 
 class first_page extends StatefulWidget {
   const first_page({super.key});
@@ -18,17 +20,32 @@ class first_page extends StatefulWidget {
 
 
 class _first_page extends State<first_page> {
- 
+
+TextEditingController controller = TextEditingController();
+ var place = new Map();
+ String search = '';
+
+@override
+void initState() {
+    super.initState();
+    RemoteService().getPosts('').then((value) {
+      for (var i = 0; i < value.length; i ++){
+        place[value[i].id] = i + 1;
+      }
+    });
+  }
+
   @override 
   Widget build(BuildContext context){
       double textSizeForTable = 13.8;
       Color colorForBackGround = Color.fromARGB(255, 255, 204, 142);
       Color colorForText = Color.fromARGB(255, 47, 126, 113);
-     
+      Color colorFromAppBarBack = Color.fromARGB(255, 146, 194, 186);
+
         return Container(
           color: const Color.fromARGB(255, 255, 204, 142),
           child: FutureBuilder<List<Posts>>(
-            future: RemoteService().getPosts(),
+            future: RemoteService().getPosts(search),
             builder: (BuildContext context, AsyncSnapshot<List<Posts>> snapshot){
               if (snapshot.connectionState == ConnectionState.waiting){
                 return Center(child: CircularProgressIndicator());
@@ -47,17 +64,51 @@ class _first_page extends State<first_page> {
                       child: Column(
                         children:[ 
 
-
                           Container(
                             alignment: Alignment.centerLeft,
                             margin: EdgeInsets.only(left: 10, top: 15, bottom: 10),
                             child: Text(
-                            'Рейтинг привелкательности регионов России',
+                            'Рейтинг привелкательности регионов',
                             style: TextStyle(color: colorForText, fontSize: textSizeForTable, fontWeight: FontWeight.w500),
                             ),
                           ),
 
+                          Container(
+                            child: ListTile(
+                              dense: true,
+                              contentPadding: EdgeInsets.only(left: 10),
+                              title: TextField(
+                                controller: controller,
+                                style: TextStyle(color: Colors.white, fontSize: textSizeForTable),
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: colorFromAppBarBack,
+                                  hintText: 'Поиск региона...', 
+                                  hintStyle: TextStyle(color: Colors.white),
+                                  border: InputBorder.none,
+                                ),
+                                onSubmitted: (value) {
+                                  setState(() {
+                                    search = value;
+                                  });
+                                }
+                              ),
+                              trailing: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    controller.clear();
+                                    search = '';
+                                  });
+                                },
+                                focusColor: colorFromAppBarBack,
+                                icon: Icon(Icons.cancel, color: colorFromAppBarBack),
+                              ),
+                            ),
+                          ),
+                          
+
                           DataTable(
+                            showCheckboxColumn: false,
                             dataTextStyle: TextStyle(fontSize: textSizeForTable),
                             horizontalMargin: 10,
                             border: const TableBorder(
@@ -77,20 +128,21 @@ class _first_page extends State<first_page> {
                               )),
                             ],
                             rows: List<DataRow>.generate(length, (index) => DataRow(
+                             onSelectChanged: (x) => NavigationBetweenPage(context, post[index].id), 
                              cells: <DataCell>[
                                 
-                                DataCell(Text('${index + 1}',
+                                DataCell(Text('${place[post[index].id]}',
                                 style: TextStyle(color: colorForText),
-                                ), onTap:() => NavigationBetweenPage(context, post[index].id)),
+                                ), ),
                                 
                                 
                                 DataCell(Text('${post[index].name}',
                                 style: TextStyle(color: colorForText),
-                                ), onTap: () => NavigationBetweenPage(context, post[index].id)),
+                                ),),
                                 
                                 DataCell(Text('${post[index].score}',
                                 style: TextStyle(color: colorForText),
-                                ), onTap: () => NavigationBetweenPage(context, post[index].id))
+                                ), )
 
                               ]
                               

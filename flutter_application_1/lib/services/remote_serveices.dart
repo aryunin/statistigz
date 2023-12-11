@@ -6,7 +6,8 @@ import 'package:flutter_application_1/models/projection_criteria.dart';
 import 'package:http/http.dart' as http;
 
 class RemoteService {
-  Future <List<Posts>> getPosts() async {
+  Future <List<Posts>> getPosts(search) async {
+      List<Posts> ? posts;
       var uri = Uri.parse(ApiConstants.baseUrl + ApiConstants.regionsEndpoint);
       var response = await Future.delayed(
           const Duration(seconds: 1), () => http.get(uri)); // TODO del
@@ -14,7 +15,8 @@ class RemoteService {
         //var json = response.body;
         final data = json.decode(response.body) as List<dynamic>;
         // utf8.decode('asda');
-        return postsFromJson(utf8.decode(response.bodyBytes));
+        posts = postsFromJson(utf8.decode(response.bodyBytes)).where((element) => element.name.contains(search)).toList();
+        return posts;
       }
       else {throw Exception('failed to load');}
    
