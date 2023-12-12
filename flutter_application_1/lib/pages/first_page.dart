@@ -21,6 +21,11 @@ class first_page extends StatefulWidget {
 
 class _first_page extends State<first_page> {
 
+double textSizeForTable = 13.8;
+Color colorForBackGround = Color.fromARGB(255, 255, 204, 142);
+Color colorForText = Color.fromARGB(255, 47, 126, 113);
+Color colorFromAppBarBack = Color.fromARGB(255, 146, 194, 186);
+
 TextEditingController controller = TextEditingController();
  var place = new Map();
  String search = '';
@@ -56,7 +61,7 @@ void initState() {
                 final length = post!.length;
                 return SingleChildScrollView(
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(40.5),
+                    borderRadius: BorderRadius.all(Radius.circular(40.5)),
                     child: Container(
                       
                       color: Color.fromARGB(255, 255, 255, 255),
@@ -74,6 +79,7 @@ void initState() {
                           ),
 
                           Container(
+                            alignment: Alignment.topLeft,
                             child: ListTile(
                               dense: true,
                               contentPadding: EdgeInsets.only(left: 10),
@@ -160,8 +166,8 @@ void initState() {
       
   }
 
- void NavigationBetweenPage(BuildContext context, int regionsId){
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => new second_page(regionsId: regionsId,)));
+ void NavigationBetweenPage(BuildContext context, int regionId){
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => new second_page(regionId: regionId,)));
   }
 
 }
