@@ -1,12 +1,8 @@
 // ignore_for_file: prefer_const_constructors, no_logic_in_create_state
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/post.dart';
 import 'package:flutter_application_1/models/rating.dart';
-import 'package:flutter_application_1/pages/first_page.dart';
 import 'package:flutter_application_1/services/remote_serveices.dart';
-import 'dart:convert';
-import 'dart:io';
 
 
 class second_page extends StatefulWidget{
@@ -86,13 +82,9 @@ class _second_page extends State<second_page>{
                           borderRadius: BorderRadius.all(Radius.circular(5)),
                           child: Container(
                             color: Colors.white,
-                            child: DataTable(
-                              // dataRowMinHeight: 49,
-                              // dataRowMaxHeight: 60,
-                              //horizontalMargin: 35,
+                            child: DataTable(   //TODO Сделать сортировку таблицы
                               columnSpacing: 32,
                               dataTextStyle: TextStyle(fontSize: textSizeForTable),
-                              // horizontalMargin: 27,
                               border: const TableBorder(
                                 horizontalInside: BorderSide(color: Color.fromARGB(255, 255, 204, 142), width: 2.5),
                               ),
