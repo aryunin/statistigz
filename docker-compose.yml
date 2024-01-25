@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  uploader:
+  excel-loader:
     image: 'aryunin/marr-uploader:dev'
-    container_name: uploader
+    container_name: excel-loader
     depends_on:
       - api
     environment:
