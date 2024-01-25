@@ -47,6 +47,13 @@ services:
       timeout: 120s
       retries: 5
       
+  front:
+    image: 'aryunin/marr-front:dev'
+    container_name: front
+    ports: 
+      - 80:3000
+    restart: always
+      
 volumes:
   pgdata:
     
