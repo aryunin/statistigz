@@ -1,0 +1,104 @@
+header{
+    margin: 0 auto;
+}
+.header-home{
+    background: #FFCD8E;
+}
+
+
+main{
+    width: 1140px;
+    margin: auto;
+}
+
+.section_header{
+    font-family: 'Yeseva One', serif;
+}
+
+.text_info{
+    width: 607px;
+
+    font-family: Arimo;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.text_info span{
+    font-family: Yeseva One;
+    color: #1F4C6A;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
+h1{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #1F4C6A;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.info_name p {
+    margin-top: 15px;
+    color: #000;
+    font-family: Arimo;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.info_name {
+    padding-right: 108px;
+}
+
+
+
+
+
+.map_inter{
+    width: 1140px;
+    position: relative;
+}
+.icon_text{
+    font-size: 14px;
+    color: white;
+    height: 51px;
+    line-height: 25px;
+    text-align: center;
+}
+.map_icon {
+    width: 50px;
+    height: 50px;
+    background-color: #1F4C6A;
+    border-radius: 30px;
+}
+.icon_SPB{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+.icon_SVS{
+    position: absolute;
+    left: 51px;
+    top: 0px;
+}
+.icon_MSK{
+    position: absolute;
+    left: 0px;
+    top: 51px;
+    
+}
+
+
+
+
+
