@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-  uploader:
+  excel-loader:
     image: 'aryunin/marr-uploader:dev'
-    container_name: uploader
+    container_name: excel-loader
     depends_on:
-      - api
+      - server
     environment:
       - HOST=db
       - PORT=5432
@@ -13,12 +13,12 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_URL=postgresql+psycopg2://postgres:postgres@db:5432/statistigz
-    entrypoint: su -c "./wait-for-it.sh api:8080 -- python -u uploader.py"
+    entrypoint: su -c "./wait-for-it.sh -s -t 120 server:8080 -- python -u uploader.py"
 
-  api:
+  server:
     image: 'aryunin/marr-server:dev'
     entrypoint: su -c "java -jar application.jar"
-    container_name: main
+    container_name: server
     depends_on: 
       db:
         condition: service_healthy 
@@ -43,9 +43,16 @@ services:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
+      interval: 3s
+      timeout: 120s
       retries: 5
+      
+  front:
+    image: 'aryunin/marr-front:dev'
+    container_name: front
+    ports: 
+      - 80:3000
+    restart: always
       
 volumes:
   pgdata:
