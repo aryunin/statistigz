@@ -22,11 +22,6 @@ jobs:
       - name: Build with Maven
         run: mvn -B clean package
         working-directory: ${{env.working-directory}}
-      - name: Get next version
-        uses: reecetech/version-increment@2023.10.2
-        id: version
-        with:
-          scheme: calver
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -45,11 +40,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
       - name: Rename jar
-        run: mv ${{env.working-directory}}/main/target/*.jar ${{env.working-directory}}/main/target/server-${{steps.version.outputs.version}}.jar
+        run: mv ${{env.working-directory}}/main/target/*.jar ${{env.working-directory}}/main/target/server.jar
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: server-${{steps.version.outputs.version}}
+          name: server
           retention-days: 30
           compression-level: 0
           path: ${{env.working-directory}}/main/target/*.jar
