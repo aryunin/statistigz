@@ -38,16 +38,7 @@ jobs:
           context: ${{env.working-directory}}/main
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-      - name: Rename jar
-        run: mv ${{env.working-directory}}/main/target/*.jar ${{env.working-directory}}/main/target/server.jar
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: server
-          retention-days: 30
-          compression-level: 0
-          path: ${{env.working-directory}}/main/target/*.jar
+          labels: ${{steps.meta.outputs.labels}}
   excel-loader:
     runs-on: ubuntu-latest
     env:
