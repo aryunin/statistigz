@@ -12,5 +12,5 @@ jobs:
       - uses: tkt-actions/add-issue-links@v1.8.2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          resolve: true
+          resolve: 'true'
           branch-prefix: /
