@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  server-test:
+  server:
     runs-on: ubuntu-latest
     env:
       working-directory: ./server
@@ -38,7 +38,7 @@ jobs:
           retention-days: 30
           compression-level: 0
           path: ${{env.working-directory}}/main/target/*.jar
-  mobile-test:
+  mobile:
     runs-on: ubuntu-latest
     env:
       working-directory: ./mobile-app
