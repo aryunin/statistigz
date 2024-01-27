@@ -1,7 +1,9 @@
 name: issue links
 on:
   pull_request:
-    types: [opened, ready_for_review]
+    branches:
+      - dev
+      - master
 
 jobs:
   issue-links:
@@ -12,4 +14,5 @@ jobs:
       - uses: tkt-actions/add-issue-links@v1.8.2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          resolve: 'true'
           branch-prefix: /
