@@ -4,6 +4,7 @@ on:
     branches:
       - dev
       - master
+    types: [opened, ready_for_review]  
   workflow_dispatch:
 
 jobs:
