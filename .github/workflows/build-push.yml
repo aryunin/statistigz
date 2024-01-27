@@ -112,7 +112,7 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
           cache: gradle
-      - uses: subosito/flutter-action@v2.12.2
+      - uses: subosito/flutter-action@v2.12.0
         with:
           flutter-version: '3.13.9'
       - run: flutter pub get
