@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  server-test:
+  server:
     runs-on: ubuntu-latest
     env:
       working-directory: ./server
