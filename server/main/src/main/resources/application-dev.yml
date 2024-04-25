@@ -27,3 +27,11 @@ constants:
   common-projection-id: 17
   max-score: 5
   cache-lifetime: 60
+
+services:
+  classifier:
+    host: ${CLASSIFIER_HOST}
+    port: ${CLASSIFIER_PORT}
+    protocol: ${CLASSIFIER_PROTOCOL}
+    context-path: ${CLASSIFIER_PATH}
+    timeout: 15
