@@ -10,3 +10,11 @@ constants:
   common-projection-id: 17
   max-score: 5
   cache-lifetime: 60
+
+services:
+  classifier:
+    host: localhost
+    port: 8081
+    protocol: http
+    context-path: /api/classifier
+    timeout: 15

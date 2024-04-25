@@ -15,18 +15,29 @@ services:
       - DB_URL=postgresql+psycopg2://postgres:postgres@db:5432/statistigz
     entrypoint: su -c "./wait-for-it.sh -s -t 120 server:8080 -- python -u uploader.py"
 
+  classifier:
+    image: 'aryunin/marr-classifier:dev'
+    container_name: classifier
+    entrypoint: su -c "./wait-for-it.sh -s -t 120 server:8080 -- uvicorn main:app --port 8081"
+
   server:
     image: 'aryunin/marr-server:dev'
     entrypoint: su -c "java -jar application.jar"
     container_name: server
     depends_on: 
       db:
-        condition: service_healthy 
+        condition: service_healthy
+      classifier:
+        condition: service_started
     environment:
       - DB_HOST=db
       - DB_NAME=statistigz
       - DB_USER=postgres
       - DB_PASSWORD=postgres
+      - CLASSIFIER_HOST=localhost
+      - CLASSIFIER_PORT=8081
+      - CLASSIFIER_PROTOCOL=http
+      - CLASSIFIER_PATH=/api/classifier
     ports: 
       - 8080:8080
     restart: always

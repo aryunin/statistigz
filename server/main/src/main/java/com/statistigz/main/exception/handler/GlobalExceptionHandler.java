@@ -1,9 +1,7 @@
 package com.statistigz.main.exception.handler;
 
 import com.statistigz.common.dto.ErrorResponse;
-import com.statistigz.main.exception.CustomException;
-import com.statistigz.main.exception.InvalidRequestException;
-import com.statistigz.main.exception.NotFoundException;
+import com.statistigz.main.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,6 +18,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleInvalidRequestException(CustomException e) {
+        return e.getResponse();
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleValidationException(CustomException e) {
+        return e.getResponse();
+    }
+
+    @ExceptionHandler(ServiceException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleServiceException(CustomException e) {
         return e.getResponse();
     }
 }
