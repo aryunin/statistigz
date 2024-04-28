@@ -26,10 +26,16 @@ jobs:
         uses: reecetech/version-increment@2023.9.3
         id: version
         with:
-          scheme: calver      
-      - name: Rename jar
-        run: mv ./main/target/*.jar ./main/target/server-${{ steps.version.outputs.version }}.jar
-        working-directory: ${{env.working-directory}}      
+          scheme: calver
+      - name: Rename main
+        run: mv ./main/target/*.jar ./main/target/server-main-${{ steps.version.outputs.version }}.jar
+        working-directory: ${{env.working-directory}}
+      - name: Rename survey
+        run: mv ./survey/target/*.jar ./main/target/server-survey-${{ steps.version.outputs.version }}.jar
+        working-directory: ${{env.working-directory}}
+      - name: Rename rcm
+        run: mv ./region-recommendation/target/*.jar ./main/target/server-rcm-${{ steps.version.outputs.version }}.jar
+        working-directory: ${{env.working-directory}}
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:

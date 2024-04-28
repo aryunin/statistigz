@@ -21,15 +21,4 @@ public class GlobalExceptionHandler {
         return e.getResponse();
     }
 
-    @ExceptionHandler(ValidationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleValidationException(CustomException e) {
-        return e.getResponse();
-    }
-
-    @ExceptionHandler(ServiceException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleServiceException(CustomException e) {
-        return e.getResponse();
-    }
 }

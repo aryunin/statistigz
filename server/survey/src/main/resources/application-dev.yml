@@ -1,0 +1,24 @@
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: survey
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  flyway:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
+    schemas: survey
+  webflux:
+    base-path: ${SERVICE_PATH}
+
+server:
+  port: ${SERVICE_PORT}
+
+logging:
+  level:
+    org.springframework: ${LOG_LEVEL}
+    com.statistigz.survey: ${LOG_LEVEL}

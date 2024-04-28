@@ -1,9 +1,9 @@
 package com.statistigz.common.dto.survey;
 
-import java.util.Set;
+import java.util.List;
 
 public record SurveyDTO(
     int id,
     String name,
-    Set<QuestionDTO> questions
+    List<QuestionDTO> questions
 ) { }
