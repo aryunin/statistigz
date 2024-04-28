@@ -2,6 +2,7 @@ package com.statistigz.survey.exception.handler;
 
 import com.statistigz.common.dto.ErrorResponse;
 import com.statistigz.survey.exception.CustomException;
+import com.statistigz.survey.exception.MappingException;
 import com.statistigz.survey.exception.NotFoundException;
 import com.statistigz.survey.util.CustomLogger;
 import lombok.RequiredArgsConstructor;
@@ -22,4 +23,10 @@ public final class GlobalExceptionHandler {
         return e.getResponse();
     }
 
+    @ExceptionHandler(MappingException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleMappingException(CustomException e) {
+        logger.debug(this, "handleMappingException(): " + e);
+        return e.getResponse();
+    }
 }
