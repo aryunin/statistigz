@@ -1,9 +1,10 @@
 package com.statistigz.common.dto.survey;
 
-import java.util.Set;
+import java.util.List;
 
 public record QuestionDTO(
+    int id,
     String text,
     int orderIdx,
-    Set<OptionDTO> options
+    List<OptionDTO> options
 ) { }
