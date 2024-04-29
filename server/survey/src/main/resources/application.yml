@@ -12,8 +12,6 @@ spring:
     user: ${DB_USER}
     password: ${DB_PASSWORD}
     schemas: survey
-  webflux:
-    base-path: ${SERVICE_PATH}
 
 server:
   port: ${SERVICE_PORT}

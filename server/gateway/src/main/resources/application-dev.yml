@@ -1,0 +1,40 @@
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: survey
+          uri: http://${SURVEY_HOST}:${SURVEY_PORT}
+          predicates:
+            - Path=${API_PREFIX}/survey/**
+          filters:
+            - StripPrefix=2
+        - id: rcm
+          uri: http://${RCM_HOST}:${RCM_PORT}
+          predicates:
+            - Path=${API_PREFIX}/rcm/**
+          filters:
+            - StripPrefix=2
+        - id: main
+          uri: http://${MAIN_HOST}:${MAIN_PORT}
+          predicates:
+            - Path=${API_PREFIX}/**
+          filters:
+            - StripPrefix=1
+
+#         TODO
+#         filters:
+#            - name: CircuitBreaker
+#              args:
+#                name: circuitBreaker
+#                fallbackUri: forward:/failure
+
+server:
+  port: ${SERVICE_PORT}
+logging:
+  level:
+    org.springframework: ${LOG_LEVEL}
+    com.statistigz.gateway: ${LOG_LEVEL}
