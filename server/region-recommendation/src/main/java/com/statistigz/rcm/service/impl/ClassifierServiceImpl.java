@@ -1,6 +1,5 @@
 package com.statistigz.rcm.service.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.statistigz.common.dto.classifier.ClassifierRequestDTO;
 import com.statistigz.common.dto.classifier.ClassifierResponseDTO;
 import com.statistigz.rcm.exception.ServiceException;
@@ -23,7 +22,6 @@ public final class ClassifierServiceImpl implements ClassifierService {
 
     private final CustomLogger logger;
     private final WebClient classifierClient;
-    private final ObjectMapper objectMapper;
 
     @Override
     public Mono<Integer> getClusterIdBySurveyResult(List<Integer> answers) {

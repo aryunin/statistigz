@@ -71,7 +71,21 @@ jobs:
           context: ${{env.working-directory}}/region-recommendation
           push: true
           tags: ${{ steps.meta_rcm.outputs.tags }}
-          labels: ${{ steps.meta_rcm.outputs.labels }}   
+          labels: ${{ steps.meta_rcm.outputs.labels }}
+          
+      - name: Meta gateway 
+        id: meta_gateway
+        uses: docker/metadata-action@v5
+        with:
+          images: aryunin/marr-server-gateway
+          
+      - name: Build and push gateway
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{env.working-directory}}/gateway
+          push: true
+          tags: ${{ steps.meta_gateway.outputs.tags }}
+          labels: ${{ steps.meta_gateway.outputs.labels }}     
 
   classifier:
     runs-on: ubuntu-latest

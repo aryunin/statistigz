@@ -12,6 +12,6 @@ class RequestDTO(BaseModel):
 class ClusterResponseDTO(BaseModel):
     cluster: int
 
-@app.post(os.environ.get("SERVICE_PATH", "/"))
+@app.post("/")
 async def root(data: RequestDTO): 
     return ClusterResponseDTO(cluster=1)

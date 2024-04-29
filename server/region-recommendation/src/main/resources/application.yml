@@ -12,8 +12,6 @@ spring:
     user: ${DB_USER}
     password: ${DB_PASSWORD}
     schemas: region_recommendation
-  webflux:
-    base-path: ${SERVICE_PATH}
 
 server:
   port: ${SERVICE_PORT}
@@ -22,7 +20,6 @@ service:
   classifier:
     host: ${CLASSIFIER_HOST}
     port: ${CLASSIFIER_PORT}
-    path: ${CLASSIFIER_PATH}
     protocol: http
 
 logging:

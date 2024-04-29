@@ -36,6 +36,9 @@ jobs:
       - name: Rename rcm
         run: mv ./region-recommendation/target/*.jar ./main/target/server-rcm-${{ steps.version.outputs.version }}.jar
         working-directory: ${{env.working-directory}}
+      - name: Rename gateway
+        run: mv ./gateway/target/*.jar ./main/target/server-gateway-${{ steps.version.outputs.version }}.jar
+        working-directory: ${{env.working-directory}}  
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:

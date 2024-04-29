@@ -16,10 +16,13 @@ spring:
 
 server:
   port: ${SERVICE_PORT}
-  servlet:
-    context-path: ${SERVICE_PATH}
 
 constants:
   common-projection-id: 17
   max-score: 5
   cache-lifetime: 60
+
+logging:
+  level:
+    org.springframework: ${LOG_LEVEL}
+    com.statistigz.main: ${LOG_LEVEL}
