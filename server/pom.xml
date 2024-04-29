@@ -20,7 +20,6 @@
         <module>gateway</module>
         <module>main</module>
         <module>common</module>
-        <module>migration</module>
         <module>survey</module>
         <module>region-recommendation</module>
     </modules>
