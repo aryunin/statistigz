@@ -107,10 +107,12 @@ services:
   front:
     image: 'aryunin/marr-front:dev'
     container_name: front
+    environment:
+      - API_HOST=server-gateway
+      - API_PORT=8080
     ports: 
-      - 80:3000
+      - 80:80
     restart: always
       
 volumes:
   pgdata:
-    
