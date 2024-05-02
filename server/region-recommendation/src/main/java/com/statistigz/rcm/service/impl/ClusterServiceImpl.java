@@ -21,6 +21,7 @@ public class ClusterServiceImpl implements ClusterService {
     public Mono<ClassifierRegionsDTO> getRegionsByClusterId(int clusterId) {
         logger.debug(this, "getRegionsByClusterId()");
         logger.debug(this, "clusterId = " + clusterId);
+
         return clusterRegionRepository.getByClusterId(clusterId)
                 .map(ClusterRegion::getRegionId)
                 .collectList()
