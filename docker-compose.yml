@@ -34,21 +34,21 @@ services:
       - LOG_LEVEL=INFO
     restart: always
     
-  server-survey:
-    image: 'aryunin/marr-server-survey:dev'
-    container_name: server-survey
-    depends_on: 
-      db:
-        condition: service_healthy
-    environment:
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_NAME=statistigz
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - SERVICE_PORT=8080
-      - LOG_LEVEL=INFO
-    restart: always
+#  server-survey:
+#    image: 'myimg'
+#    container_name: server-survey
+#    depends_on: 
+#      db:
+#        condition: service_healthy
+#    environment:
+#      - DB_HOST=db
+#      - DB_PORT=5432
+#      - DB_NAME=statistigz
+#      - DB_USER=postgres
+#      - DB_PASSWORD=postgres
+#      - SERVICE_PORT=8080
+#      - LOG_LEVEL=INFO
+#    restart: always
     
   server-rcm:
     image: 'aryunin/marr-server-rcm:dev'
