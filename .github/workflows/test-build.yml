@@ -20,67 +20,30 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn -B clean package
+        run: mvn clean test
         working-directory: ${{env.working-directory}}
-      - name: Get next version
-        uses: reecetech/version-increment@2023.9.3
-        id: version
-        with:
-          scheme: calver
-      - name: Rename main
-        run: mv ./main/target/*.jar ./main/target/server-main-${{ steps.version.outputs.version }}.jar
-        working-directory: ${{env.working-directory}}
-      - name: Rename survey
-        run: mv ./survey/target/*.jar ./main/target/server-survey-${{ steps.version.outputs.version }}.jar
-        working-directory: ${{env.working-directory}}
-      - name: Rename rcm
-        run: mv ./region-recommendation/target/*.jar ./main/target/server-rcm-${{ steps.version.outputs.version }}.jar
-        working-directory: ${{env.working-directory}}
-      - name: Rename gateway
-        run: mv ./gateway/target/*.jar ./main/target/server-gateway-${{ steps.version.outputs.version }}.jar
-        working-directory: ${{env.working-directory}}  
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: server-${{ steps.version.outputs.version }}
-          retention-days: 30
-          compression-level: 0
-          path: ${{env.working-directory}}/main/target/*.jar
-  mobile:
-    runs-on: ubuntu-latest
-    env:
-      working-directory: ./mobile-app
-    steps: 
-      - uses: actions/checkout@v4  
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '11'
-          cache: gradle
-      - uses: subosito/flutter-action@v2.12.0
-        with:
-          flutter-version: '3.13.9'
-      - name: Dependencies
-        run: flutter pub get
-        working-directory: ${{env.working-directory}}
-      - name: Analyze
-        run: flutter analyze --no-fatal-infos --no-fatal-warnings
-        working-directory: ${{env.working-directory}}   
-      - name: Build apk
-        run: flutter build apk
-        working-directory: ${{env.working-directory}}
-      - name: Get next version
-        uses: reecetech/version-increment@2023.9.3
-        id: version
-        with:
-          scheme: calver    
-      - name: Rename apk
-        run: mv ./build/app/outputs/apk/release/app-release.apk ./build/app/outputs/apk/release/app-${{ steps.version.outputs.version }}.apk
-        working-directory: ${{env.working-directory}}        
-      - name: Upload artifacts   
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-${{ steps.version.outputs.version }}
-          retention-days: 30
-          compression-level: 0
-          path: ${{env.working-directory}}/build/app/outputs/apk/release/app-${{ steps.version.outputs.version }}.apk
+#      - name: Get next version
+#        uses: reecetech/version-increment@2023.9.3
+#        id: version
+#        with:
+#          scheme: calver
+#      - name: Rename main
+#        run: mv ./main/target/*.jar ./main/target/server-main-${{ steps.version.outputs.version }}.jar
+#        working-directory: ${{env.working-directory}}
+#      - name: Rename survey
+#        run: mv ./survey/target/*.jar ./main/target/server-survey-${{ steps.version.outputs.version }}.jar
+#        working-directory: ${{env.working-directory}}
+#      - name: Rename rcm
+#        run: mv ./region-recommendation/target/*.jar ./main/target/server-rcm-${{ steps.version.outputs.version }}.jar
+#        working-directory: ${{env.working-directory}}
+#      - name: Rename gateway
+#        run: mv ./gateway/target/*.jar ./main/target/server-gateway-${{ steps.version.outputs.version }}.jar
+#        working-directory: ${{env.working-directory}}  
+#      - name: Upload artifacts
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: server-${{ steps.version.outputs.version }}
+#          retention-days: 30
+#          compression-level: 0
+#          path: ${{env.working-directory}}/main/target/*.jar
+

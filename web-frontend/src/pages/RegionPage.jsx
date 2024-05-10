@@ -11,7 +11,7 @@ export default function RegionPage() {
     const params = useParams();
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/regions/${params.id}`)
+        fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/regions/${params.id}`)
             .then((response) => response.json())
             .then((data) => {
                 document.title = data.name;

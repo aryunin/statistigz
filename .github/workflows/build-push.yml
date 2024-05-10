@@ -45,19 +45,19 @@ jobs:
           tags: ${{ steps.meta_main.outputs.tags }}
           labels: ${{ steps.meta_main.outputs.labels }}
           
-      - name: Meta survey
-        id: meta_survey
-        uses: docker/metadata-action@v5
-        with:
-          images: aryunin/marr-server-survey
-          
-      - name: Build and push survey
-        uses: docker/build-push-action@v5
-        with:
-          context: ${{env.working-directory}}/survey
-          push: true
-          tags: ${{ steps.meta_survey.outputs.tags }}
-          labels: ${{ steps.meta_survey.outputs.labels }} 
+#      - name: Meta survey
+#        id: meta_survey
+#        uses: docker/metadata-action@v5
+#        with:
+#          images: aryunin/marr-server-survey
+#          
+#      - name: Build and push survey
+#        uses: docker/build-push-action@v5
+#        with:
+#          context: ${{env.working-directory}}/survey
+#          push: true
+#          tags: ${{ steps.meta_survey.outputs.tags }}
+#          labels: ${{ steps.meta_survey.outputs.labels }} 
           
       - name: Meta rcm
         id: meta_rcm
@@ -65,7 +65,7 @@ jobs:
         with:
           images: aryunin/marr-server-rcm
           
-      - name: Build and push survey
+      - name: Build and push rcm
         uses: docker/build-push-action@v5
         with:
           context: ${{env.working-directory}}/region-recommendation
@@ -141,29 +141,76 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           
-  front:
+#  front:
+#    runs-on: ubuntu-latest
+#    env:
+#      working-directory: ./web-frontend
+#    steps:
+#      - uses: actions/checkout@v4
+#      
+#      - name: Log in to Docker Hub
+#        uses: docker/login-action@v3
+#        with:
+#          username: ${{ secrets.DOCKER_USERNAME }}
+#          password: ${{ secrets.DOCKER_PASSWORD }}
+#          
+#      - name: Extract metadata (tags, labels) for Docker
+#        id: meta
+#        uses: docker/metadata-action@v5
+#        with:
+#          images: aryunin/marr-front
+#          
+#      - name: Build and push Docker image
+#        uses: docker/build-push-action@v5
+#        with:
+#          context: ${{env.working-directory}}
+#          push: true
+#          tags: ${{ steps.meta.outputs.tags }}
+#          labels: ${{ steps.meta.outputs.labels }}
+          
+  mobile:
     runs-on: ubuntu-latest
     env:
-      working-directory: ./web-frontend
-    steps:
-      - uses: actions/checkout@v4
+      working-directory: ./mobile-app
+    steps: 
+      - uses: actions/checkout@v4  
       
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
+      - uses: actions/setup-java@v4
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          distribution: 'zulu'
+          java-version: '11'
+          cache: gradle
           
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v5
+      - uses: subosito/flutter-action@v2.12.0
         with:
-          images: aryunin/marr-front
+          flutter-version: '3.13.9'
           
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+      - name: Dependencies
+        run: flutter pub get
+        working-directory: ${{env.working-directory}}
+        
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+        working-directory: ${{env.working-directory}}  
+        
+      - name: Build apk
+        run: flutter build apk
+        working-directory: ${{env.working-directory}}
+        
+      - name: Get next version
+        uses: reecetech/version-increment@2023.9.3
+        id: version
         with:
-          context: ${{env.working-directory}}
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}       
+          scheme: calver    
+          
+      - name: Rename apk
+        run: mv ./build/app/outputs/apk/release/app-release.apk ./build/app/outputs/apk/release/app-${{ steps.version.outputs.version }}.apk
+        working-directory: ${{env.working-directory}}       
+        
+      - name: Upload artifacts   
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ steps.version.outputs.version }}
+          retention-days: 30
+          compression-level: 0
+          path: ${{env.working-directory}}/build/app/outputs/apk/release/app-${{ steps.version.outputs.version }}.apk          

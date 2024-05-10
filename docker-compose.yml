@@ -104,15 +104,15 @@ services:
       timeout: 120s
       retries: 5
       
-  front:
-    image: 'aryunin/marr-front:dev'
-    container_name: front
-    environment:
-      - API_HOST=server-gateway
-      - API_PORT=8080
-    ports: 
-      - 80:80
-    restart: always
+#  front:
+#    image: 'aryunin/marr-front:dev'
+#    container_name: front
+#    environment:
+#      - API_HOST=server-gateway
+#      - API_PORT=8080
+#    ports: 
+#      - 80:80
+#    restart: always
       
 volumes:
   pgdata:
