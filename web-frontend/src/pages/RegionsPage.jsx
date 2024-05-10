@@ -12,7 +12,7 @@ export default function RegionsPage() {
 
     useEffect(() => {
         document.title = 'Регионы';
-        fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/regions`)
+        fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions`)
             .then((response) => response.json())
             .then((data) => {
                 setRegions(data);
