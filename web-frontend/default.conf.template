@@ -13,8 +13,6 @@ server {
 	}
 	
 	location /api {
-		allow 127.0.0.1;
-		deny all;
 		proxy_pass	http://${API_HOST}:${API_PORT};
 	}
 } 

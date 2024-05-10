@@ -18,7 +18,7 @@ export default function CriterionPage() {
             setTableIsShow(false)
         }
         else {
-            fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api/regions?projectionId=${_projectionId}`)
+            fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions?projectionId=${_projectionId}`)
                 .then((response) => response.json())
                 .then((data) => {
                     setRegions(data);
