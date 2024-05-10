@@ -1,2 +1,0 @@
-PowerShell: docker build -t front --build-arg API_HOST=localhost --build-arg API_PORT=8080 . ; docker run -d -p 80:80 -t --name front front
-CMD/BASH: docker build -t front --build-arg API_HOST=localhost --build-arg API_PORT=8080 . && docker run -d -p 80:80 -t --name front front
