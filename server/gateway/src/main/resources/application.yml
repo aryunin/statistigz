@@ -5,6 +5,14 @@ spring:
     name: gateway
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: ${ALLOWED_ORIGIN}
+            allowedMethods:
+              - GET
+              - POST
+            allowedHeaders: '*'
       routes:
         - id: survey
           uri: http://${SURVEY_HOST}:${SURVEY_PORT}

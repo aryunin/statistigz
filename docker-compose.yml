@@ -14,12 +14,10 @@ services:
       - API_PREFIX=/api
       - SERVICE_PORT=8080
       - LOG_LEVEL=INFO
+      - ALLOWED_ORIGIN=http://localhost:8080
     ports: 
       - 8081:8080
     restart: always
-    networks:
-      - front-net
-      - server-net
 
   server-main:
     image: 'aryunin/marr-server-main:dev'
@@ -36,8 +34,6 @@ services:
       - SERVICE_PORT=8080
       - LOG_LEVEL=INFO
     restart: always
-    networks:
-      - server-net
     
 #  server-survey:
 #    image: 'myimg'
@@ -74,8 +70,6 @@ services:
       - CLASSIFIER_PORT=8080
       - LOG_LEVEL=INFO
     restart: always
-    networks:
-      - server-net
     
   classifier:
     image: 'aryunin/marr-classifier:dev'
@@ -83,8 +77,6 @@ services:
     environment:
       - SERVICE_PORT=8080
     restart: always
-    networks:
-      - server-net
     
   excel-loader:
     image: 'aryunin/marr-excel-loader:dev'
@@ -98,8 +90,6 @@ services:
       - DB_URL=postgresql+psycopg2://postgres:postgres@db:5432/statistigz
       - PREV_SERVICE_HOST=server-main
       - PREV_SERVICE_PORT=8080
-    networks:
-      - server-net  
 
   db:
     image: 'postgres:16.0'
@@ -115,27 +105,23 @@ services:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 3s
       timeout: 120s
-      retries: 5
-    networks:
-      - server-net  
+      retries: 5 
       
-  front:
-    image: 'aryunin/marr-front:dev'
-    container_name: front
-    environment:
-      - API_HOST=server-gateway
-      - API_PORT=8080
-    ports: 
-      - 8080:80
-    restart: always
-    networks:
-      - front-net
+#  front:
+#    build:
+#      context: web-frontend/
+#      args:
+#        - REACT_APP_API_HOST=aryunin.tplinkdns.com
+#        - REACT_APP_API_PORT=8080
+#        - REACT_APP_API_PREFIX=api
+#    image: 'aryunin/marr-front:dev'
+#    container_name: front
+#    environment:
+#      - API_HOST=server-gateway
+#      - API_PORT=8080
+#    ports: 
+#      - 8080:80
+#    restart: always
       
 volumes:
   pgdata:
-  
-networks:
-  server-net:
-    driver: bridge
-  front-net:
-    driver: bridge
