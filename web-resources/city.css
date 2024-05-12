@@ -63,7 +63,16 @@ h1{
 
 
 
-
+.search_region{
+    width: 700px;
+    height: 42px;
+    font-size: 15px;
+    display: block;
+    margin-left: 200px;
+    margin-bottom: 75px;
+    border-radius: 20px;
+    border: 3px solid #1F4C6A;
+}
 .map_inter{
     width: 1140px;
     position: relative;
@@ -95,7 +104,472 @@ h1{
     position: absolute;
     left: 0px;
     top: 51px;
-    
+}
+.icon_MYR{
+    position: absolute;
+    left: 204px;
+    top: 0px;
+}
+.icon_KAR{
+    position: absolute;
+    left: 153px;
+    top: 51px;
+}
+.icon_NEN{
+    position: absolute;
+    left: 459px;
+    top: 51px;
+}
+.icon_KAR{
+    position: absolute;
+    left: 153px;
+    top: 51px;
+}
+.icon_NEN{
+    position: absolute;
+    left: 459px;
+    top: 51px;
+}
+.icon_CHYK{
+    position: absolute;
+    left: 816px;
+    top: 51px;
+}
+.icon_KAM{
+    position: absolute;
+    left: 867px;
+    top: 51px;
+}
+.icon_LEN{
+    position: absolute;
+    left: 102px;
+    top: 102px;
+}
+.icon_NOV{
+    position: absolute;
+    left: 153px;
+    top: 102px;
+}
+.icon_VOL{
+    position: absolute;
+    left: 204px;
+    top: 102px;
+}
+.icon_ARH{
+    position: absolute;
+    left: 408px;
+    top: 102px;
+}
+.icon_KOMI{
+    position: absolute;
+    left: 459px;
+    top: 102px;
+}
+.icon_YMAL{
+    position: absolute;
+    left: 510px;
+    top: 102px;
+}
+.icon_KRAS{
+    position: absolute;
+    left: 663px;
+    top: 102px;
+}
+.icon_SAHA{
+    position: absolute;
+    left: 765px;
+    top: 102px;
+}
+.icon_MAG{
+    position: absolute;
+    left: 816px;
+    top: 102px;
+}
+
+
+
+.icon_KNG{
+    position: absolute;
+    left: 0px;
+    top: 153px;
+}
+.icon_PSK{
+    position: absolute;
+    left: 102px;
+    top: 153px;
+}
+.icon_TVER{
+    position: absolute;
+    left: 153px;
+    top: 153px;
+}
+.icon_YRO{
+    position: absolute;
+    left: 204px;
+    top: 153px;
+}
+.icon_IVA{
+    position: absolute;
+    left: 255px;
+    top: 153px;
+}
+.icon_KOS{
+    position: absolute;
+    left: 306px;
+    top: 153px;
+}
+.icon_MARI{
+    position: absolute;
+    left: 357px;
+    top: 153px;
+}
+.icon_KIR{
+    position: absolute;
+    left: 408px;
+    top: 153px;
+}
+.icon_PER{
+    position: absolute;
+    left: 459px;
+    top: 153px;
+}
+.icon_HAN{
+    position: absolute;
+    left: 510px;
+    top: 153px;
+}
+.icon_TUM{
+    position: absolute;
+    left: 561px;
+    top: 153px;
+}
+.icon_TOM{
+    position: absolute;
+    left: 612px;
+    top: 153px;
+}
+.icon_KEM{
+    position: absolute;
+    left: 663px;
+    top: 153px;
+}
+.icon_IRK{
+    position: absolute;
+    left: 714px;
+    top: 153px;
+}
+.icon_AMUR{
+    position: absolute;
+    left: 765px;
+    top: 153px;
+}
+.icon_HAB{
+    position: absolute;
+    left: 816px;
+    top: 153px;
+}
+.icon_SHLN{
+    position: absolute;
+    left: 918px;
+    top: 153px;
+}
+
+
+
+.icon_SMOL{
+    position: absolute;
+    left: 102px;
+    top: 204px;
+}
+.icon_KALU{
+    position: absolute;
+    left: 153px;
+    top: 204px;
+}
+.icon_MOS{
+    position: absolute;
+    left: 204px;
+    top: 204px;
+}
+.icon_VLA{
+    position: absolute;
+    left: 255px;
+    top: 204px;
+}
+.icon_NN{
+    position: absolute;
+    left: 306px;
+    top: 204px;
+}
+.icon_CHYV{
+    position: absolute;
+    left: 357px;
+    top: 204px;
+}
+.icon_TAT{
+    position: absolute;
+    left: 408px;
+    top: 204px;
+}
+.icon_UDM{
+    position: absolute;
+    left: 459px;
+    top: 204px;
+}
+.icon_SVER{
+    position: absolute;
+    left: 510px;
+    top: 204px;
+}
+.icon_KURG{
+    position: absolute;
+    left: 561px;
+    top: 204px;
+}
+.icon_NOVO{
+    position: absolute;
+    left: 612px;
+    top: 204px;
+}
+.icon_HAK{
+    position: absolute;
+    left: 663px;
+    top: 204px;
+}
+.icon_BUR{
+    position: absolute;
+    left: 714px;
+    top: 204px;
+}
+.icon_EVR{
+    position: absolute;
+    left: 765px;
+    top: 204px;
+}
+
+
+
+
+.icon_BRY{
+    position: absolute;
+    left: 102px;
+    top: 255px;
+}
+.icon_ORL{
+    position: absolute;
+    left: 153px;
+    top: 255px;
+}
+.icon_TUL{
+    position: absolute;
+    left: 204px;
+    top: 255px;
+}
+.icon_RYZ{
+    position: absolute;
+    left: 255px;
+    top: 255px;
+}
+.icon_MOR{
+    position: absolute;
+    left: 306px;
+    top: 255px;
+}
+.icon_UL{
+    position: absolute;
+    left: 357px;
+    top: 255px;
+}
+.icon_SAM{
+    position: absolute;
+    left: 408px;
+    top: 255px;
+}
+.icon_BSHK{
+    position: absolute;
+    left: 459px;
+    top: 255px;
+}
+.icon_CHEL{
+    position: absolute;
+    left: 510px;
+    top: 255px;
+}
+.icon_OMSK{
+    position: absolute;
+    left: 561px;
+    top: 255px;
+}
+.icon_ALTK{
+    position: absolute;
+    left: 612px;
+    top: 255px;
+}
+.icon_TUVA{
+    position: absolute;
+    left: 663px;
+    top: 255px;
+}
+.icon_ZAB{
+    position: absolute;
+    left: 714px;
+    top: 255px;
+}
+.icon_PRI{
+    position: absolute;
+    left: 816px;
+    top: 255px;
+}
+
+
+
+.icon_LNR{
+    position: absolute;
+    left: 102px;
+    top: 306px;
+}
+.icon_KUR{
+    position: absolute;
+    left: 153px;
+    top: 306px;
+}
+.icon_LIP{
+    position: absolute;
+    left: 204px;
+    top: 306px;
+}
+.icon_TAM{
+    position: absolute;
+    left: 255px;
+    top: 306px;
+}
+.icon_PEN{
+    position: absolute;
+    left: 306px;
+    top: 306px;
+}
+.icon_SAR{
+    position: absolute;
+    left: 357px;
+    top: 306px;
+}
+.icon_ORNB{
+    position: absolute;
+    left: 408px;
+    top: 306px;
+}
+.icon_ALT{
+    position: absolute;
+    left: 612px;
+    top: 306px;
+}
+
+
+
+.icon_HRS{
+    position: absolute;
+    left: 51px;
+    top: 357px;
+}
+.icon_ZUP{
+    position: absolute;
+    left: 102px;
+    top: 357px;
+}
+.icon_DNR{
+    position: absolute;
+    left: 153px;
+    top: 357px;
+}
+.icon_BEL{
+    position: absolute;
+    left: 204px;
+    top: 357px;
+}
+.icon_VOR{
+    position: absolute;
+    left: 255px;
+    top: 357px;
+}
+.icon_VOLG{
+    position: absolute;
+    left: 306px;
+    top: 357px;
+}
+
+
+
+.icon_KRUM{
+    position: absolute;
+    left: 102px;
+    top: 408px;
+}
+.icon_ADUG{
+    position: absolute;
+    left: 153px;
+    top: 408px;
+}
+.icon_KRDR{
+    position: absolute;
+    left: 204px;
+    top: 408px;
+}
+.icon_ROS{
+    position: absolute;
+    left: 255px;
+    top: 408px;
+}
+.icon_KULM{
+    position: absolute;
+    left: 306px;
+    top: 408px;
+}
+.icon_AST{
+    position: absolute;
+    left: 357px;
+    top: 408px;
+}
+
+
+
+.icon_KCHR{
+    position: absolute;
+    left: 204px;
+    top: 459px;
+}
+.icon_STUV{
+    position: absolute;
+    left: 255px;
+    top: 459px;
+}
+.icon_CHECH{
+    position: absolute;
+    left: 306px;
+    top: 459px;
+}
+.icon_DUG{
+    position: absolute;
+    left: 357px;
+    top: 459px;
+}
+
+
+
+
+.icon_KUB{
+    position: absolute;
+    left: 204px;
+    top: 510px;
+}
+.icon_SOS{
+    position: absolute;
+    left: 255px;
+    top: 510px;
+}
+.icon_ING{
+    position: absolute;
+    left: 306px;
+    top: 510px;
 }
 
 
