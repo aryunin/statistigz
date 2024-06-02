@@ -107,17 +107,6 @@ services:
       timeout: 120s
       retries: 5 
       
-  certbot:
-    image: certbot/certbot
-    depends_on:
-      - server-gateway
-    container_name: certbot
-    volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - web-root:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email pochta@gmail.com --agree-tos --no-eff-email --staging -d domen.ru -d www.domen.ru    
-      
 #  front:
 #    build:
 #      context: web-frontend/
