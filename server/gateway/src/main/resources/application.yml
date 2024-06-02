@@ -5,6 +5,14 @@ spring:
     name: gateway
   cloud:
     gateway:
+      global-filter:
+        local-response-cache:
+          enabled: true
+      filter:
+        local-response-cache:
+          enabled: true
+          size: 500MB
+          time-to-live: 30m
       globalcors:
         cors-configurations:
           '[/**]':
@@ -14,12 +22,13 @@ spring:
               - POST
             allowedHeaders: '*'
       routes:
-        - id: survey
-          uri: http://${SURVEY_HOST}:${SURVEY_PORT}
-          predicates:
-            - Path=${API_PREFIX}/survey/**
-          filters:
-            - StripPrefix=2
+        #        - id: survey
+        #          uri: http://${SURVEY_HOST}:${SURVEY_PORT}
+        #          predicates:
+        #            - Path=${API_PREFIX}/survey/**
+        #          filters:
+        #            - StripPrefix=2
+        #            - LocalResponseCache=30m,500MB
         - id: rcm
           uri: http://${RCM_HOST}:${RCM_PORT}
           predicates:
@@ -32,13 +41,6 @@ spring:
             - Path=${API_PREFIX}/**
           filters:
             - StripPrefix=1
-
-#         TODO
-#         filters:
-#            - name: CircuitBreaker
-#              args:
-#                name: circuitBreaker
-#                fallbackUri: forward:/failure
 
 server:
   port: ${SERVICE_PORT}
