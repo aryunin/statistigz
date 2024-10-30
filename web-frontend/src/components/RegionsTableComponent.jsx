@@ -40,7 +40,7 @@ export default function RegionsTableComponent(props) {
         <section>
             <div class="section-table-home">
                 <div class="container">
-                    <h2 class="name_overall">ОБЩИЙ РЕЙТИНГ ПРИВЛЕКАТЕЛЬНОСТИ РЕГИОНОВ</h2>
+                    
                     <table>
                         <tr class="namecolum">
                             <th class="namecolum1">Место <br/> в рейтинге</th>
