@@ -6,6 +6,7 @@ import './../style_page_criterion.css';
 import icon_cheklist from './../img/icon-cheklist.svg';
 
 import axios from "axios";
+import HeaderComponent from "../components/HeaderComponent";
 
 export default function CriterionPage() {
 
@@ -33,22 +34,7 @@ export default function CriterionPage() {
 
     return (
         <div>
-            <header>
-                <div class="container header-container d_f jc_sb ai_c header-home">
-                    <div class="menu-section1">
-                        <a class="menu-section1_MPRR" href="">МПРР</a>
-                    </div>
-                    <div class="menu-section2">
-                        <nav>
-                            <ul class="header-menu d_f jc_sb">
-                                <li class="header-menu_listitem"><a class="passive-link" href="index.html">Главная</a></li>
-                                <li class="header-menu_listitem"><a class="passive-link" href="">Города</a></li>
-                                <li class="header-menu_listitem"><a class="active-link" href="">Критерии</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </header>
+            <HeaderComponent page='criterion'/>
 
             <section class='container section_header d_f ai_c jc_sb'>
                 <p class="text_info">

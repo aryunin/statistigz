@@ -3,6 +3,7 @@ import ProjectionsTableComponent from "../components/ProjectionsTableComponent";
 import { useParams } from "react-router-dom";
 
 import axios from "axios";
+import HeaderComponent from "../components/HeaderComponent";
 
 
 export default function RegionPage() {
@@ -24,8 +25,11 @@ export default function RegionPage() {
 
     return (
         <div>
-            <p>{region.name}</p>
+            <HeaderComponent page=''/>
+            <br/>
+            <h2>{region.name}</h2>
             <ProjectionsTableComponent projections={region.projections}></ProjectionsTableComponent>
+            <br/>
         </div>
     );
 }

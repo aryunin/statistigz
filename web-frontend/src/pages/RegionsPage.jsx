@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import RegionsTableComponent from "../components/RegionsTableComponent";
+import HeaderComponent from "../components/HeaderComponent";
 
 export default function RegionsPage() {
 
@@ -23,28 +24,19 @@ export default function RegionsPage() {
             });
     }, []);
 
+    const searchRegionStyle = {
+        width: '700px',
+        height: '42px',
+        fontSize: '15px',
+        display: 'block',
+        marginBottom: '75px',
+        borderRadius: '20px',
+        border: '3px solid #1F4C6A'
+    }
+
     return (
         <div>
-            <header>
-                <div class="header-home">
-                    <div class="container header-container d_f jc_sb ai_c">
-                            <div class="menu-section1">
-                                <a class="menu-section1_MPRR" href="">МПРР</a>
-                            </div>
-                            <div class="menu-section2">
-                                <nav class="nav">
-                                    <ul class="header-menu d_f jc_sb">
-                                        <li class="header-menu_listitem"><a class="active-link" href="">Главная</a></li>
-
-                                        <li class="header-menu_listitem"><a class="passive-link" href="city.html">Города</a></li>
-
-                                        <li class="header-menu_listitem"><a class="passive-link" href="">Критерии</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                    </div>
-                </div>
-            </header>
+            <HeaderComponent page='index'/>
             <section>
                 <div class="section-info-home">
                     <div class="container d_f jc_sb">
@@ -57,8 +49,14 @@ export default function RegionsPage() {
                     </div>
                 </div>
             </section>
-            <input onChange={evt => ChangeSearchText(evt.target.value)}/>
-            <RegionsTableComponent regions={filteredRegions}></RegionsTableComponent>
+            <h2 class="name_overall">ОБЩИЙ РЕЙТИНГ ПРИВЛЕКАТЕЛЬНОСТИ РЕГИОНОВ</h2>
+            <div style={{display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'}}>
+                
+            <input style={searchRegionStyle} placeholder="Поиск региона..." onChange={evt => ChangeSearchText(evt.target.value)}/>
+            </div>
+            <RegionsTableComponent regions={filteredRegions}/>
         </div>
     );
 }

@@ -10,15 +10,5 @@ export default function HideComponent(props) {
         return <div/>
     else
         return props.component
-    // if (props.hidden) {
-    //     return (
-    //         <div>props.component</div>
-    //     );
-    // }
-    // else {
-    //     return (
-    //         <div></div>
-    //     );
-    // }
 }
   
