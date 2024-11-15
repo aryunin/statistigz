@@ -17,6 +17,8 @@ public class Region {
     private List<RegionProjection> regionProjections;
     @OneToMany(mappedBy = "id.region")
     private List<Achievement> achievements;
+    @OneToMany(mappedBy = "region")
+    private List<RegionPhoto> photos;
     @Transient
     private double score = 0;
 }
