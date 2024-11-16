@@ -28,6 +28,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  survey_kit: ^0.1.1
+  permission_handler: ^9.2.0
+  flutter_survey: '^0.1.4'
   flutter:
     sdk: flutter
 
@@ -93,3 +96,4 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/criteria/
+    - assets/survey.json

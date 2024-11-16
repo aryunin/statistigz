@@ -9,16 +9,13 @@ import 'package:flutter_application_1/models/ratingProjection.dart';
 import 'package:http/http.dart' as http;
 
 class RemoteService {
-  Future <List<Posts>> getPosts(search) async {
+  Future <List<Posts>> getPosts(String search) async {
       List<Posts> ? posts;
       var uri = Uri.parse(ApiConstants.baseUrl + ApiConstants.regionsEndpoint);
       var response = await Future.delayed(
           const Duration(seconds: 1), () => http.get(uri)); // TODO del
       if (response.statusCode == 200) {
-        //var json = response.body;
-        final data = json.decode(response.body) as List<dynamic>;
-        // utf8.decode('asda');
-        posts = postsFromJson(utf8.decode(response.bodyBytes)).where((element) => element.name.contains(search)).toList();
+        posts = postsFromJson(utf8.decode(response.bodyBytes)).where((element) => element.name.toLowerCase().contains(search.toLowerCase())).toList();
         return posts;
       }
       else {throw Exception('failed to load');}
@@ -64,6 +61,6 @@ class ApiConstants {
   static String projectionsEndpoint = '/projections';
   static String regionsEndpoint = '/regions';
   static String host = '10.0.2.2';
-  static String port = '8080';
+  static String port = '8081';
   static String baseUrl = 'http://$host:$port/api';
 }
