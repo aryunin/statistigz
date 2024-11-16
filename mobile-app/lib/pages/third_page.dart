@@ -62,7 +62,7 @@ class list_criteria extends StatelessWidget {
                           criteriaId: criteriaId, callback: callback))));
             } else if (snapshot.hasError) {
               child = const Text(
-                  'pizdec'); // TODO сделать общее сообщение об ошибке
+                  'something goes wrong'); // TODO сделать общее сообщение об ошибке
             } else {
               child = const Center(
                   child: SizedBox(
@@ -91,29 +91,6 @@ class clicked_criteria extends StatelessWidget {
       Color colorForBackGround = Color.fromARGB(255, 255, 204, 142);
       Color colorForText = Color.fromARGB(255, 47, 126, 113);
       Color colorFromAppBarBack = Color.fromARGB(255, 146, 194, 186);
-    // TODO вот тут надо показывать табличку как на главной страничке
-    // Т.е. тут нужен тоже FutureBuilder, который подтянет данные по
-    // /regions?projectionId=criteriaId
-    // И эти данные нужно затолкать в виджет таблички.
-    // TODO вынести цвета в схему
-    // return Container(
-    //     color: const Color.fromARGB(255, 255, 204, 142),
-    //     child: Center(
-    //         child: Column(
-    //             mainAxisAlignment: MainAxisAlignment.center,
-    //             crossAxisAlignment: CrossAxisAlignment.center,
-    //             children: [
-    //           Text('Clicked id $criteriaId'),
-    //           TextButton(
-    //             style: ButtonStyle(
-    //               foregroundColor:
-    //                   MaterialStateProperty.all<Color>(Colors.blue),
-    //             ),
-    //             child: const Text('Back'),
-    //             onPressed: () => callback(list_criteria(callback: callback)),
-    //           ),
-    //         ])));
-
     return Container(
       color: colorForBackGround,
       child: FutureBuilder<List<RatingProjection>>(

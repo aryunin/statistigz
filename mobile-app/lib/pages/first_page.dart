@@ -47,42 +47,23 @@ void initState() {
       Color colorForText = Color.fromARGB(255, 47, 126, 113);
       Color colorFromAppBarBack = Color.fromARGB(255, 146, 194, 186);
 
-        return Container(
+      return new Scaffold( 
+        body: Container(
           color: const Color.fromARGB(255, 255, 204, 142),
-          child: FutureBuilder<List<Posts>>(
-            future: RemoteService().getPosts(search),
-            builder: (BuildContext context, AsyncSnapshot<List<Posts>> snapshot){
-              if (snapshot.connectionState == ConnectionState.waiting){
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError){
-                return Text('Error: ${snapshot.error}');
-              } else {
-                final post = snapshot.data;
-                final length = post!.length;
-                return SingleChildScrollView(
+          child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(40.5)),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                     child: Container(
-                      
                       color: Color.fromARGB(255, 255, 255, 255),
-                      margin: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(10),
                       child: Column(
-                        children:[ 
-
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            margin: EdgeInsets.only(left: 10, top: 15, bottom: 10),
-                            child: Text(
-                            'Рейтинг привелкательности регионов',
-                            style: TextStyle(color: colorForText, fontSize: textSizeForTable, fontWeight: FontWeight.w500),
-                            ),
-                          ),
-
-                          Container(
-                            alignment: Alignment.topLeft,
+                        children: <Widget>[ 
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10),
                             child: ListTile(
                               dense: true,
-                              contentPadding: EdgeInsets.only(left: 10),
+                              contentPadding: EdgeInsets.only(left: 5),
                               title: TextField(
                                 controller: controller,
                                 style: TextStyle(color: Colors.white, fontSize: textSizeForTable),
@@ -93,7 +74,7 @@ void initState() {
                                   hintStyle: TextStyle(color: Colors.white),
                                   border: InputBorder.none,
                                 ),
-                                onSubmitted: (value) {
+                                onChanged: (value) {
                                   setState(() {
                                     search = value;
                                   });
@@ -111,63 +92,73 @@ void initState() {
                               ),
                             ),
                           ),
-                          
-
-                          DataTable(
-                            showCheckboxColumn: false,
-                            dataTextStyle: TextStyle(fontSize: textSizeForTable),
-                            horizontalMargin: 10,
-                            border: const TableBorder(
-                              horizontalInside: BorderSide(color: Color.fromARGB(255, 255, 204, 142), width: 2.5),
-                            ),
-                            columns: [
-                              DataColumn(label: Text('Место',
-                              style: TextStyle(color: colorForText, fontSize: textSizeForTable),
-                              )),
-                              
-                              DataColumn(label: Text('Регион',
-                              style: TextStyle(color: colorForText, fontSize: textSizeForTable),
-                              )),
-                              
-                              DataColumn(label: Text('Баллы',
-                              style: TextStyle(color: colorForText, fontSize: textSizeForTable),
-                              )),
-                            ],
-                            rows: List<DataRow>.generate(length, (index) => DataRow(
-                             onSelectChanged: (x) => NavigationBetweenPage(context, post[index].id), 
-                             cells: <DataCell>[
-                                
-                                DataCell(Text('${place[post[index].id]}',
-                                style: TextStyle(color: colorForText),
-                                ), ),
-                                
-                                
-                                DataCell(Text('${post[index].name}',
-                                style: TextStyle(color: colorForText),
-                                ),),
-                                
-                                DataCell(Text('${post[index].score}',
-                                style: TextStyle(color: colorForText),
-                                ), )
-
-                              ]
-                              
-                            )),
-                          ),
+                          Expanded(
+                            child: FutureBuilder<List<Posts>>(
+                              future: RemoteService().getPosts(search),
+                              builder: (BuildContext context, AsyncSnapshot<List<Posts>> snapshot){
+                                if (snapshot.connectionState == ConnectionState.waiting){
+                                  return Center(child: CircularProgressIndicator());
+                                } 
+                                else if (snapshot.hasError){
+                                  return Text('Error: ${snapshot.error}');
+                                } 
+                                else {
+                                  final post = snapshot.data;
+                                  final items_count = post!.length;
+                                  return ListView.builder(
+                                    itemCount: 1,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return DataTable(
+                                        showCheckboxColumn: false,
+                                        dataTextStyle: TextStyle(fontSize: textSizeForTable),
+                                        horizontalMargin: 10,
+                                        border: const TableBorder(
+                                          horizontalInside: BorderSide(color: Color.fromARGB(255, 255, 204, 142), width: 2.5),
+                                        ),
+                                        columns: [
+                                          DataColumn(label: Container(child: Text('Место',
+                                          style: TextStyle(color: colorForText, fontSize: textSizeForTable),
+                                          ))),
+                                          
+                                          DataColumn(label: Container(child: Text('Регион',
+                                          style: TextStyle(color: colorForText, fontSize: textSizeForTable),
+                                          ))),
+                                          
+                                          DataColumn(label: Container(child: Text('Баллы',
+                                          style: TextStyle(color: colorForText, fontSize: textSizeForTable),
+                                          ))),
+                                        ],
+                                        rows: List<DataRow>.generate(items_count, (index) => DataRow(
+                                        onSelectChanged: (x) => NavigationBetweenPage(context, post[index].id), 
+                                        cells: <DataCell>[
+                                            DataCell(Text('${place[post[index].id]}',
+                                            style: TextStyle(color: colorForText),),),
+                                            
+                                            DataCell(Text('${post[index].name}',
+                                            style: TextStyle(color: colorForText),),),
+                                            
+                                            DataCell(Text('${post[index].score}',
+                                            style: TextStyle(color: colorForText),),)
+                                          ]
+                                        )),
+                                      );
+                                    }
+                                  );
+                                }
+                              },
+                            )
+                          )
                         ]
-                        ),
-                      )
+                      ),
+                    )
                   )
-                );
-              }
-            }
-          )
-        );
-      
-  }
+                )
+        )
+      );
+    }
 
  void NavigationBetweenPage(BuildContext context, int regionId){
     Navigator.of(context).push(MaterialPageRoute(builder: (context) => new second_page(regionId: regionId,)));
   }
-
 }
