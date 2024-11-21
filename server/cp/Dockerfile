@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-alpine as builder
+FROM amazoncorretto:18-alpine as builder
 WORKDIR /app
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} application.jar
