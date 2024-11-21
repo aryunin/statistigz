@@ -87,6 +87,20 @@ jobs:
           tags: ${{ steps.meta_gateway.outputs.tags }}
           labels: ${{ steps.meta_gateway.outputs.labels }}     
 
+      - name: Meta cp 
+        id: meta_cp
+        uses: docker/metadata-action@v5
+        with:
+          images: aryunin/marr-server-cp
+          
+      - name: Build and push cp
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{env.working-directory}}/cp
+          push: true
+          tags: ${{ steps.meta_cp.outputs.tags }}
+          labels: ${{ steps.meta_cp.outputs.labels }} 
+          
   classifier:
     runs-on: ubuntu-latest
     env:

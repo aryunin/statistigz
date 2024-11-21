@@ -22,6 +22,7 @@
         <module>common</module>
         <module>survey</module>
         <module>region-recommendation</module>
+        <module>cp</module>
     </modules>
 
     <properties>
