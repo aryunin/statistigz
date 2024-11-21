@@ -3,8 +3,11 @@ package com.statistigz.main.repository;
 import com.statistigz.main.entity.RegionPhoto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RegionPhotoRepository extends PagingAndSortingRepository<RegionPhoto, Long> {
-    Page<RegionPhoto> findByRegionId(long id, Pageable pageable);
+import java.util.List;
+
+public interface RegionPhotoRepository extends JpaRepository<RegionPhoto, Long> {
+   Page<RegionPhoto> findByRegionId(long id, Pageable pageable);
+   List<RegionPhoto> findByRegionId(long id);
 }

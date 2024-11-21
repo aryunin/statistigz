@@ -11,8 +11,8 @@ spring:
       filter:
         local-response-cache:
           enabled: true
-          size: 500MB
-          time-to-live: 30m
+          size: 1GB
+          time-to-live: 10m
       globalcors:
         cors-configurations:
           '[/**]':

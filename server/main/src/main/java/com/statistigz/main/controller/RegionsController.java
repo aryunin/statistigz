@@ -58,8 +58,11 @@ public class RegionsController {
 
     @GetMapping("/{id}/photo")
     public Iterable<RegionPhotoDTO> getPhoto(@PathVariable Long id,
-                                             @RequestParam(defaultValue = "0") Integer offset,
-                                             @RequestParam(defaultValue = "1") Integer limit) {
-        return regionPhotoService.findPageById(id, offset, limit);
+                                             @RequestParam Optional<Integer> offset,
+                                             @RequestParam Optional<Integer> limit) {
+        return offset.isPresent() && limit.isPresent() ?
+                regionPhotoService.findPageById(id, offset.get(), limit.get()) :
+                regionPhotoService.findAllById(id);
+
     }
 }

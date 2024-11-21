@@ -71,6 +71,23 @@ services:
       - LOG_LEVEL=INFO
     restart: always
     
+  server-cp:
+    image: 'aryunin/marr-server-cp:dev'
+    container_name: server-cp
+    depends_on: 
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=statistigz
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - SERVICE_PORT=9090
+      - LOG_LEVEL=INFO
+    profiles: [fill]  
+    restart: always  
+    
   classifier:
     image: 'aryunin/marr-classifier:dev'
     container_name: classifier
