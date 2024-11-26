@@ -64,6 +64,13 @@
   "achievements": [ Achievement ]
 }
 ```
+### RegionPhoto
+```
+{
+  "id": long,
+  "data": string (Base64)
+}
+```
 ### ErrorResponse
 ```
 {
@@ -128,4 +135,22 @@ ErrorResponse
 **ok**:
 ```
 [ ProjectionCriteria ]
+```
+
+### GET api/regions/{id}/photo
+
+**params**: 
+* *offset* (optional, pagination offset)
+* *limit* (optional, pagination limit, offset required)
+
+**description**: список фотографий региона. Без параметров - все фотки. С параметрами - пагинация (offset = номер страницы, limit = число элементов на странице)
+
+**ok**:
+```
+[ RegionPhoto ]
+```
+
+**region not found** (code 1, status 404):
+```
+ErrorResponse
 ```
