@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   server-gateway:
     image: 'aryunin/marr-server-gateway:dev'
