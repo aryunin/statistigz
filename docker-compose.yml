@@ -83,10 +83,12 @@ services:
       - DB_NAME=statistigz
       - DB_USER=postgres
       - DB_PASSWORD=postgres
-      - SERVICE_PORT=9090
+      - SERVICE_PORT=8080
       - LOG_LEVEL=INFO
     profiles: [fill]  
-    restart: always  
+    restart: 'no'
+    ports: 
+      - 9090:8080
     
   classifier:
     image: 'aryunin/marr-classifier:dev'
