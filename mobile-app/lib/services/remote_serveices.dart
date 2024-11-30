@@ -55,11 +55,32 @@ class RemoteService {
     }
   }
 
+  Future<List<Posts>> getRegionIds(answers) {
+  return Future(() async {
+    final uri = Uri.parse(ApiConstants.baseUrl + ApiConstants.rcm);
+    final requestBody = json.encode({'answers': answers});
+    final response = await http.post(uri, headers: { 'Content-Type': 'application/json',}, body: requestBody);
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      if (data is Map<String, dynamic> && data['regionIds'] is List) {
+        final regions = await getPosts('');
+        final ids = List<int>.from(data['regionIds']);
+        final listRegions = regions.where((element) => ids.contains(element.id)).toList(); 
+        return listRegions;
+      } else {
+        throw Exception('Unexpected response format');
+      }
+    } else {
+      throw Exception('Failed to load regions: ${response.statusCode}');
+    }
+  });
+}
 }
 
 class ApiConstants {
   static String projectionsEndpoint = '/projections';
   static String regionsEndpoint = '/regions';
+  static String rcm = '/rcm';
   static String host = '10.0.2.2';
   static String port = '8081';
   static String baseUrl = 'http://$host:$port/api';
