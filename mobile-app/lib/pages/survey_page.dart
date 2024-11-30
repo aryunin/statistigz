@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_application_1/services/remote_serveices.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 
 class SurveyPage extends StatefulWidget {
@@ -11,9 +12,10 @@ class SurveyPage extends StatefulWidget {
 }
 
 class _SurveyPageState extends State<SurveyPage> {
-  Map<String, Object> _selectedOptions = {};
+  final Map<String, Object> _selectedOptions = {};
   var answers = [];
   var survey;
+  Color colorForText = const Color.fromARGB(255, 47, 126, 113);
   void _selectOption(String question, Object option, int index) {
     setState(() {
       _selectedOptions[question] = option;
@@ -38,39 +40,70 @@ class _SurveyPageState extends State<SurveyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 204, 142),
+      backgroundColor: const Color.fromARGB(255, 255, 204, 142),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 255, 204, 142),
-        title: Text('Опросник',
+        backgroundColor: const Color.fromARGB(255, 255, 204, 142),
+        centerTitle: true,
+        title: const Text('Опросник',
           style: TextStyle(color: Colors.black, fontSize: 16)),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.only(bottom: 20, top: 5, left: 20, right: 20),
         child: survey != null ?
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               for (var i=0; i < survey['questions'].length; i++)
                 _buildQuestion(survey['questions'][i]['question'], survey['questions'][i]['options'], i),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               ElevatedButton(
-                onPressed: () {
-                  String message;
-                  if (!(answers.where((element) => element == 0)).isEmpty) {
-                    message = 'Not all questions';
+                onPressed: () async {
+                  if ((answers.where((element) => element == 0)).isNotEmpty) {
+                    final snackBar = SnackBar(
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                      content: AwesomeSnackbarContent(
+                        title: 'On Snap!',
+                        message: 'Не на все вопросы даны ответы',
+                        contentType: ContentType.failure,
+                      ),
+                    );
+                    ScaffoldMessenger.of(context)..hideCurrentSnackBar()..showSnackBar(snackBar);
                   } else {
-                    message = 'Your answers were posted';
-                  }
-                  final snackBar = SnackBar(
-                    content: Text(message),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  print(answers);
+                      try {
+                        final regions = await RemoteService().getRegionIds(answers);
+                        final nameRegions = regions.map((element) => element.name).join(', ');
+                        final snackBar = SnackBar(
+                          elevation: 0,
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            title: 'Рекомендованные Вам регионы',
+                            message: nameRegions.isNotEmpty? nameRegions : 'Что то пошло не так',
+                            contentType: ContentType.success,
+                          ),
+                        );
+                        ScaffoldMessenger.of(context)..hideCurrentSnackBar()..showSnackBar(snackBar);
+                      } catch (e) {
+                        final snackBar = SnackBar(
+                          elevation: 0,
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            title: 'Рекомендованные Вам регионы',
+                            message: 'Что то пошло не так',
+                            contentType: ContentType.failure,
+                          ),
+                        );
+                        ScaffoldMessenger.of(context)..hideCurrentSnackBar()..showSnackBar(snackBar);
+                      }
+                    }
                 },
-                child: Text('Отправить'),
+                child: const Text('Отправить'),
               ),
             ],
-          ) : CircularProgressIndicator(),
+          ) : const CircularProgressIndicator(),
       ),
     );
   }
@@ -79,27 +112,41 @@ class _SurveyPageState extends State<SurveyPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          question,
-          style: TextStyle(fontSize: 13.8, color: Colors.black),
+        ClipRRect(
+          borderRadius: const BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+          child: Container(
+            color: const Color.fromARGB(255, 255, 255, 255),
+            padding: const EdgeInsets.all(10),
+            width: MediaQuery.of(context).size.width,
+            child: Text(
+              question,
+              style: TextStyle(fontSize: 13.8, color: colorForText),
+            ),
+          )
         ),
-        SizedBox(height: 10.0),
-        Column(
-          children: options.map((option) {
-            return RadioListTile(
-              title: Text(option,
-                style: TextStyle(fontSize: 13.8, color: Colors.black), 
-              ),
-              value: options.indexOf(option) + 1,
-              groupValue: _selectedOptions[question],
-              onChanged: (value) {
-                _selectOption(question, value!, index);
-              },
-            );
-          }).toList(),
+        const SizedBox(height: 3.0),
+        ClipRRect(
+          borderRadius: const BorderRadius.only(bottomRight: Radius.circular(5), bottomLeft: Radius.circular(5)),
+          child: Container(
+            color: const Color.fromARGB(255, 255, 255, 255),
+            child: Column(
+              children: options.map((option) {
+                return RadioListTile(
+                  title: Text(option,
+                    style: TextStyle(fontSize: 13.8, color: colorForText), 
+                  ),
+                  value: options.indexOf(option) + 1,
+                  groupValue: _selectedOptions[question],
+                  onChanged: (value) {
+                    _selectOption(question, value!, index);
+                  },
+                );
+              }).toList(),
+            )
+          )
         ),
-        SizedBox(height: 20.0),
-      ],
+        const SizedBox(height: 50.0),
+      ]
     );
   }
 }

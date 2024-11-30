@@ -8,7 +8,7 @@ void main(){
 }
 List<String> title = <String>[
   'Главная',
-  'Криетрии',
+  'Критерии',
   'Кластер'
 ];
 class HomePage extends StatelessWidget{
