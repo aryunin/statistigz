@@ -10,11 +10,13 @@ import com.vaadin.flow.data.renderer.NativeButtonRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 
 @Route("regions")
 @RouteAlias("")
+@PermitAll
 public class RegionsPage extends AppLayout {
     private final RegionRepository regionRepository;
     private final Grid<Region> grid;
