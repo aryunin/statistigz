@@ -16,3 +16,8 @@ logging:
   level:
     org.springframework: ${LOG_LEVEL}
     com.statistigz.main: ${LOG_LEVEL}
+
+constants:
+  ChangePasswordTask:
+    username: admin
+    delay: ${PASSWORD_CHANGE_DELAY}

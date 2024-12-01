@@ -26,6 +26,7 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.Command;
 import com.vaadin.flow.server.StreamResource;
+import jakarta.annotation.security.PermitAll;
 import org.vaadin.firitin.components.upload.UploadFileHandler;
 
 import javax.imageio.ImageIO;
@@ -36,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Route("region")
+@PermitAll
 public class RegionEditPage extends VerticalLayout implements HasUrlParameter<Long> {
     // Datasource
     private final RegionRepository regionRepository;
