@@ -1,9 +1,8 @@
 name: build & push
 on:
   push:
-    branches:
-      - dev
-      - master
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
 
 jobs:
@@ -22,7 +21,7 @@ jobs:
           cache: maven
           
       - name: Build with Maven
-        run: mvn -B clean package -DskipTests -Drevision=${{ vars.SERVER_DEV_REVISION }} -Pproduction
+        run: mvn -B clean package -DskipTests -Drevision=${{ github.ref_name }} -Pproduction
         working-directory: ${{ env.working-directory }}
         
       - name: Log in to Docker Hub
@@ -222,13 +221,13 @@ jobs:
           scheme: calver    
           
       - name: Rename apk
-        run: mv ./build/app/outputs/apk/release/app-release.apk ./build/app/outputs/apk/release/app-${{ steps.version.outputs.version }}.apk
+        run: mv ./build/app/outputs/apk/release/app-release.apk ./build/app/outputs/apk/release/app-${{ steps.version.outputs.version }}-release.apk
         working-directory: ${{ env.working-directory }}       
         
       - name: Upload artifacts   
         uses: actions/upload-artifact@v4
         with:
           name: app-${{ steps.version.outputs.version }}
-          retention-days: 30
+          retention-days: 90
           compression-level: 0
-          path: ${{ env.working-directory }}/build/app/outputs/apk/release/app-${{ steps.version.outputs.version }}.apk          
+          path: ${{ env.working-directory }}/build/app/outputs/apk/release/app-${{ steps.version.outputs.version }}-release.apk          
