@@ -20,7 +20,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn clean test -Drevision=$SERVER_DEV_REVISION
+        run: mvn clean test -Drevision=${{ vars.SERVER_DEV_REVISION }}
         working-directory: ${{env.working-directory}}
         
 #      - name: Get next version
