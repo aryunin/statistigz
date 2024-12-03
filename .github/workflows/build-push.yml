@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: ./server
-      tag: dev
     steps:
       - uses: actions/checkout@v4
       
@@ -36,7 +35,7 @@ jobs:
         id: meta_main
         uses: docker/metadata-action@v5
         with:
-          tags: type=raw,value=${{ env.tag }}
+          tags: type=raw,value=${{ vars.SERVER_DEV_TAG }}
           images: aryunin/marr-server-main
           
       - name: Build and push main
@@ -51,7 +50,7 @@ jobs:
 #        id: meta_survey
 #        uses: docker/metadata-action@v5
 #        with:
-#          tags: type=raw,value=${{ env.tag }}
+#          tags: type=raw,value=${{ vars.SERVER_DEV_TAG }}
 #          images: aryunin/marr-server-survey
 #          
 #      - name: Build and push survey
@@ -66,7 +65,7 @@ jobs:
         id: meta_rcm
         uses: docker/metadata-action@v5
         with:
-          tags: type=raw,value=${{ env.tag }}
+          tags: type=raw,value=${{ vars.SERVER_DEV_TAG }}
           images: aryunin/marr-server-rcm
           
       - name: Build and push rcm
@@ -81,7 +80,7 @@ jobs:
         id: meta_gateway
         uses: docker/metadata-action@v5
         with:
-          tags: type=raw,value=${{ env.tag }}
+          tags: type=raw,value=${{ vars.SERVER_DEV_TAG }}
           images: aryunin/marr-server-gateway
           
       - name: Build and push gateway
@@ -96,7 +95,7 @@ jobs:
         id: meta_cp
         uses: docker/metadata-action@v5
         with:
-          tags: type=raw,value=${{ env.tag }}
+          tags: type=raw,value=${{ vars.SERVER_DEV_TAG }}
           images: aryunin/marr-server-cp
           
       - name: Build and push cp
@@ -124,7 +123,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          tags: type=raw,value=${{ env.tag }}
+          tags: type=raw,value=${{ vars.SERVER_DEV_TAG }}
           images: aryunin/marr-classifier
           
       - name: Build and push Docker image
@@ -152,7 +151,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          tags: type=raw,value=${{ env.tag }}
+          tags: type=raw,value=${{ vars.SERVER_DEV_TAG }}
           images: aryunin/marr-excel-loader
           
       - name: Build and push Docker image
@@ -180,7 +179,7 @@ jobs:
 #        id: meta
 #        uses: docker/metadata-action@v5
 #        with:
-#          tags: type=raw,value=${{ env.tag }}
+#          tags: type=raw,value=${{ vars.SERVER_DEV_TAG }}
 #          images: aryunin/marr-front
 #          
 #      - name: Build and push Docker image
