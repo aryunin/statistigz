@@ -1,8 +1,8 @@
-name: build & push
+name: release
 on:
   push:
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
 
 jobs:
@@ -19,9 +19,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
+      - name: Get branch names
+        id: branch_names
+        uses: tj-actions/branch-names@v8
+        with:
+          strip_tag_prefix: v
           
       - name: Build with Maven
-        run: mvn -B clean package -DskipTests -Drevision=${{ github.ref_name }} -Pproduction
+        run: mvn -B clean package -DskipTests -Drevision=${{ steps.branch_names.outputs.tag }} -Pproduction
         working-directory: ${{ env.working-directory }}
         
       - name: Log in to Docker Hub
