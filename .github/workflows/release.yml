@@ -27,7 +27,7 @@ jobs:
           strip_tag_prefix: v
           
       - name: Build with Maven
-        run: mvn -B clean package -DskipTests -Drevision=${{ steps.branch_names.outputs.tag }}" -Pproduction
+        run: mvn -B clean package -DskipTests -Drevision=${{ steps.branch_names.outputs.tag }} -Pproduction
         working-directory: ${{ env.working-directory }}
         
       - name: Log in to Docker Hub
