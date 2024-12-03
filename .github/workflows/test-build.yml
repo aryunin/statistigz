@@ -20,8 +20,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn clean test -Drevision=${{vars.SERVER_DEV_REVISION}}
-        working-directory: ${{env.working-directory}}
+        run: mvn clean test -Drevision=${{ vars.SERVER_DEV_REVISION }}
+        working-directory: ${{ env.working-directory }}
         
 #      - name: Get next version
 #        uses: reecetech/version-increment@2023.9.3
