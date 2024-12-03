@@ -22,6 +22,7 @@ jobs:
       - name: Build with Maven
         run: mvn clean test -Drevision=$SERVER_DEV_REVISION
         working-directory: ${{env.working-directory}}
+        
 #      - name: Get next version
 #        uses: reecetech/version-increment@2023.9.3
 #        id: version
