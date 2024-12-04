@@ -219,21 +219,21 @@ jobs:
       - name: Build apk
         run: flutter build apk
         working-directory: ${{ env.working-directory }}
-        
-      - name: Get next version
-        uses: reecetech/version-increment@2023.9.3
-        id: version
+
+      - name: Get branch names
+        id: branch_names
+        uses: tj-actions/branch-names@v8
         with:
-          scheme: calver    
+          strip_tag_prefix: v
           
       - name: Rename apk
-        run: mv ./build/app/outputs/apk/release/app-release.apk ./build/app/outputs/apk/release/app-${{ steps.version.outputs.version }}-release.apk
+        run: mv ./build/app/outputs/apk/release/app-release.apk ./build/app/outputs/apk/release/app-${{ steps.branch_names.outputs.tag }}-release.apk
         working-directory: ${{ env.working-directory }}       
         
       - name: Upload artifacts   
         uses: actions/upload-artifact@v4
         with:
-          name: app-${{ steps.version.outputs.version }}
+          name: app-${{ steps.branch_names.outputs.tag }}-release
           retention-days: 90
           compression-level: 0
-          path: ${{ env.working-directory }}/build/app/outputs/apk/release/app-${{ steps.version.outputs.version }}-release.apk          
+          path: ${{ env.working-directory }}/build/app/outputs/apk/release/app-${{ steps.branch_names.outputs.tag }}-release.apk          
