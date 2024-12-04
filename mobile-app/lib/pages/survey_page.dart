@@ -78,11 +78,15 @@ class _SurveyPageState extends State<SurveyPage> {
                           elevation: 0,
                           behavior: SnackBarBehavior.floating,
                           backgroundColor: Colors.transparent,
-                          content: AwesomeSnackbarContent(
-                            title: 'Рекомендованные Вам регионы',
-                            message: nameRegions.isNotEmpty? nameRegions : 'Что то пошло не так',
-                            contentType: ContentType.success,
-                          ),
+                          content: SizedBox(
+                            height: 200,
+                            width: 100,
+                            child: AwesomeSnackbarContent(
+                              title: 'Рекомендованные Вам регионы',
+                              message: nameRegions.isNotEmpty? nameRegions : 'Что то пошло не так',
+                              contentType: ContentType.success,
+                            )
+                          )
                         );
                         ScaffoldMessenger.of(context)..hideCurrentSnackBar()..showSnackBar(snackBar);
                       } catch (e) {

@@ -78,10 +78,10 @@ class RemoteService {
 }
 
 class ApiConstants {
-  static String projectionsEndpoint = '/projections';
-  static String regionsEndpoint = '/regions';
-  static String rcm = '/rcm';
-  static String host = '10.0.2.2';
-  static String port = '8081';
-  static String baseUrl = 'http://$host:$port/api';
+  static const String projectionsEndpoint = String.fromEnvironment('projectionsEndpoint', defaultValue: '/projections');
+  static const String regionsEndpoint = String.fromEnvironment('regionsEndpoint', defaultValue: '/regions');
+  static const String rcm = String.fromEnvironment('rcm', defaultValue: '/rcm');
+  static const String host = String.fromEnvironment('host', defaultValue: '10.0.2.2');
+  static const String port = String.fromEnvironment('port', defaultValue: '8081');
+  static const String baseUrl = 'http://$host:$port/api';
 }
