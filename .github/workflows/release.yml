@@ -217,7 +217,13 @@ jobs:
         working-directory: ${{ env.working-directory }}  
         
       - name: Build apk
-        run: flutter build apk
+        run: >
+          flutter build apk 
+          --dart-define=host=${{ vars.SERVER_HOST }} 
+          --dart-define=port=${{ vars.SERVER_PORT }} 
+          --dart-define=projectionsEndpoint=${{ vars.SERVER_PROJECTIONS_EP }}
+          --dart-define=regionsEndpoint=${{ vars.SERVER_REGIONS_EP }}
+          --dart-define=rcm=${{ vars.SERVER_RCM_EP }}
         working-directory: ${{ env.working-directory }}
           
       - name: Rename apk
