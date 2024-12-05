@@ -110,7 +110,10 @@ class clicked_criteria extends StatelessWidget {
                     margin: EdgeInsets.all(10),
                     color: Colors.white,
                     child: DataTable(
-                      horizontalMargin: 10,
+                      dataRowMinHeight: 50,
+                      dataRowMaxHeight: 75,
+                      horizontalMargin: 15,
+                      columnSpacing: MediaQuery.of(context).size.width * 0.1,
                       dataTextStyle: TextStyle(fontSize: textSizeForTable),
                       border: const TableBorder(horizontalInside: BorderSide(color: Color.fromARGB(255, 255, 204, 142), width: 2.5)),
                       columns: [
