@@ -96,7 +96,7 @@ void initState() {
                             child: FutureBuilder<List<Posts>>(
                               future: RemoteService().getPosts(search),
                               builder: (BuildContext context, AsyncSnapshot<List<Posts>> snapshot){
-                                if (snapshot.connectionState == ConnectionState.waiting){
+                                if (snapshot.connectionState == ConnectionState.waiting || place.isEmpty){
                                   return Center(child: CircularProgressIndicator());
                                 } 
                                 else if (snapshot.hasError){
@@ -110,22 +110,25 @@ void initState() {
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       return DataTable(
+                                        dataRowMinHeight: 50,
+                                        dataRowMaxHeight: 75,
                                         showCheckboxColumn: false,
+                                        columnSpacing: MediaQuery.of(context).size.width * 0.1,
                                         dataTextStyle: TextStyle(fontSize: textSizeForTable),
                                         horizontalMargin: 10,
                                         border: const TableBorder(
                                           horizontalInside: BorderSide(color: Color.fromARGB(255, 255, 204, 142), width: 2.5),
                                         ),
                                         columns: [
-                                          DataColumn(label: Container(child: Text('Место',
+                                          DataColumn(label: Expanded(child: Text('Место',
                                           style: TextStyle(color: colorForText, fontSize: textSizeForTable),
                                           ))),
                                           
-                                          DataColumn(label: Container(child: Text('Регион',
+                                          DataColumn(label: Expanded(child: Text('Регион',
                                           style: TextStyle(color: colorForText, fontSize: textSizeForTable),
                                           ))),
                                           
-                                          DataColumn(label: Container(child: Text('Баллы',
+                                          DataColumn(label: Expanded(child: Text('Баллы',
                                           style: TextStyle(color: colorForText, fontSize: textSizeForTable),
                                           ))),
                                         ],

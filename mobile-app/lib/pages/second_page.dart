@@ -68,7 +68,7 @@ class _second_page extends State<second_page>{
                                       
                                       Container(
                                         margin: EdgeInsets.only(top: 10),
-                                      child: Text('${post?.name}', style: TextStyle(color: colorForText, fontSize: textSizeForTable + 1, fontWeight: FontWeight.w500)),
+                                        child: Text('${post?.name}', style: TextStyle(color: colorForText, fontSize: textSizeForTable + 1, fontWeight: FontWeight.w500)),
                                       ),
 
                                       Container(
@@ -83,13 +83,15 @@ class _second_page extends State<second_page>{
                               Expanded(
                                 child: Scaffold(
                                   body: Container(
+                                    padding: EdgeInsets.all(10),
                                     color: Colors.white,
                                     child: ListView.builder(
                                       itemCount: 1,
                                       shrinkWrap: true,
                                       itemBuilder: (context, index){
                                         return DataTable(   //TODO Сделать сортировку таблицы
-                                          horizontalMargin: 32,
+                                          horizontalMargin: 10,
+                                          columnSpacing: MediaQuery.of(context).size.width * 0.05,
                                           dataTextStyle: TextStyle(fontSize: textSizeForTable),
                                           border: const TableBorder(
                                             horizontalInside: BorderSide(color: Color.fromARGB(255, 255, 204, 142), width: 2.5),
