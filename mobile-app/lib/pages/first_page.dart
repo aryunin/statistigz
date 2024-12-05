@@ -21,23 +21,18 @@ class first_page extends StatefulWidget {
 
 class _first_page extends State<first_page> {
 
-double textSizeForTable = 13.8;
-Color colorForBackGround = Color.fromARGB(255, 255, 204, 142);
-Color colorForText = Color.fromARGB(255, 47, 126, 113);
-Color colorFromAppBarBack = Color.fromARGB(255, 146, 194, 186);
+  double textSizeForTable = 13.8;
+  Color colorForBackGround = Color.fromARGB(255, 255, 204, 142);
+  Color colorForText = Color.fromARGB(255, 47, 126, 113);
+  Color colorFromAppBarBack = Color.fromARGB(255, 146, 194, 186);
 
-TextEditingController controller = TextEditingController();
- var place = new Map();
- String search = '';
+  TextEditingController controller = TextEditingController();
+  var place = new Map();
+  String search = '';
 
-@override
-void initState() {
+  @override
+  void initState() {
     super.initState();
-    RemoteService().getPosts('').then((value) {
-      for (var i = 0; i < value.length; i ++){
-        place[value[i].id] = i + 1;
-      }
-    });
   }
 
   @override 
@@ -93,18 +88,21 @@ void initState() {
                             ),
                           ),
                           Expanded(
-                            child: FutureBuilder<List<Posts>>(
-                              future: RemoteService().getPosts(search),
-                              builder: (BuildContext context, AsyncSnapshot<List<Posts>> snapshot){
-                                if (snapshot.connectionState == ConnectionState.waiting || place.isEmpty){
+                            child: FutureBuilder<List<List<Posts>>>(
+                              future: Future.wait([RemoteService().getPosts(search), RemoteService().getPosts('')]),
+                              builder: (BuildContext context, AsyncSnapshot<List<List<Posts>>> snapshot){
+                                if (snapshot.connectionState == ConnectionState.waiting){
                                   return Center(child: CircularProgressIndicator());
                                 } 
                                 else if (snapshot.hasError){
                                   return Text('Error: ${snapshot.error}');
                                 } 
                                 else {
-                                  final post = snapshot.data;
-                                  final items_count = post!.length;
+                                  final post = snapshot.data![0];
+                                  final itemsCount = post.length;
+                                  for (var i = 0; i < snapshot.data![1].length; i++) {
+                                    place[snapshot.data![1][i].id] = i + 1;
+                                  }
                                   return ListView.builder(
                                     itemCount: 1,
                                     shrinkWrap: true,
@@ -132,7 +130,7 @@ void initState() {
                                           style: TextStyle(color: colorForText, fontSize: textSizeForTable),
                                           ))),
                                         ],
-                                        rows: List<DataRow>.generate(items_count, (index) => DataRow(
+                                        rows: List<DataRow>.generate(itemsCount, (index) => DataRow(
                                         onSelectChanged: (x) => NavigationBetweenPage(context, post[index].id), 
                                         cells: <DataCell>[
                                             DataCell(Text('${place[post[index].id]}',
