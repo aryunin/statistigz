@@ -90,7 +90,7 @@ INSERT INTO criteria(name, projection_id) VALUES('Число собственн�
 INSERT INTO criteria(name, projection_id) VALUES('Число дорожно-транспортных происшествий на 100000 населения', 11);
 INSERT INTO criteria(name, projection_id) VALUES('Посещения театров и музеев на 1000 чел.', 12);
 INSERT INTO criteria(name, projection_id) VALUES('Общее количество плавательных бассейнов на 1000 чел.', 12);
-INSERT INTO criteria(name, projection_id) VALUES('Общее количество плавательных бассейнов на 1000 чел.', 12);
+INSERT INTO criteria(name, projection_id) VALUES('Число туров по России на 1000 чел.', 12);
 INSERT INTO criteria(name, projection_id) VALUES('Налоговые поступления в % к ВРП', 13);
 INSERT INTO criteria(name, projection_id) VALUES('Объем жилищных кредитов на душу населения', 13);
 INSERT INTO criteria(name, projection_id) VALUES('Вклады юридических и физических лиц на душу населения', 13);
