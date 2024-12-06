@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-@EnableCaching
 public class CacheConfiguration {
     @Value("${constants.cache-lifetime}")
     private int CACHE_LIFETIME;
