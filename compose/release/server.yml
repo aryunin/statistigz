@@ -15,9 +15,13 @@ services:
       - SERVICE_PORT=8080
       - LOG_LEVEL=DEBUG
       - ALLOWED_ORIGIN=${GATEWAY_ORIGINS}
+      - SSL_KEYSTORE_PATH=/etc/ssl/certs/domain.pfx
+      - SSL_KEYSTORE_PASSWORD=${GATEWAY_KEYSTORE_PASSWORD}
     ports: 
       - ${GATEWAY_PORT}:8080
     restart: always
+    volumes:
+      - ./certs:/etc/ssl/certs
 
   server-main:
     image: 'aryunin/marr-server-main:latest'
