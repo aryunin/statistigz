@@ -12,7 +12,7 @@ services:
       - API_PREFIX=/api
       - SERVICE_PORT=8080
       - LOG_LEVEL=DEBUG
-      - ALLOWED_ORIGIN=http://localhost,http://localhost:80,http://62.173.146.223,http://62.173.146.223:80,http://xn--l1agda.xn--p1ai,http://xn--l1agda.xn--p1ai:80
+      - ALLOWED_ORIGIN=http://62.173.146.223,http://62.173.146.223:80,http://xn--l1agda.xn--p1ai,http://xn--l1agda.xn--p1ai:80
     ports: 
       - 8081:8080
     restart: always
