@@ -47,13 +47,13 @@ export default function RegionPage() {
                 setRegion(data);
             })
             .catch((err) => {
-                alert(err.message);
+                console.log(err.message);
             });
             
         fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions/${params.id}/photo`)
         .then((response) => response.json())
         .then((data) => {
-            // alert(data[0].data)
+            // console.log(data[0].data)
             // setImages(data);
             setImageHeaderStyle({backgroundImage: `url("data:image/jpg;base64,${data[0].data})`, backgroundRepeat: "space", backgroundSize: "100% auto"})
             setImageHeader(data[0].data)
@@ -61,11 +61,11 @@ export default function RegionPage() {
             setImage2(data[2].data)
             setImage3(data[3].data)
             setImage4(data[4].data)
-            // alert(imageHeaderStyle.stringify())
+            // console.log(imageHeaderStyle.stringify())
             console.log(imageHeaderStyle)
         })
         .catch((err) => {
-            alert(err.message);
+            console.log(err.message);
         });
     }, []);
 

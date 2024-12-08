@@ -96,7 +96,7 @@ export default function OurCityPage() {
                 setRegions(map1);
             })
             .catch((err) => {
-                alert(err.message);
+                console.log(err.message);
             });
     }, []);
 
@@ -123,7 +123,7 @@ export default function OurCityPage() {
                 setTableIsShow(true);
             })
             .catch((err) => {
-                alert(err.message);
+                console.log(err.message);
             });
     }
 
