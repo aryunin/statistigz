@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/first_page.dart';
-import 'package:flutter_application_1/pages/second_page.dart';
-import 'package:flutter_application_1/pages/third_page.dart';
-import 'package:flutter_application_1/pages/survey_page.dart';
+import 'package:mprr/pages/first_page.dart';
+import 'package:mprr/pages/second_page.dart';
+import 'package:mprr/pages/third_page.dart';
+import 'package:mprr/pages/survey_page.dart';
 void main(){
   runApp(const HomePage());
 }

@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/projection_criteria.dart';
-import 'package:flutter_application_1/models/ratingProjection.dart';
-import 'package:flutter_application_1/services/remote_serveices.dart';
-import 'package:flutter_application_1/widget/criteria_table.dart';
+import 'package:mprr/models/projection_criteria.dart';
+import 'package:mprr/models/ratingProjection.dart';
+import 'package:mprr/services/remote_serveices.dart';
+import 'package:mprr/widget/criteria_table.dart';
 
 class third_page extends StatefulWidget {
   third_page({super.key});
