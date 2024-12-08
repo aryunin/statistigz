@@ -240,6 +240,9 @@ export default function CityPage() {
         setOpac(regionsOpacities(str))
     }
 
+    useEffect(() => {
+        document.title = 'Города';
+    }, []);
 
 
     return (

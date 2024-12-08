@@ -1,11 +1,68 @@
 import { React, useState, useEffect } from "react";
 import RegionsTableComponent from "../components/RegionsTableComponent";
 import HideComponent from "../components/HideComponent";
+import HeaderComponent from "../components/HeaderComponent";
 import './../ourcity.css';
+import Radio from "../img/radio.png"
+import RadioChecked from "../img/radiochecked.png"
+
+function radioCircle(checked) {
+    let radioStyle={marginTop: "0px",
+        cursor: "pointer",
+    verticalAlign: "middle", display:"inline"}
+
+    if (checked){
+        return (<img style={radioStyle} src={`${RadioChecked}`}/>)
+    }
+    else {
+        return (<img style={radioStyle} src={`${Radio}`}/>)
+    }
+}
+
+
+function createButton(state, setState, value, label) {
+    let labelStyle={marginLeft: "5px",
+        cursor: "pointer",
+        verticalAlign: "middle", display:"inline"}
+    let inputDivStyle={verticalAlign: "middle", alignItems: "center", marginTop: "10px",
+        cursor: "pointer"}
+    return (
+        <div style={inputDivStyle} onClick={() => setState(value)}>{radioCircle(value==state)} <p style={labelStyle} for="">{label}</p><br/></div>
+    )
+}
+
+function createButtons(state, setState, labels) {
+    return labels.map((l, i) => createButton(state, setState, i, l))
+}
+
+function createQuestion(state, setState, labels, header) {
+    let headerDivStyle={
+        borderRadius: '15px', 
+        backgroundColor: 'rgba(146, 194, 186, 1)', 
+        margin: '0 auto', 
+        // padding: "1px 0px 1px 0px",
+        // display:"flex",
+        alignItems: "center",
+        justifyContent: "center"
+        }
+    let headerStyle={textAlign: "center", padding: "10px"}
+    let inputsDivStyle={justifyContent: "center", display: "grid"}
+    return (
+        <div>
+            <div style={headerDivStyle}>
+                <h5 style={headerStyle}>{header}</h5>
+            </div>
+            <div style={inputsDivStyle}>
+                {createButtons(state, setState, labels)}
+            </div>
+        </div>
+    )
+}
+
 
 export default function OurCityPage() {
-
-    const [allRegions, setAllRegions] = useState();
+    
+    const [filteredRegions, setFilteredRegions] = useState([]);
     const [regions, setRegions] = useState([]);
     const [tableIsShow, setTableIsShow] = useState(false);
 
@@ -28,15 +85,15 @@ export default function OurCityPage() {
     const [q17, setQ17] = useState(0)
 
     useEffect(() => {
-        document.title = 'Регионы';
-        fetch('http://localhost:8080/api/regions')
+        document.title = 'Регион для вас';
+        
+        fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions`)
             .then((response) => response.json())
             .then((data) => {
-                
+                console.log(data)
                 const map1 = new Map();
                 data.forEach(v =>  map1.set(v.id, v))
-
-                setAllRegions(map1);
+                setRegions(map1);
             })
             .catch((err) => {
                 alert(err.message);
@@ -44,200 +101,200 @@ export default function OurCityPage() {
     }, []);
 
     function req() {
-        let ids = [1,2,3];
-        let arr = ids.map(v => allRegions.get(v));
-        setRegions(arr);
+        
 
-        // const answ = [q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15,q16,q17]
+        const answ = [q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,q12,q13,q14,q15,q16,q17]
 
 
-        // const requestOptions = {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ answers: answ })
-        // };
-        // // console.log(JSON.stringify({ answers: answ } ))
-        // fetch('http://localhost:8080/', requestOptions)
-        //     .then(response => response.json())
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ answers: answ })
+        };
+
+        
+        fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/rcm`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                let ids = data.regionIds;  
+                let arr = ids.map(v => regions.get(v));
+                setFilteredRegions(arr);
+                setTableIsShow(true);
+            })
+            .catch((err) => {
+                alert(err.message);
+            });
     }
+
+    let labelStyle={marginLeft: "5px"}
+    let radioStyle={marginTop: "15px"}
+    // let inputsDivStyle={marginLeft: '45%', marginBottom: "10px"}
+    let inputsDivStyle={justifyContent: "center", display: "grid"}
+    let headerDivStyle={
+        borderRadius: '15px', 
+        backgroundColor: 'rgba(146, 194, 186, 1)', 
+        margin: '0 auto', 
+        // padding: "1px 0px 1px 0px",
+        // display:"flex",
+        alignItems: "center",
+        justifyContent: "center"
+        }
+    let headerStyle={textAlign: "center", padding: "10px"}
+    let inputDivStyle={verticalAlign: "middle", alignItems: "center"}
+    let buttonDivStyle={
+        borderRadius: "15px",
+        width: "295px",
+        borderRadius: '15px', 
+        backgroundColor: 'rgba(146, 194, 186, 1)', 
+        margin: '0 auto', 
+        // padding: "1px 0px 1px 0px",
+        // display:"flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer"
+        }
 
     return (    
         <div>
-            <header>
-                <div class="container header-container d_f jc_sb ai_c header-home">
-                    <div class="menu-section1">
-                        <a class="menu-section1_MPRR" href="">МПРР</a>
+            <HeaderComponent page='ourcity'/>
+            <section class='container section_header d_f ai_c jc_sb'>
+                <p class="text_info">
+                    <span>В данном разделе</span> - представлена 
+                    анкета. Заполните её и вы получите список
+                    топ-регионов, которые подходят именно вам
+                    для ваших индивидуальных целей
+
+                </p>
+                <div class="info_name">
+                    <h1>МПРР</h1>
+                    <p>Регион для вас</p>
+                </div>
+            </section>
+                <div style={{backgroundColor: '#FFFFFF'}}>
+                    <div style={{inputDivStyle}}>
+                        <h3 style={{border: 0, textAlign: "center", width: "100%", paddingTop: "30px", paddingBottom: "30px"}}>Заполните анкету</h3>
                     </div>
-                    <div class="menu-section2">
-                        <nav>
-                            <ul class="header-menu d_f jc_sb">
-                                <li class="header-menu_listitem"><a class="passive-link" href="index.html">Главная</a></li>
-                                <li class="header-menu_listitem"><a class="passive-link" href="city.html">Города</a></li>
-                                <li class="header-menu_listitem"><a class="passive-link" href="">Критерии</a></li>
-                                <li class="header-menu_listitem"><a class="active-link" href="ourcity.html">Класстер</a></li>
-                            </ul>
-                        </nav>
+                    <div style={{borderRadius: '14px', 
+                    backgroundColor: 'rgba(255, 205, 142, 1)', 
+                    boxShadow: '8px 4px 4px rgba(0, 0, 0, 0.25)', 
+                    border: '3px solid rgba(0, 0, 0, 1)',
+                    width: '50%',
+                    padding: '30px 60px 30px 60px', 
+                    margin: '0 auto'}}>
+                        <div class="form_action">
+                            <form action="" name="form-city">
+
+                                {createQuestion(q1, setQ1, ["12-16", "17-22", "23-27", "27-45", "более 45"], "1. Укажите ваш возраст")}
+                                {createQuestion(q2, setQ2, ["Мужской", "Женский"], "2. Укажите ваш пол")}
+                                {createQuestion(q3, setQ3, ["Для переезда и постоянного проживания", 
+                                    "Для временного проживания (от месяца до года)", 
+                                    "Для временного проживания (от года до трёх лет)", 
+                                    "Для отдыха (до месяца)"],
+                                     "3. Представьте, что есть система персональной подборки лучших регионов, которые вам наиболее всего подходят, для чего вы бы рассматривали этот список?")}
+                                {createQuestion(q4, setQ4, ["Замужем/женат (нет детей)", 
+                                    "Замужем/женат (есть дети)", 
+                                    "Не женат/ не замужем (нет детей)",
+                                    "Не женат/ не замужем (есть дети)",
+                                    "Планирую семью"],
+                                     "4. Семейное положение")}
+                                {createQuestion(q5, setQ5, [
+                                    "Не интересует совершенно",
+                                    "Не интересует",
+                                    "Безразлично",
+                                    "Интересует",
+                                    "Очень сильно интересует"],
+                                     "5. Насколько сильно вас интересует вопрос экологии в регионе будущего проживания?")}
+                                     {createQuestion(q6, setQ6, [
+                                         "Своё жильё",
+                                         "Живу с родителями",
+                                         "Съёмное",
+                                         "Общежитие"],
+                                          "6. Условия вашего проживания")}
+                                {createQuestion(q7, setQ7, [
+                                    "Не интересует совершенно",
+                                    "Не интересует",
+                                    "Безразлично",
+                                    "Интересует",
+                                    "Очень сильно интересует"],
+                                     "7. Интересует ли вас уровень заработной платы в регионе?")}
+                                {createQuestion(q8, setQ8, [
+                                    "Не интересует совершенно",
+                                    "Не интересует",
+                                    "Безразлично",
+                                    "Интересует",
+                                    "Очень сильно интересует"],
+                                     "8. Насколько для вас важна оснащенность региона местами культурного назначения (парки, театры, кинозалы)?")}
+                                {createQuestion(q9, setQ9, [
+                                    "Не пользуюсь совсем",
+                                    "Редко пользуюсь",
+                                    "Пользуюсь время от времени",
+                                    "Использую часто",
+                                    "Пользуюсь ежедневно"],
+                                     "9. Как часто вы пользуетесь общественным транспортом (личным авто)?")}
+                                {createQuestion(q10, setQ10, [
+                                    "Не слежу совершенно",
+                                    "Не слежу",
+                                    "Безразлично",
+                                    "Слежу",
+                                    "Очень часто слежу"],
+                                     "10. Насколько внимательно вы следите за новшествами в технической области?")}
+                                {createQuestion(q11, setQ11, [
+                                    "Нет, совершенно",
+                                    "Скорее нет",
+                                    "Не часто, но нуждаюсь",
+                                    "Нуждаюсь переоически",
+                                    "Часто нуждаюсь"],
+                                     "11. Часто ли вы нуждаетесь в качественной медицинской помощи?")}
+                                {createQuestion(q12, setQ12, [
+                                    "Нет, совершенно",
+                                    "Скорее нет",
+                                    "Не часто, но нуждаюсь",
+                                    "Нуждаюсь переоически",
+                                    "Часто нуждаюсь"],
+                                     "12. Часто ли пользуетесь различными услугами в регионе (например, доставкой)?")}
+                                {createQuestion(q13, setQ13, [
+                                    "Не важен совершенно",
+                                    "Не важен",
+                                    "Безразлично",
+                                    "Важен",
+                                    "Очень важен"],
+                                     "13. Насколько для вас важен средний уровень жизни в регионе?")}
+                                {createQuestion(q14, setQ14, [
+                                    "Не важна совершенно",
+                                    "Не важна",
+                                    "Безразлична",
+                                    "Важна",
+                                    "Очень важна"],
+                                     "14. Важна ли для вас финансовая составляющая региона? (Насколько он богат за счет собственных средств и налоговых сборов)")}
+                                {createQuestion(q15, setQ15, [
+                                    "Не важен совершенно",
+                                    "Не важен",
+                                    "Безразлично",
+                                    "Важен",
+                                    "Очень важен"],
+                                     "15. Важен ли для вас показатель уровня образования в регионе?")}
+                                {createQuestion(q16, setQ16, [
+                                    "Не важна совершенно",
+                                    "Не важна",
+                                    "Безразлична",
+                                    "Важна",
+                                    "Очень важна"],
+                                     "16. Насколько важна удовлетворенность от экономической деятельности региона? (для предпринимателей)")}
+                                {createQuestion(q17, setQ17, [
+                                    "Нет",
+                                    "Затрудняюсь ответить",
+                                    "Да"],
+                                     "17. Планируете ли вы устраиваться на работу в новом регионе?")}
+                            </form>
+                            <div style={buttonDivStyle} onClick={() => {req(); setTableIsShow(true) }}>
+                                <h5 style={headerStyle}>Отправить</h5>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </header>
-
-            <div class="form_action">
-                <form action="" name="form-city">
-                    <h3>Заполните анкету</h3>
-                    <div class="question1">
-                        <h5>1. Укажите ваш возраст</h5>
-                        <input type="radio" name="old" value="12-16" onClick={() => setQ1(0)}/> <label for="">12-16</label><br/>
-                        <input type="radio" name="old" value="17-22" onClick={() => setQ1(1)}/> <label for="">17-22</label><br/>
-                        <input type="radio" name="old" value="23-27" onClick={() => setQ1(2)}/> <label for="">23-27</label><br/>
-                        <input type="radio" name="old" value="28-25" onClick={() => setQ1(3)}/> <label for="">27-45</label><br/>
-                        <input type="radio" name="old" value="b45"   onClick={() => setQ1(4)}/> <label for="">более 45</label><br/>
-                    </div>
-
-                    <div class="question2">
-                        <h5>2. Укажите ваш пол</h5>
-                        <input type="radio" name="gender" value="M" onClick={() => setQ2(0)}/> <label for="">Мужской</label><br/>
-                        <input type="radio" name="gender" value="W" onClick={() => setQ2(1)}/> <label for="">Женский</label><br/>
-                    </div>
-
-                    <div class="question3">
-                        <h5>3. Представьте, что есть система персональной <br/>подборки лучших регионов, которые вам наиболее всего подходят, <br/>для чего вы бы рассматривали этот список?</h5>
-                        <input type="radio" name="live" value="go1" onClick={() => setQ3(0)}/> <label for="">Для переезда и постоянного
-                            проживания</label><br/>
-                        <input type="radio" name="live" value="go2" onClick={() => setQ3(1)}/> <label for="">Для временного проживания (от
-                            месяца до года)</label><br/>
-                        <input type="radio" name="live" value="go3" onClick={() => setQ3(2)}/> <label for="">Для временного проживания (от года
-                            до трёх лет)</label><br/>
-                        <input type="radio" name="live" value="go4 onClick={() => setQ2(0)}"/> <label for="">Для отдыха (до месяца)</label><br/>
-                    </div>
-
-                    <div class="question4">
-                        <h5>4. Семейное положение</h5>
-                        <input type="radio" name="family" value="fam1" onClick={() => setQ4(0)}/> <label for="">Замужем/женат (нет детей)</label><br/>
-                        <input type="radio" name="family" value="fam2" onClick={() => setQ4(1)}/> <label for="">Замужем/женат (есть дети)</label><br/>
-                        <input type="radio" name="family" value="fam3" onClick={() => setQ4(2)}/> <label for="">Не женат/ не замужем (нет детей)</label><br/>
-                        <input type="radio" name="family" value="fam4" onClick={() => setQ4(3)}/> <label for="">Не женат/ не замужем (есть дети)</label><br/>
-                        <input type="radio" name="family" value="fam5" onClick={() => setQ4(4)}/> <label for="">Планирую семью</label><br/>
-                    </div>
-
-                    <div class="question5">
-                        <h5>5. Насколько сильно вас интересует вопрос <br/>экологии в регионе будущего проживания?</h5>
-                        <input type="radio" name="ecolog" value="eco1" onClick={() => setQ5(0)}/> <label for="">Не интересует совершенно</label><br/>
-                        <input type="radio" name="ecolog" value="eco2" onClick={() => setQ5(1)}/> <label for="">Не интересует</label><br/>
-                        <input type="radio" name="ecolog" value="eco3" onClick={() => setQ5(2)}/> <label for="">Безразлично</label><br/>
-                        <input type="radio" name="ecolog" value="eco4" onClick={() => setQ5(3)}/> <label for="">Интересует</label><br/>
-                        <input type="radio" name="ecolog" value="eco5" onClick={() => setQ5(4)}/> <label for="">Очень сильно интересует</label><br/>
-                    </div>
-
-                    <div class="question6">
-                        <h5>6. Условия вашего проживания</h5>
-                        <input type="radio" name="home" value="hm1" onClick={() => setQ6(0)}/> <label for="">Своё жильё</label><br/>
-                        <input type="radio" name="home" value="hm2" onClick={() => setQ6(1)}/> <label for="">Живу с родителями</label><br/>
-                        <input type="radio" name="home" value="hm3" onClick={() => setQ6(2)}/> <label for="">Съёмное</label><br/>
-                        <input type="radio" name="home" value="hm4" onClick={() => setQ6(3)}/> <label for="">Общежитие</label><br/>
-                    </div>
-
-                    <div class="question7">
-                        <h5>7. Интересует ли вас уровень заработной платы в регионе?</h5>
-                        <input type="radio" name="money" value="mon1" onClick={() => setQ7(0)}/> <label for="">Не интересует совершенно</label><br/>
-                        <input type="radio" name="money" value="mon2" onClick={() => setQ7(1)}/> <label for="">Не интересует</label><br/>
-                        <input type="radio" name="money" value="mon3" onClick={() => setQ7(2)}/> <label for="">Безразлично</label><br/>
-                        <input type="radio" name="money" value="mon4" onClick={() => setQ7(3)}/> <label for="">Интересует</label><br/>
-                        <input type="radio" name="money" value="mon5" onClick={() => setQ7(4)}/> <label for="">Очень сильно интересует</label><br/>
-                    </div>
-
-                    <div class="question8">
-                        <h5>8. Насколько для вас важна оснащенность региона <br/>местами культурного назначения (парки, театры, кинозалы)?</h5>
-                        <input type="radio" name="arhit" value="arh1" onClick={() => setQ8(0)}/> <label for="">Не интересует совершенно</label><br/>
-                        <input type="radio" name="arhit" value="arh2" onClick={() => setQ8(1)}/> <label for="">Не интересует</label><br/>
-                        <input type="radio" name="arhit" value="arh3" onClick={() => setQ8(2)}/> <label for="">Безразлично</label><br/>
-                        <input type="radio" name="arhit" value="arh4" onClick={() => setQ8(3)}/> <label for="">Интересует</label><br/>
-                        <input type="radio" name="arhit" value="arh5" onClick={() => setQ8(4)}/> <label for="">Очень сильно интересует</label><br/>
-                    </div>
-
-                    <div class="question9">
-                        <h5>9. Как часто вы пользуетесь общественным транспортом (личным авто)?</h5>
-                        <input type="radio" name="auto" value="aut1" onClick={() => setQ9(0)}/> <label for="">Не пользуюсь совсем</label><br/>
-                        <input type="radio" name="auto" value="aut2" onClick={() => setQ9(1)}/> <label for="">Редко пользуюсь</label><br/>
-                        <input type="radio" name="auto" value="aut3" onClick={() => setQ9(2)}/> <label for="">Пользуюсь время от времени</label><br/>
-                        <input type="radio" name="auto" value="aut4" onClick={() => setQ9(3)}/> <label for="">Использую часто</label><br/>
-                        <input type="radio" name="auto" value="aut5" onClick={() => setQ9(4)}/> <label for="">Пользуюсь ежедневно</label><br/>
-                    </div>
-
-                    <div class="question10">
-                        <h5>10. Насколько внимательно вы следите за новшествами в технической области?</h5>
-                        <input type="radio" name="innovation" value="inn1" onClick={() => setQ10(0)}/> <label for="">Не слежу совершенно</label><br/>
-                        <input type="radio" name="innovation" value="inn2" onClick={() => setQ10(1)}/> <label for="">Не слежу</label><br/>
-                        <input type="radio" name="innovation" value="inn3" onClick={() => setQ10(2)}/> <label for="">Безразлично</label><br/>
-                        <input type="radio" name="innovation" value="inn4" onClick={() => setQ10(3)}/> <label for="">Слежу</label><br/>
-                        <input type="radio" name="innovation" value="inn5" onClick={() => setQ10(4)}/> <label for="">Очень часто слежу</label><br/>
-                    </div>
-
-                    <div class="question11">
-                        <h5>11. Часто ли вы нуждаетесь в качественной медицинской помощи?</h5>
-                        <input type="radio" name="medicine" value="med1" onClick={() => setQ11(0)}/> <label for="">Нет, совершенно</label><br/>
-                        <input type="radio" name="medicine" value="med2" onClick={() => setQ11(1)}/> <label for="">Скорее нет</label><br/>
-                        <input type="radio" name="medicine" value="med3" onClick={() => setQ11(2)}/> <label for="">Не часто, но нуждаюсь</label><br/>
-                        <input type="radio" name="medicine" value="med4" onClick={() => setQ11(3)}/> <label for="">Нуждаюсь переоически</label><br/>
-                        <input type="radio" name="medicine" value="med5" onClick={() => setQ11(4)}/> <label for="">Часто нуждаюсь</label><br/>
-                    </div>
-
-                    <div class="question12">
-                        <h5>12. Часто ли пользуетесь различными услугами в регионе (например, доставкой)? </h5>
-                        <input type="radio" name="services" value="ser1" onClick={() => setQ12(0)}/> <label for="">Нет, совершенно</label><br/>
-                        <input type="radio" name="services" value="ser2" onClick={() => setQ12(1)}/> <label for="">Скорее нет</label><br/>
-                        <input type="radio" name="services" value="ser3" onClick={() => setQ12(2)}/> <label for="">Не часто, но нуждаюсь</label><br/>
-                        <input type="radio" name="services" value="ser4" onClick={() => setQ12(3)}/> <label for="">Нуждаюсь переоически</label><br/>
-                        <input type="radio" name="services" value="ser5" onClick={() => setQ12(4)}/> <label for="">Часто нуждаюсь</label><br/>
-                    </div>
-
-                    <div class="question13">
-                        <h5>13. Насколько для вас важен средний уровень жизни в регионе? </h5>
-                        <input type="radio" name="average" value="aver1" onClick={() => setQ13(0)}/> <label for="">Не важен совершенно</label><br/>
-                        <input type="radio" name="average" value="aver2" onClick={() => setQ13(1)}/> <label for="">Не важен</label><br/>
-                        <input type="radio" name="average" value="aver3" onClick={() => setQ13(2)}/> <label for="">Безразлично</label><br/>
-                        <input type="radio" name="average" value="aver4" onClick={() => setQ13(3)}/> <label for="">Важен</label><br/>
-                        <input type="radio" name="average" value="aver5" onClick={() => setQ13(4)}/> <label for="">Очень важен</label><br/>
-                    </div>
-
-                    <div class="question14">
-                        <h5>14. Важна ли для вас финансовая составляющая региона? <br/>(Насколько он богат за счет собственных средств и налоговых сборов)</h5>
-                        <input type="radio" name="finance" value="fin1" onClick={() => setQ14(0)}/> <label for="">Не важна совершенно</label><br/>
-                        <input type="radio" name="finance" value="fin2" onClick={() => setQ14(1)}/> <label for="">Не важна</label><br/>
-                        <input type="radio" name="finance" value="fin3" onClick={() => setQ14(2)}/> <label for="">Безразлична</label><br/>
-                        <input type="radio" name="finance" value="fin4" onClick={() => setQ14(3)}/> <label for="">Важна</label><br/>
-                        <input type="radio" name="finance" value="fin5" onClick={() => setQ14(4)}/> <label for="">Очень важна</label><br/>
-                    </div>
-
-                    <div class="question15">
-                        <h5>15. Важен ли для вас показатель уровня образования в регионе?  </h5>
-                        <input type="radio" name="education" value="edu1" onClick={() => setQ15(0)}/> <label for="">Не важен совершенно</label><br/>
-                        <input type="radio" name="education" value="edu2" onClick={() => setQ15(1)}/> <label for="">Не важен</label><br/>
-                        <input type="radio" name="education" value="edu3" onClick={() => setQ15(2)}/> <label for="">Безразлично</label><br/>
-                        <input type="radio" name="education" value="edu4" onClick={() => setQ15(3)}/> <label for="">Важен</label><br/>
-                        <input type="radio" name="education" value="edu5" onClick={() => setQ15(4)}/> <label for="">Очень важен</label><br/>
-                    </div>
-
-                    <div class="question16">
-                        <h5>16. Насколько важна удовлетворенность от экономической деятельности региона? (для предпринимателей)</h5>
-                        <input type="radio" name="economy" value="ecnm1" onClick={() => setQ16(0)}/> <label for="">Не важна совершенно</label><br/>
-                        <input type="radio" name="economy" value="ecnm2" onClick={() => setQ16(1)}/> <label for="">Не важна</label><br/>
-                        <input type="radio" name="economy" value="ecnm3" onClick={() => setQ16(2)}/> <label for="">Безразлична</label><br/>
-                        <input type="radio" name="economy" value="ecnm4" onClick={() => setQ16(3)}/> <label for="">Важна</label><br/>
-                        <input type="radio" name="economy" value="ecnm5" onClick={() => setQ16(4)}/> <label for="">Очень важна</label><br/>
-                    </div>
-
-                    <div class="question17">
-                        <h5>17. Планируете ли вы устраиваться на работу в новом регионе?</h5>
-                        <input type="radio" name="work" value="wrk1" onClick={() => setQ17(0)}/> <label for="">Да</label><br/>
-                        <input type="radio" name="work" value="wrk2" onClick={() => setQ17(1)}/> <label for="">Нет</label><br/>
-                        <input type="radio" name="work" value="wrk3" onClick={() => setQ17(2)}/> <label for="">Затрудняюсь ответить</label><br/>
-                    </div>
-
-                </form>
-                <button onClick={() => {req(); setTableIsShow(true) }}>Отправить</button>
-            </div>
             <br/>
-            <HideComponent hidden={!tableIsShow} component={<RegionsTableComponent regions={regions}/>}/>
+            <HideComponent hidden={!tableIsShow} component={<RegionsTableComponent regions={filteredRegions}/>}/>
         </div>
     );
 }
