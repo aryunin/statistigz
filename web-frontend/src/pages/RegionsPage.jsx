@@ -22,7 +22,7 @@ export default function RegionsPage() {
                 setFilteredRegions(data);
             })
             .catch((err) => {
-                alert(err.message);
+                console.log(err.message);
             });
     }, []);
 

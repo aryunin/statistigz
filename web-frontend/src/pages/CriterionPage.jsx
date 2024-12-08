@@ -28,7 +28,7 @@ export default function CriterionPage() {
                     setTableIsShow(true)
                 })
                 .catch((err) => {
-                    alert(err.message);
+                    console.log(err.message);
                 });
         }
     }
