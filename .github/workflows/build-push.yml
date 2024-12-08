@@ -22,7 +22,7 @@ jobs:
           cache: maven
           
       - name: Build with Maven
-        run: mvn -B clean package -DskipTests -Drevision=${{ vars.SERVER_DEV_REVISION }} -Pproduction
+        run: mvn -B clean package -DskipTests -Drevision=${{ vars.SERVER_DEV_REVISION }} -Pproduction -Dspring.profiles.active=dev
         working-directory: ${{ env.working-directory }}
         
       - name: Log in to Docker Hub
@@ -44,20 +44,6 @@ jobs:
           push: true
           tags: ${{ steps.meta_main.outputs.tags }}
           labels: ${{ steps.meta_main.outputs.labels }}
-          
-#      - name: Meta survey
-#        id: meta_survey
-#        uses: docker/metadata-action@v5
-#        with:
-#          images: aryunin/marr-server-survey
-#          
-#      - name: Build and push survey
-#        uses: docker/build-push-action@v5
-#        with:
-#          context: ${{ env.working-directory }}/survey
-#          push: true
-#          tags: ${{ steps.meta_survey.outputs.tags }}
-#          labels: ${{ steps.meta_survey.outputs.labels }} 
           
       - name: Meta rcm
         id: meta_rcm
@@ -154,37 +140,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          
-#  front:
-#    runs-on: ubuntu-latest
-#    env:
-#      working-directory: ./web-frontend
-#    steps:
-#      - uses: actions/checkout@v4
-#      
-#      - name: Log in to Docker Hub
-#        uses: docker/login-action@v3
-#        with:
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
-#          
-#      - name: Extract metadata (tags, labels) for Docker
-#        id: meta
-#        uses: docker/metadata-action@v5
-#        with:
-#          images: aryunin/marr-front
-#          
-#      - name: Build and push Docker image
-#        uses: docker/build-push-action@v5
-#        with:
-#          context: ${{ env.working-directory }}
-#          push: true
-#          tags: ${{ steps.meta.outputs.tags }}
-#          labels: ${{ steps.meta.outputs.labels }}
-#          build-args: |
-#            REACT_APP_API_HOST=localhost
-#            REACT_APP_API_PORT=8080
-#            REACT_APP_API_PREFIX=api
           
   mobile:
     runs-on: ubuntu-latest

@@ -20,31 +20,5 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn clean test -Drevision=${{ vars.SERVER_DEV_REVISION }}
+        run: mvn clean test -Drevision=${{ vars.SERVER_DEV_REVISION }} -Dspring.profiles.active=dev
         working-directory: ${{ env.working-directory }}
-        
-#      - name: Get next version
-#        uses: reecetech/version-increment@2023.9.3
-#        id: version
-#        with:
-#          scheme: calver
-#      - name: Rename main
-#        run: mv ./main/target/*.jar ./main/target/server-main-${{ steps.version.outputs.version }}.jar
-#        working-directory: ${{env.working-directory}}
-#      - name: Rename survey
-#        run: mv ./survey/target/*.jar ./main/target/server-survey-${{ steps.version.outputs.version }}.jar
-#        working-directory: ${{env.working-directory}}
-#      - name: Rename rcm
-#        run: mv ./region-recommendation/target/*.jar ./main/target/server-rcm-${{ steps.version.outputs.version }}.jar
-#        working-directory: ${{env.working-directory}}
-#      - name: Rename gateway
-#        run: mv ./gateway/target/*.jar ./main/target/server-gateway-${{ steps.version.outputs.version }}.jar
-#        working-directory: ${{env.working-directory}}  
-#      - name: Upload artifacts
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: server-${{ steps.version.outputs.version }}
-#          retention-days: 30
-#          compression-level: 0
-#          path: ${{env.working-directory}}/main/target/*.jar
-

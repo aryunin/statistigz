@@ -1,0 +1,12 @@
+name: marr-frontend
+
+services:
+  front:
+    image: 'aryunin/marr-front:latest'
+    container_name: front
+    ports: 
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - ./certs:/etc/ssl/certs    
