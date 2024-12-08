@@ -4,10 +4,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/post.dart';
-import 'package:flutter_application_1/models/projection_criteria.dart';
-import 'package:flutter_application_1/pages/second_page.dart';
-import 'package:flutter_application_1/services/remote_serveices.dart';
+import 'package:mprr/models/post.dart';
+import 'package:mprr/models/projection_criteria.dart';
+import 'package:mprr/pages/second_page.dart';
+import 'package:mprr/services/remote_serveices.dart';
 import 'package:http/http.dart';
 
 class first_page extends StatefulWidget {

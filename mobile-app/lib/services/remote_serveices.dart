@@ -2,10 +2,10 @@
 
 import 'dart:convert';
 
-import 'package:flutter_application_1/models/post.dart';
-import 'package:flutter_application_1/models/projection_criteria.dart';
-import 'package:flutter_application_1/models/rating.dart';
-import 'package:flutter_application_1/models/ratingProjection.dart';
+import 'package:mprr/models/post.dart';
+import 'package:mprr/models/projection_criteria.dart';
+import 'package:mprr/models/rating.dart';
+import 'package:mprr/models/ratingProjection.dart';
 import 'package:http/http.dart' as http;
 
 class RemoteService {

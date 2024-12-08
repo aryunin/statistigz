@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, no_logic_in_create_state
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/rating.dart';
-import 'package:flutter_application_1/services/remote_serveices.dart';
+import 'package:mprr/models/rating.dart';
+import 'package:mprr/services/remote_serveices.dart';
 
 
 class second_page extends StatefulWidget{

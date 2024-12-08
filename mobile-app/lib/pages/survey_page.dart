@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/services/remote_serveices.dart';
+import 'package:mprr/services/remote_serveices.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/projection_criteria.dart';
+import 'package:mprr/models/projection_criteria.dart';
 
 void _swapRows(List<DataRow> rows, int first, int second) {
   final temp = rows[first];
