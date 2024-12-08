@@ -89,6 +89,7 @@ h1{
     height: 50px;
     background-color: #1F4C6A;
     border-radius: 30px;
+    cursor: pointer;
 }
 .icon_SPB{
     position: absolute;
