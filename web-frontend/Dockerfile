@@ -12,4 +12,5 @@ ENV REACT_APP_API_PREFIX $REACT_APP_API_PREFIX
 RUN npm run build
 
 FROM nginx:1.26.0-alpine AS server
+COPY --from=builder ./app/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder ./app/build /usr/share/nginx/html
