@@ -227,7 +227,7 @@ jobs:
         working-directory: ${{ env.working-directory }}
           
       - name: Rename apk
-        run: mv ./build/app/outputs/apk/release/app-release.apk ./build/app/outputs/apk/release/app-${{ github.ref_name }-release.apk
+        run: mv ./build/app/outputs/apk/release/app-release.apk ./build/app/outputs/apk/release/app-${{ github.ref_name }}-release.apk
         working-directory: ${{ env.working-directory }}       
         
       - name: Upload artifacts   
