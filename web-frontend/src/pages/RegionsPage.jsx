@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import RegionsTableComponent from "../components/RegionsTableComponent";
 import HeaderComponent from "../components/HeaderComponent";
+import Background from "../img/back_icons.png"
 
 export default function RegionsPage() {
 
@@ -13,6 +14,7 @@ export default function RegionsPage() {
 
     useEffect(() => {
         document.title = 'Регионы';
+        
         fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions`)
             .then((response) => response.json())
             .then((data) => {
@@ -36,7 +38,7 @@ export default function RegionsPage() {
 
     return (
         <div>
-            <HeaderComponent page='index'/>
+            <HeaderComponent page=''/>
             <section>
                 <div class="section-info-home">
                     <div class="container d_f jc_sb">
@@ -49,14 +51,16 @@ export default function RegionsPage() {
                     </div>
                 </div>
             </section>
-            <h2 class="name_overall">ОБЩИЙ РЕЙТИНГ ПРИВЛЕКАТЕЛЬНОСТИ РЕГИОНОВ</h2>
-            <div style={{display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'}}>
-                
-            <input style={searchRegionStyle} placeholder="Поиск региона..." onChange={evt => ChangeSearchText(evt.target.value)}/>
+            <div style={{backgroundImage: `url(${Background})`, backgroundRepeat: 'no-repeat', backgroundSize: '90% 95%', backgroundPosition: '50px 100px', minHeight: '5538px'}}>
+                <h2 class="name_overall">ОБЩИЙ РЕЙТИНГ ПРИВЛЕКАТЕЛЬНОСТИ РЕГИОНОВ</h2>
+                <div style={{display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'}}>
+                    
+                    <input style={searchRegionStyle} placeholder="Поиск региона..." onChange={evt => ChangeSearchText(evt.target.value)}/>
+                </div>
+                <RegionsTableComponent regions={filteredRegions}/>
             </div>
-            <RegionsTableComponent regions={filteredRegions}/>
         </div>
     );
 }

@@ -4,6 +4,7 @@ import HideComponent from "../components/HideComponent";
 import { useParams } from "react-router-dom";
 import './../style_page_criterion.css';
 import icon_cheklist from './../img/icon-cheklist.svg';
+import Background from './../img/criterion_back.png';
 
 import axios from "axios";
 import HeaderComponent from "../components/HeaderComponent";
@@ -31,6 +32,10 @@ export default function CriterionPage() {
                 });
         }
     }
+
+    useEffect(() => {
+        document.title = 'Критерии';
+    }, []);
 
     return (
         <div>
@@ -86,8 +91,9 @@ export default function CriterionPage() {
                 </div>
             </section>
 
-            <section class='interactive_globe'>
-                <div class="container">
+            <section class='interactive_globe' style={{padding: '0px 0px 0px 0px'}}>
+                {/* <div style={{backgroundImage: `url(${Background})`, backgroundSize: 'cover', backgroundAttachment: 'fixed'}}> */}
+                <div style={{backgroundImage: `url(${Background})`, backgroundSize: 'cover', padding: '0px 0px 50px 0px'}}>
                     <h2>Интерактивный глобус</h2>
                     <div class="globe d_f ai_c jc_c">
                         <div class="globe-item__left">
@@ -232,86 +238,83 @@ export default function CriterionPage() {
                                 Суммарный коэффициент рождаемости (отношение числа родившихся <br/>
                                 на год на число женщин в возрасте от 15 до 50 лет)<br/>
                                 Ввод в действие дошкольных организаций на душу населения</p></div>
-                        
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-lifeinsur.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Отношение среднедушевых доходов к прожиточному минимуму <br/>
+                            Доля населения с доходами ниже величины прожиточного минимума <br/>
+                            Коэффициент фондов (отношение доходов 10% населения с самыми высокими и 10% – с самыми низкими доходами)</p></div>
                             
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-social.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Коэффициент естественного прироста населения <br/>
+                            Ожидаемая продолжительность жизни при рождении <br/>
+                            Коэффициент миграционного прироста населения</p></div>
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-ecology.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Лесовосстановление <br/>
+                            Сброс загрязненных сточных водя <br/>
+                            Выбросы загрязняющих веществ от стационарных источников</p></div>
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-ecommerce.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Экспорт <br/>
+                            Импорт <br/>
+                            Экспорт технологий и услуг технологического характера</p></div>
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-investment.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Степень износа основных фондов <br/>
+                            Инвестиции в основной в % от ВРП <br/>
+                            Поступление прямых иностранных инвестиций</p></div>
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-doc.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Численность врачей на 1000 человек <br/>
+                            Число больничных коек на 10000 чел.   населения <br/>
+                            Заболеваемость на 1000 чел.   населения</p></div>
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-transport.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Плотность автомобильных дорог общего пользования с твердым покрытием на 1000 км2 территории <br/>
+                            Число собственных легковых автомобилей на 1000 чел. населения <br/>
+                            Число дорожно-транспортных происшествий на 100000 населения</p></div>
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-cinema.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Посещения театров и музеев на 1000   чел. <br/>
+                            Общее количество плавательных   бассейнов на 1000 чел. <br/>
+                            Число туров по России на 1000 чел.</p></div>
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-calc.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Налоговые поступления в % к ВРП <br/>
+                            Объем жилищных кредитов на душу населения <br/>
+                            Вклады юридических и физических лиц на душу населения</p></div>
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-innovation.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Инновационная активность  <br/>
+                            Интенсивность затрат на инновационную деятельность   <br/>
+                            Доля инновационной продукции в общем объеме отгруженной продукции</p></div>
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-eccommerce2.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Оборот розничной торговли на душу населения <br/>
+                            Оборот общественного питания на душу населения <br/>
+                            Объем платных услуг на душу населения</p></div>
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-home.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Ввод в действие жилых домов на душу населения <br/>
+                            Площадь жилья на одного жителя <br/>
+                            Удельный вес расходов на ЖКХ в общей сумме потребительских расходов</p></div>
                         </div>
                         <div class="reference-list__item">
                             <img src="img/reference-generic.svg" alt=""/>
-                            <div class="list-item__text"><p>Объем продукции сельского хозяйства на душу населения <br/>
-                                Объем строительства на душу населения <br/>
-                                Объем продукции обрабатывающего производства на душу населения</p></div>
+                            <div class="list-item__text"><p>Суммарно общий рейтинг</p></div>
                         </div>
                     </div>
 

@@ -1,33 +1,50 @@
 import { React } from "react";
+import Style from "../header.css"
+import HeaderBurgerImage from "./../img/header_burger.svg"
 
 
-function activePassiveLink(name, currentPageName) {
+function activePassiveLink(name, currentPageName, label) {
     if (name == currentPageName)
-        return "active-link"
-    else return "passive-link"
+        return( <div><a class="active-link">{label}</a></div>)
+    else return( <div><a class="passive-link" href={`http://${window.location.host}/${name}`}>{label}</a></div>)
 }
 
+function color(page) {
+    if (page==""){
+        return {backgroundColor: '#92C2BA'}
+    }
+    else if (page=="region") {
+        return {backgroundColor: '#FFFFFF00'}
+    }
+    else {
+        return {backgroundColor: '#FFCD8E'}
+    }
+}
 
 export default function HeaderComponent(props) {
 
+    
+
     return (
-        <header>
-                <div class="container header-container d_f jc_sb ai_c header-home">
-                    <div class="menu-section1">
-                        <a class="menu-section1_MPRR" href="">МПРР</a>
-                    </div>
-                    <div class="menu-section2">
-                        <nav>
-                            <ul class="header-menu d_f jc_sb">
-                                <li class="header-menu_listitem"><a class={activePassiveLink("/index", props.page)} href="index">Главная</a></li>
-                                <li class="header-menu_listitem"><a class={activePassiveLink("/city", props.page)} href="city">Города</a></li>
-                                <li class="header-menu_listitem"><a class={activePassiveLink("/criterion", props.page)} href="criterion">Критерии</a></li>
-                                <li class="header-menu_listitem"><a class={activePassiveLink("/cluster", props.page)} href="ourcity">Класстер</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </header>
+          <header class="header">
+            <div class="header-container" style={color(props.page)}>
+              <div class="logo-wrapper">
+                <img
+                  loading="lazy"
+                  src={`${HeaderBurgerImage}`}
+                  class="logo-icon"
+                  alt="МПРР Logo"
+                />
+                <div>МПРР</div>
+              </div>
+              <nav class="nav-menu">
+               {activePassiveLink("ourcity", props.page, "Регион для вас")}
+               {activePassiveLink("", props.page, "Главная")}
+               {activePassiveLink("city", props.page, "Города")}
+               {activePassiveLink("criterion", props.page, "Критерии")}
+              </nav>
+            </div>
+          </header>
     );
 }
   
