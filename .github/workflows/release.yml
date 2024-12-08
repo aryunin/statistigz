@@ -189,7 +189,7 @@ jobs:
           build-args: |
             REACT_APP_API_HOST=${{ vars.SERVER_HOST }} 
             REACT_APP_API_PORT=${{ vars.SERVER_PORT }}
-            REACT_APP_API_PREFIX=${{ vars.SERVER_API }}
+            REACT_APP_API_PREFIX=/${{ vars.SERVER_API }}
           
   mobile:
     runs-on: ubuntu-latest
