@@ -1,6 +1,6 @@
 services:
   server-gateway:
-    image: 'aryunin/marr-server-gateway:dev'
+    image: 'aryunin/marr-server-gateway:latest'
     container_name: server-gateway
     environment:
       - MAIN_HOST=server-main
@@ -12,13 +12,13 @@ services:
       - API_PREFIX=/api
       - SERVICE_PORT=8080
       - LOG_LEVEL=DEBUG
-      - ALLOWED_ORIGIN=http://localhost:8080
+      - ALLOWED_ORIGIN=http://localhost,http://localhost:80,http://62.173.146.223,http://62.173.146.223:80,http://xn--l1agda.xn--p1ai,http://xn--l1agda.xn--p1ai:80
     ports: 
       - 8081:8080
     restart: always
 
   server-main:
-    image: 'aryunin/marr-server-main:dev'
+    image: 'aryunin/marr-server-main:latest'
     container_name: server-main
     depends_on: 
       db:
@@ -34,7 +34,7 @@ services:
     restart: always
     
   server-rcm:
-    image: 'aryunin/marr-server-rcm:dev'
+    image: 'aryunin/marr-server-rcm:latest'
     container_name: server-rcm
     depends_on: 
       db:
@@ -52,7 +52,7 @@ services:
     restart: always
     
   server-cp:
-    image: 'aryunin/marr-server-cp:dev'
+    image: 'aryunin/marr-server-cp:latest'
     container_name: server-cp
     depends_on: 
       db:
@@ -73,14 +73,14 @@ services:
       - 9090:8080
     
   classifier:
-    image: 'aryunin/marr-classifier:dev'
+    image: 'aryunin/marr-classifier:latest'
     container_name: classifier
     environment:
       - SERVICE_PORT=8080
     restart: always
     
   excel-loader:
-    image: 'aryunin/marr-excel-loader:dev'
+    image: 'aryunin/marr-excel-loader:latest'
     container_name: excel-loader
     environment:
       - HOST=db
@@ -107,6 +107,15 @@ services:
       interval: 3s
       timeout: 120s
       retries: 5
+      
+  front:
+    image: 'aryunin/marr-front:latest'
+    container_name: front
+    ports: 
+      - 80:80
+    restart: always
+    profiles:
+      - front
       
 volumes:
   pgdata:
