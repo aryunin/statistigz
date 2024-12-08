@@ -22,13 +22,6 @@ spring:
               - POST
             allowedHeaders: '*'
       routes:
-        #        - id: survey
-        #          uri: http://${SURVEY_HOST}:${SURVEY_PORT}
-        #          predicates:
-        #            - Path=${API_PREFIX}/survey/**
-        #          filters:
-        #            - StripPrefix=2
-        #            - LocalResponseCache=30m,500MB
         - id: rcm
           uri: http://${RCM_HOST}:${RCM_PORT}
           predicates:
@@ -44,6 +37,11 @@ spring:
 
 server:
   port: ${SERVICE_PORT}
+  ssl:
+    enabled: true
+    key-store-password: ${SSL_KEYSTORE_PASSWORD}
+    key-store: file:${SSL_KEYSTORE_PATH}
+    key-store-type: PKCS12
 logging:
   level:
     org.springframework: ${LOG_LEVEL}

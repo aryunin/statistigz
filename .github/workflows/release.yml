@@ -50,20 +50,6 @@ jobs:
           tags: ${{ steps.meta_main.outputs.tags }}
           labels: ${{ steps.meta_main.outputs.labels }}
           
-#      - name: Meta survey
-#        id: meta_survey
-#        uses: docker/metadata-action@v5
-#        with:
-#          images: aryunin/marr-server-survey
-#          
-#      - name: Build and push survey
-#        uses: docker/build-push-action@v5
-#        with:
-#          context: ${{ env.working-directory }}/survey
-#          push: true
-#          tags: ${{ steps.meta_survey.outputs.tags }}
-#          labels: ${{ steps.meta_survey.outputs.labels }} 
-          
       - name: Meta rcm
         id: meta_rcm
         uses: docker/metadata-action@v5

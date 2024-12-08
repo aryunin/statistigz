@@ -1,6 +1,8 @@
+name: marr-backend
+
 services:
   server-gateway:
-    image: 'aryunin/marr-server-gateway:latest'
+    image: 'aryunin/marr-server-gateway:dev'
     container_name: server-gateway
     environment:
       - MAIN_HOST=server-main
@@ -12,13 +14,13 @@ services:
       - API_PREFIX=/api
       - SERVICE_PORT=8080
       - LOG_LEVEL=DEBUG
-      - ALLOWED_ORIGIN=http://62.173.146.223,http://62.173.146.223:80,http://xn--l1agda.xn--p1ai,http://xn--l1agda.xn--p1ai:80
+      - ALLOWED_ORIGIN=*
     ports: 
-      - 8081:8080
+      - ${GATEWAY_PORT}:8080
     restart: always
 
   server-main:
-    image: 'aryunin/marr-server-main:latest'
+    image: 'aryunin/marr-server-main:dev'
     container_name: server-main
     depends_on: 
       db:
@@ -27,14 +29,14 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
       - DB_NAME=statistigz
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
       - SERVICE_PORT=8080
       - LOG_LEVEL=INFO
     restart: always
     
   server-rcm:
-    image: 'aryunin/marr-server-rcm:latest'
+    image: 'aryunin/marr-server-rcm:dev'
     container_name: server-rcm
     depends_on: 
       db:
@@ -43,8 +45,8 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
       - DB_NAME=statistigz
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
       - SERVICE_PORT=8080
       - CLASSIFIER_HOST=classifier
       - CLASSIFIER_PORT=8080
@@ -52,7 +54,7 @@ services:
     restart: always
     
   server-cp:
-    image: 'aryunin/marr-server-cp:latest'
+    image: 'aryunin/marr-server-cp:dev'
     container_name: server-cp
     depends_on: 
       db:
@@ -61,34 +63,34 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
       - DB_NAME=statistigz
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
       - SERVICE_PORT=8080
       - LOG_LEVEL=INFO
       - PASSWORD_CHANGE_DELAY=1440
     profiles: 
-      - fill
+      - cp
     restart: 'no'
     ports: 
-      - 9090:8080
+      - ${CP_PORT}:8080
     
   classifier:
-    image: 'aryunin/marr-classifier:latest'
+    image: 'aryunin/marr-classifier:dev'
     container_name: classifier
     environment:
       - SERVICE_PORT=8080
     restart: always
     
   excel-loader:
-    image: 'aryunin/marr-excel-loader:latest'
+    image: 'aryunin/marr-excel-loader:dev'
     container_name: excel-loader
     environment:
       - HOST=db
       - PORT=5432
       - DB_NAME=statistigz
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_URL=postgresql+psycopg2://postgres:postgres@db:5432/statistigz
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_URL=postgresql+psycopg2://${DB_USER}:${DB_PASSWORD}@db:5432/statistigz
       - PREV_SERVICE_HOST=server-main
       - PREV_SERVICE_PORT=8080
 
@@ -96,8 +98,8 @@ services:
     image: 'postgres:16.0'
     container_name: db
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=statistigz
     restart: always
     volumes:
@@ -107,15 +109,6 @@ services:
       interval: 3s
       timeout: 120s
       retries: 5
-      
-  front:
-    image: 'aryunin/marr-front:latest'
-    container_name: front
-    ports: 
-      - 80:80
-    restart: always
-    profiles:
-      - front
       
 volumes:
   pgdata:
