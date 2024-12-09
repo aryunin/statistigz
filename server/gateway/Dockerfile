@@ -10,7 +10,7 @@ RUN jdeps --ignore-missing-deps -q  \
     --class-path 'BOOT-INF/lib/*'  \
     application.jar > deps
 RUN jlink \
-    --add-modules $(cat deps) \
+    --add-modules $(cat deps),jdk.crypto.ec \
     --strip-java-debug-attributes \
     --compress 2 \
     --no-header-files \

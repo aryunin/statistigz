@@ -40,7 +40,7 @@ export default function RegionPage() {
     const params = useParams();
 
     useEffect(() => {
-        fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions/${params.id}`)
+        fetch(`${process.env.REACT_APP_API_PROTOCOL}://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions/${params.id}`)
             .then((response) => response.json())
             .then((data) => {
                 document.title = data.name;
@@ -50,7 +50,7 @@ export default function RegionPage() {
                 console.log(err.message);
             });
             
-        fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions/${params.id}/photo`)
+        fetch(`${process.env.REACT_APP_API_PROTOCOL}://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions/${params.id}/photo`)
         .then((response) => response.json())
         .then((data) => {
             // console.log(data[0].data)
