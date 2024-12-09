@@ -87,7 +87,7 @@ export default function OurCityPage() {
     useEffect(() => {
         document.title = 'Регион для вас';
         
-        fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions`)
+        fetch(`${process.env.REACT_APP_API_PROTOCOL}://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions`)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
@@ -113,7 +113,7 @@ export default function OurCityPage() {
         };
 
         
-        fetch(`http://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/rcm`, requestOptions)
+        fetch(`${process.env.REACT_APP_API_PROTOCOL}://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/rcm`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
