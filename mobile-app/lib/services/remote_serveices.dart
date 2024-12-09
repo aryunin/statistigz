@@ -83,5 +83,6 @@ class ApiConstants {
   static const String rcm = String.fromEnvironment('rcm', defaultValue: '/rcm');
   static const String host = String.fromEnvironment('host', defaultValue: '10.0.2.2');
   static const String port = String.fromEnvironment('port', defaultValue: '8081');
-  static const String baseUrl = 'http://$host:$port/api';
+  static const String protocol = bool.fromEnvironment('production') ? 'https' : 'http';
+  static const String baseUrl = '$protocol://$host:$port/api';
 }
