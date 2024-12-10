@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface RegionPhotoRepository extends JpaRepository<RegionPhoto, Long> {
    Page<RegionPhoto> findByRegionId(long id, Pageable pageable);
-   List<RegionPhoto> findByRegionId(long id);
+   List<RegionPhoto> findByRegionIdOrderByIdAsc(long id);
 }
