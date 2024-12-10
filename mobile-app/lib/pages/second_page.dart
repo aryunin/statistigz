@@ -45,83 +45,83 @@ class _second_page extends State<second_page>{
             future: RemoteService().getRating(regionId),
             builder: (BuildContext context, AsyncSnapshot<Rating> snapshot){
               if (snapshot.connectionState == ConnectionState.waiting){
-                  return Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError){
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                    final post = snapshot.data;
-                    return Container(
-                      child: ClipRRect(
+                return Center(child: CircularProgressIndicator()); 
+              } 
+              else if (snapshot.hasError){
+                return Text('Error: ${snapshot.error}');
+              }
+              else {
+                final post = snapshot.data;
+                return Container(
+                  color: colorForBackGround,
+                  child: ListView(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                         child: Container(
-                        margin: EdgeInsets.only(top: 5, bottom: 15, left: 10, right: 10),
-                        color: colorForBackGround,
+                          alignment: Alignment.topCenter,
+                          margin: EdgeInsets.only(bottom: 15, top: 10),
+                          color: Colors.white,
                           child: Column(
-                          children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.all(0),
-                                child: Container(
-                                  alignment: Alignment.topCenter,
-                                  margin: EdgeInsets.only(bottom: 15, top: 10),
-                                  color: Colors.white,
-                                  child: Column(
-                                    children:[
-                                      
-                                      Container(
-                                        margin: EdgeInsets.only(top: 10),
-                                        child: Text('${post?.name}', style: TextStyle(color: colorForText, fontSize: textSizeForTable + 1, fontWeight: FontWeight.w500)),
-                                      ),
+                            children:[
+                              
+                              Container(
+                                margin: EdgeInsets.only(top: 10),
+                                child: Text('${post?.name}',
+                                  style: TextStyle(
+                                    color: colorForText, 
+                                    fontSize: textSizeForTable + 1, 
+                                    fontWeight: FontWeight.w500
+                                  )
+                                ),
+                              ),
 
-                                      Container(
-                                        margin: EdgeInsets.all(10),
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(post!.description)
-                                      ),
-                                    ],
+                              Container(
+                                margin: EdgeInsets.all(10),
+                                alignment: Alignment.centerLeft,
+                                child: Text(post!.description, 
+                                  style: TextStyle(
+                                    color: colorForText,
+                                    fontSize: textSizeForTable + 1,
+                                    fontWeight: FontWeight.w500
                                   )
                                 )
                               ),
-                              Expanded(
-                                child: Scaffold(
-                                  body: Container(
-                                    padding: EdgeInsets.all(10),
-                                    color: Colors.white,
-                                    child: ListView.builder(
-                                      itemCount: 1,
-                                      shrinkWrap: true,
-                                      itemBuilder: (context, index){
-                                        return DataTable(   //TODO Сделать сортировку таблицы
-                                          horizontalMargin: 10,
-                                          columnSpacing: MediaQuery.of(context).size.width * 0.05,
-                                          dataTextStyle: TextStyle(fontSize: textSizeForTable),
-                                          border: const TableBorder(
-                                            horizontalInside: BorderSide(color: Color.fromARGB(255, 255, 204, 142), width: 2.5),
-                                          ),
-                                          columns: [
-                                            DataColumn(label: Text('Место', style: TextStyle(color: colorForText, fontSize: textSizeForTable),)),
-                                            DataColumn(label: Text('Критерий', style: TextStyle(color: colorForText, fontSize: textSizeForTable))),
-                                            DataColumn(label: Text('')),
-                                            DataColumn(label: Text('Баллы', style: TextStyle(color: colorForText, fontSize: textSizeForTable))),
-                                          ],
-                                          rows: List<DataRow>.generate(post!.projections.length, (index) => DataRow(
-                                            cells: <DataCell>[
-                                              DataCell(Text('${post.projections[index].place}', style: TextStyle(color: colorForText, fontSize: textSizeForTable))),
-                                              DataCell(Text(post.projections[index].projection.name, style: TextStyle(color: colorForText, fontSize: textSizeForTable),)),
-                                              DataCell(Image(image: AssetImage('${iconsPath + post.projections[index].projection.id.toString()}.png',), width: 30, height: 30, alignment: Alignment.centerRight,)),
-                                              DataCell(Text('${post.projections[index].score}', style: TextStyle(color: colorForText, fontSize: textSizeForTable))),
-                                            ]
-                                          ))
-                                        );
-                                      }
-                                    )
-                                  )
-                                )
-                              )
                             ],
-                          ),
+                          )
                         )
                       ),
-                    );
-                  }
+                      Container(
+                        padding: EdgeInsets.only(left: 5, right: 5),
+                        margin: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+                        color: Colors.white,
+                        child: DataTable(   //TODO Сделать сортировку таблицы
+                          horizontalMargin: 10,
+                          columnSpacing: MediaQuery.of(context).size.width * 0.05,
+                          dataTextStyle: TextStyle(fontSize: textSizeForTable),
+                          border: const TableBorder(
+                            horizontalInside: BorderSide(color: Color.fromARGB(255, 255, 204, 142), width: 2.5),
+                          ),
+                          columns: [
+                            DataColumn(label: Text('Место', style: TextStyle(color: colorForText, fontSize: textSizeForTable),)),
+                            DataColumn(label: Text('Критерий', style: TextStyle(color: colorForText, fontSize: textSizeForTable))),
+                            DataColumn(label: Text('')),
+                            DataColumn(label: Text('Баллы', style: TextStyle(color: colorForText, fontSize: textSizeForTable))),
+                          ],
+                          rows: List<DataRow>.generate(post.projections.length, (index) => DataRow(
+                            cells: <DataCell>[
+                              DataCell(Text('${post.projections[index].place}', style: TextStyle(color: colorForText, fontSize: textSizeForTable))),
+                              DataCell(Text(post.projections[index].projection.name, style: TextStyle(color: colorForText, fontSize: textSizeForTable),)),
+                              DataCell(Image(image: AssetImage('${iconsPath + post.projections[index].projection.id.toString()}.png',), width: 30, height: 30, alignment: Alignment.centerRight,)),
+                              DataCell(Text('${post.projections[index].score}', style: TextStyle(color: colorForText, fontSize: textSizeForTable))),
+                            ]
+                          ))  
+                        )
+                      )
+                    ]
+                  ),
+                );
+              }
             }
           )
         ),
