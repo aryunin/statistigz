@@ -16,7 +16,7 @@ export default function RegionsTableComponent(props) {
             return (
                 <tr class="reg1"> 
                     <th class="column1 odd ">{index}</th>
-                    <th onClick={() => navigate(`/region/${region.id}`)} class={`column2 region${region.id}`}>{region.name}</th>
+                    <th style={{cursor: "pointer"}} onClick={() => navigate(`/region/${region.id}`)} class={`column2 region${region.id}`}>{region.name}</th>
                     {/* <th class="column3 odd bor"></th> */}
                     <th class="column3 odd">{region.score}</th>
                 </tr>
@@ -25,7 +25,7 @@ export default function RegionsTableComponent(props) {
             return (
                 <tr class="reg2"> 
                     <th class="column1 even">{index}</th>
-                    <th onClick={() => navigate(`/region/${region.id}`)} class={`column2 region${region.id}`}>{region.name}</th>
+                    <th style={{cursor: "pointer"}} onClick={() => navigate(`/region/${region.id}`)} class={`column2 region${region.id}`}>{region.name}</th>
                     {/* <th class="column3 even bor"></th> */}
                     <th class="column3 even">{region.score}</th>
                 </tr>

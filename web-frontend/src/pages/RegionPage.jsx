@@ -3,6 +3,7 @@ import ProjectionsTableComponent from "../components/ProjectionsTableComponent";
 import { useParams } from "react-router-dom";
 import HeadImg from "./../img/moscow_head.png"
 import RegionBackImg from "./../img/regionback.png"
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import HeaderComponent from "../components/HeaderComponent";
@@ -38,6 +39,8 @@ export default function RegionPage() {
     const [image4, setImage4] = useState([]);
     const [imageHeaderStyle, setImageHeaderStyle] = useState();
     const params = useParams();
+    
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_PROTOCOL}://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions/${params.id}`)
@@ -148,10 +151,16 @@ export default function RegionPage() {
         fontSize: "14px",
         fontStyle: "normal",
         fontWeight: "400",
-        lineHeight: "normal"
+        lineHeight: "normal",
+        // border: "1px solid transparent",
+        // borderRadius: "29px",
+        // width: "83px",
+        // height: "25px",
+        // padding: "5px 20px"
     }
     let mprrStyle={
-        color: "#FFFFFF"
+        color: "#FFFFFF",
+        cursor: "pointer"
     }
     let imgStyle={
         aspectRatio: "1",
@@ -193,13 +202,13 @@ export default function RegionPage() {
                             class="logo-icon"
                             alt="МПРР Logo"
                             />
-                            <div style={mprrStyle}>МПРР</div>
+                        <div style={mprrStyle} onClick={() => navigate(`/`)}>МПРР</div>
                         </div>
                         <nav class="nav-menu">
-                            <div><a style={linkStyle} class={"passive-link-region"} href={`http://${window.location.host}/ourcity`}>Регион для вас</a></div>
-                            <div><a style={linkStyle} class={"passive-link-region"} href={`http://${window.location.host}`}>Главная</a></div>
-                            <div><a style={linkStyle} class={"passive-link-region"} href={`http://${window.location.host}/city`}>Города</a></div>
-                            <div><a style={linkStyle} class={"passive-link-region"} href={`http://${window.location.host}/criterion`}>Критерии</a></div>
+                            <div><a class={"passive-link-region"} href={`http://${window.location.host}/ourcity`}>Регион для вас</a></div>
+                            <div><a class={"passive-link-region"} href={`http://${window.location.host}`}>Главная</a></div>
+                            <div><a class={"passive-link-region"} href={`http://${window.location.host}/city`}>Регионы</a></div>
+                            <div><a class={"passive-link-region"} href={`http://${window.location.host}/criterion`}>Критерии</a></div>
                         </nav>
                     </div>
                     <h1 style={heroTitleStyle} class="hero-title">{region.name}</h1>
