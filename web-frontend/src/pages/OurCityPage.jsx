@@ -173,7 +173,7 @@ export default function OurCityPage() {
             </section>
                 <div style={{backgroundColor: '#FFFFFF'}}>
                     <div style={{inputDivStyle}}>
-                        <h3 style={{border: 0, textAlign: "center", width: "100%", paddingTop: "30px", paddingBottom: "30px"}}>Заполните анкету</h3>
+                        <h3 style={{border: 0, textAlign: "center", width: "100%", paddingTop: "30px", paddingBottom: "30px", color: "#1F4C6A"}}>Заполните анкету</h3>
                     </div>
                     <div style={{borderRadius: '14px', 
                     backgroundColor: 'rgba(255, 205, 142, 1)', 
@@ -293,8 +293,12 @@ export default function OurCityPage() {
                         </div>
                     </div>
                 </div>
-            <br/>
-            <HideComponent hidden={!tableIsShow} component={<RegionsTableComponent regions={filteredRegions}/>}/>
+            <HideComponent hidden={!tableIsShow} component={
+                <div>
+                    <h3 style={{border: 0, textAlign: "center", width: "100%", paddingTop: "30px", paddingBottom: "30px", color: "#1F4C6A"}}>Ваши топ-5 регионов</h3>
+                    <RegionsTableComponent regions={filteredRegions}/>
+                </div>
+                }/>
         </div>
     );
 }

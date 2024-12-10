@@ -128,11 +128,11 @@ h3{
     text-align: center;
     width: 30px;
     margin: 0;
-    color: #1F4C6A;
+    color: #FFCD8E;
     font-family: Yeseva One;
     font-size: 20px;
     font-weight: 400;
-    border: 2px solid #1F4C6A;
+    border: 2px solid #FFCD8E;
     border-radius: 70%;
 }
 
@@ -215,74 +215,152 @@ h3{
     border-radius: 50%;
 }
 
+.circle-item:nth-child(17):hover {
+    transform: scale(1.3);
+    
+}
+
 .circle-item:nth-child(1) {
     transform: rotate(270deg) translate(180px) rotate(-270deg);
+}
+.circle-item:nth-child(1):hover {
+    transform: rotate(270deg) translate(180px) rotate(-270deg) scale(1.3);
+    
 }
 
 .circle-item:nth-child(2) {
     transform: rotate(292.5deg) translate(180px) rotate(-292.5deg);
 }
+.circle-item:nth-child(2):hover {
+    transform: rotate(292.5deg) translate(180px) rotate(-292.5deg) scale(1.3);
+    
+}
 
 .circle-item:nth-child(3) {
     transform: rotate(315deg) translate(180px) rotate(-315deg);
+}
+.circle-item:nth-child(3):hover {
+    transform: rotate(315deg) translate(180px) rotate(-315deg) scale(1.3);
+    
 }
 
 .circle-item:nth-child(4) {
     transform: rotate(337.5deg) translate(180px) rotate(-337.5deg);
 }
+.circle-item:nth-child(4):hover {
+    transform: rotate(337.5deg) translate(180px) rotate(-337.5deg) scale(1.3);
+    
+}
+
 .circle-item:nth-child(5) {
     transform: rotate(0deg) translate(180px) rotate(0deg);
 }
+.circle-item:nth-child(5):hover {
+    transform: rotate(0deg) translate(180px) rotate(0deg) scale(1.3);
+    
+}
+
 
 .circle-item:nth-child(6) {
     transform: rotate(22.5deg) translate(180px) rotate(-22.5deg);
 }
+.circle-item:nth-child(6):hover {
+    transform: rotate(22.5deg) translate(180px) rotate(-22.5deg) scale(1.3);
+
+}
+
 
 .circle-item:nth-child(7) {
     transform: rotate(45deg) translate(180px) rotate(-45deg);
 }
+.circle-item:nth-child(7):hover {
+    transform: rotate(45deg) translate(180px) rotate(-45deg) scale(1.3);
+    
+}
+
 
 .circle-item:nth-child(8) {
     transform: rotate(67.5deg) translate(180px) rotate(-67.5deg);
 }
+.circle-item:nth-child(8):hover {
+    transform: rotate(67.5deg) translate(180px) rotate(-67.5deg) scale(1.3);
+    
+}
+
 
 .circle-item:nth-child(9) {
     transform: rotate(90deg) translate(180px) rotate(-90deg);
 }
+.circle-item:nth-child(9):hover {
+    transform: rotate(90deg) translate(180px) rotate(-90deg) scale(1.3);
+    
+}
+
 
 .circle-item:nth-child(10) {
     transform: rotate(112.5deg) translate(180px) rotate(-112.5deg);
 }
+.circle-item:nth-child(10):hover {
+    transform: rotate(112.5deg) translate(180px) rotate(-112.5deg) scale(1.3);
+    
+}
+
 
 .circle-item:nth-child(11) {
     transform: rotate(135deg) translate(180px) rotate(-135deg);
 }
+.circle-item:nth-child(11):hover {
+    transform: rotate(135deg) translate(180px) rotate(-135deg) scale(1.3);
+    
+}
+
 
 .circle-item:nth-child(12) {
     transform: rotate(157.5deg) translate(180px) rotate(-157.5deg);
 }
+.circle-item:nth-child(12):hover {
+    transform: rotate(157.5deg) translate(180px) rotate(-157.5deg) scale(1.3);
+    
+}
+
 
 .circle-item:nth-child(13) {
     transform: rotate(180deg) translate(180px) rotate(-180deg);
 }
+.circle-item:nth-child(13):hover {
+    transform: rotate(180deg) translate(180px) rotate(-180deg) scale(1.3);
+    
+}
+
 
 .circle-item:nth-child(14) {
     transform: rotate(202.5deg) translate(180px) rotate(-202.5deg);
 }
+.circle-item:nth-child(14):hover {
+    transform: rotate(202.5deg) translate(180px) rotate(-202.5deg) scale(1.3);
+    
+}
+
 
 .circle-item:nth-child(15) {
     transform: rotate(225deg) translate(180px) rotate(-225deg);
+}
+.circle-item:nth-child(15):hover {
+    transform: rotate(225deg) translate(180px) rotate(-225deg) scale(1.3);
+    
 }
 
 .circle-item:nth-child(16) {
     transform: rotate(247.5deg) translate(180px) rotate(-247.5deg);
 }
-
+.circle-item:nth-child(16):hover {
+    transform: rotate(247.5deg) translate(180px) rotate(-247.5deg) scale(1.3);
+}
 
 .circle-item:hover{
     margin: 0;
     border: 5px solid white;
-
+    
     transition: 0.5s ease-in;
 }
 
