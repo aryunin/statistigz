@@ -9,7 +9,7 @@ export default function RegionsPage() {
     const [filteredRegions, setFilteredRegions] = useState([])
 
     function ChangeSearchText(text) {
-        setFilteredRegions(regions.filter((r) => r.name.includes(text)))
+        setFilteredRegions(regions.filter((r) => r.name.toUpperCase().includes(text.toUpperCase())))
     }
 
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function RegionsPage() {
                 setFilteredRegions(data);
             })
             .catch((err) => {
-                alert(err.message);
+                console.log(err.message);
             });
     }, []);
 
@@ -52,7 +52,7 @@ export default function RegionsPage() {
                 </div>
             </section>
             <div style={{backgroundImage: `url(${Background})`, backgroundRepeat: 'no-repeat', backgroundSize: '90% 95%', backgroundPosition: '50px 100px', minHeight: '5538px'}}>
-                <h2 class="name_overall">ОБЩИЙ РЕЙТИНГ ПРИВЛЕКАТЕЛЬНОСТИ РЕГИОНОВ</h2>
+                <h2 style={{marginTop: "30px"}} class="name_overall">ОБЩИЙ РЕЙТИНГ ПРИВЛЕКАТЕЛЬНОСТИ РЕГИОНОВ</h2>
                 <div style={{display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center'}}>

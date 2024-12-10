@@ -3,8 +3,8 @@ import RegionsTableComponent from "../components/RegionsTableComponent";
 import HideComponent from "../components/HideComponent";
 import { useParams } from "react-router-dom";
 import './../style_page_criterion.css';
-import icon_cheklist from './../img/icon-cheklist.svg';
-import Background from './../img/criterion_back.png';
+// import Background from './../img/criterion_back.png';
+import Background from './../img/criterion_back.jpg';
 
 import axios from "axios";
 import HeaderComponent from "../components/HeaderComponent";
@@ -28,7 +28,7 @@ export default function CriterionPage() {
                     setTableIsShow(true)
                 })
                 .catch((err) => {
-                    alert(err.message);
+                    console.log(err.message);
                 });
         }
     }
@@ -92,22 +92,23 @@ export default function CriterionPage() {
             </section>
 
             <section class='interactive_globe' style={{padding: '0px 0px 0px 0px'}}>
-                {/* <div style={{backgroundImage: `url(${Background})`, backgroundSize: 'cover', backgroundAttachment: 'fixed'}}> */}
-                <div style={{backgroundImage: `url(${Background})`, backgroundSize: 'cover', padding: '0px 0px 50px 0px'}}>
-                    <h2>Интерактивный глобус</h2>
+                <div style={{backgroundImage: `url(${Background})`, backgroundSize: 'cover', backgroundAttachment: 'fixed', paddingTop: "30px", paddingBottom: "30px"}}>
+                {/* <div style={{backgroundImage: `url(${Background})`, backgroundSize: 'cover', padding: '0px 0px 50px 0px'}}> */}
+                    <h2 style={{ color: "#FFCD8E",
+    borderBottom: "2px solid #FFCD8E"}}>Интерактивный глобус</h2>
                     <div class="globe d_f ai_c jc_c">
                         <div class="globe-item__left">
                             <div class="globe-item">
                                 <h3>1</h3>
                                 <img src="img/globe.svg" alt=""/>
-                                <p>Прочтите справочную <br/>
+                                <p style={{color: "white"}}>Прочтите справочную <br/>
                                     часть о критериях -<br/>
                                     ниже</p>
                             </div>
                             <div class="globe-item globe-item__third pad-80">
                                 <h3>3</h3>
                                 <img src="img/globe.svg" alt=""/>
-                                <p>Кликните по <br/>
+                                <p style={{color: "white"}}>Кликните по <br/>
                                     интересующему вас <br/>
                                     критерию</p>
 
@@ -190,14 +191,14 @@ export default function CriterionPage() {
                             <div class="globe-item globe-item__second">
                                 <h3>2</h3>
                                 <img src="img/globe.svg" alt=""/>
-                                <p>Наведите курсор <br/>
+                                <p style={{color: "white"}}>Наведите курсор <br/>
                                     на один из <br/>
                                     элементов глобуса</p>
                             </div>
                             <div class="globe-item globe-item__fourth pad-80">
                                 <h3>4</h3>
                                 <img src="img/globe.svg" alt=""/>
-                                <p>Ниже отобразилась <br/>
+                                <p style={{color: "white"}}>Ниже отобразилась <br/>
                                     информация по <br/>
                                     интересующему <br/>
                                     вас критерию</p>
@@ -206,6 +207,8 @@ export default function CriterionPage() {
                     </div>
                 </div>
             </section>
+
+            <HideComponent hidden={!tableIsShow} component={<RegionsTableComponent regions={regions}/>}/>
 
             <section class='reference_part'>
                 <div class="container">
@@ -320,8 +323,6 @@ export default function CriterionPage() {
 
                 </div>
             </section>
-
-            <HideComponent hidden={!tableIsShow} component={<RegionsTableComponent regions={regions}/>}/>
 
             <footer>
 

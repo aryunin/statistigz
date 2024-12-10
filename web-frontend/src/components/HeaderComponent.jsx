@@ -1,6 +1,7 @@
 import { React } from "react";
 import Style from "../header.css"
 import HeaderBurgerImage from "./../img/header_burger.svg"
+import { useNavigate } from "react-router-dom";
 
 
 function activePassiveLink(name, currentPageName, label) {
@@ -23,6 +24,7 @@ function color(page) {
 
 export default function HeaderComponent(props) {
 
+  const navigate = useNavigate();
     
 
     return (
@@ -35,12 +37,12 @@ export default function HeaderComponent(props) {
                   class="logo-icon"
                   alt="МПРР Logo"
                 />
-                <div>МПРР</div>
+                <div style={{cursor: "pointer"}} onClick={() => navigate(`/`)}>МПРР</div>
               </div>
               <nav class="nav-menu">
                {activePassiveLink("ourcity", props.page, "Регион для вас")}
                {activePassiveLink("", props.page, "Главная")}
-               {activePassiveLink("city", props.page, "Города")}
+               {activePassiveLink("city", props.page, "Регионы")}
                {activePassiveLink("criterion", props.page, "Критерии")}
               </nav>
             </div>

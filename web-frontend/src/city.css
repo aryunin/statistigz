@@ -80,15 +80,16 @@ h1{
 .icon_text{
     font-size: 14px;
     color: white;
-    height: 51px;
-    line-height: 25px;
+    height: 48px;
+    line-height: 23px;
     text-align: center;
 }
 .map_icon {
-    width: 50px;
-    height: 50px;
+    width: 46px;
+    height: 46px;
     background-color: #1F4C6A;
     border-radius: 30px;
+    border: 2px solid transparent;
     cursor: pointer;
 }
 .icon_SPB{
@@ -577,3 +578,9 @@ h1{
 
 
 
+.map_icon:hover {
+    /* margin: 0; */
+    border: 2px solid white;
+    
+    transition: 0.25s ease-in;
+}
