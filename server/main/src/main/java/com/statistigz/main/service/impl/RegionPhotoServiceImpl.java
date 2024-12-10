@@ -38,7 +38,7 @@ public class RegionPhotoServiceImpl implements RegionPhotoService {
     @Cacheable("photoAllByRegionId")
     public List<RegionPhotoDTO> findAllById(Long id) {
         regionRepository.findById(id).orElseThrow(() -> new NotFoundException("No region with id " + id));
-        return regionPhotoRepository.findByRegionId(id)
+        return regionPhotoRepository.findByRegionIdOrderByIdAsc(id)
                 .stream()
                 .map(RegionPhotoDtoMapper::mapToDto)
                 .toList();
