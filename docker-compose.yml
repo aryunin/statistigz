@@ -13,6 +13,7 @@ services:
       - SERVICE_PORT=8080
       - LOG_LEVEL=DEBUG
       - ALLOWED_ORIGIN=http://localhost:8080
+      - SPRING_PROFILES_ACTIVE=dev
     ports: 
       - 8081:8080
     restart: always
@@ -31,6 +32,7 @@ services:
       - DB_PASSWORD=postgres
       - SERVICE_PORT=8080
       - LOG_LEVEL=INFO
+      - SPRING_PROFILES_ACTIVE=dev
     restart: always
     
   server-rcm:
@@ -49,6 +51,7 @@ services:
       - CLASSIFIER_HOST=classifier
       - CLASSIFIER_PORT=8080
       - LOG_LEVEL=INFO
+      - SPRING_PROFILES_ACTIVE=dev
     restart: always
     
   server-cp:
@@ -66,6 +69,7 @@ services:
       - SERVICE_PORT=8080
       - LOG_LEVEL=INFO
       - PASSWORD_CHANGE_DELAY=1440
+      - SPRING_PROFILES_ACTIVE=dev
     profiles: 
       - fill
     restart: 'no'
