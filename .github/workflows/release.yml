@@ -208,8 +208,6 @@ jobs:
         
       - name: Build apk
         run: >
-          version=${{ github.ref_name#v }}
-          number=$(echo $version | awk -F. '{print $NF}')
           flutter build apk 
           --dart-define=host=${{ vars.SERVER_HOST }} 
           --dart-define=port=${{ vars.SERVER_PORT }} 
@@ -217,7 +215,6 @@ jobs:
           --dart-define=regionsEndpoint=/${{ vars.SERVER_REGIONS_EP }}
           --dart-define=rcm=/${{ vars.SERVER_RCM_EP }}
           --dart-define=production=true
-          --build-number=$number
         working-directory: ${{ env.working-directory }}
           
       - name: Rename apk
