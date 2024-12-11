@@ -202,12 +202,11 @@ jobs:
       - name: Analyze
         run: flutter analyze --no-fatal-infos --no-fatal-warnings
         working-directory: ${{ env.working-directory }}
-      
-      - name: Extract version from tag
-        run: echo "VERSION=${GITHUB_REF##*/}" | sed 's/^v//' >> $GITHUB_ENV
         
       - name: Build apk
         run: >
+          tag_version=${github.ref_name}
+          number=${version##*.}
           flutter build apk 
           --dart-define=host=${{ vars.SERVER_HOST }} 
           --dart-define=port=${{ vars.SERVER_PORT }} 
@@ -215,7 +214,7 @@ jobs:
           --dart-define=regionsEndpoint=/${{ vars.SERVER_REGIONS_EP }}
           --dart-define=rcm=/${{ vars.SERVER_RCM_EP }}
           --dart-define=production=true
-          --build-number=${{ env.VERSION }}
+          --build-number=${{ number }}
         working-directory: ${{ env.working-directory }}
           
       - name: Rename apk
