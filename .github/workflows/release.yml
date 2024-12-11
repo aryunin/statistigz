@@ -205,8 +205,7 @@ jobs:
         
       - name: Build apk
         run: >
-          tag_version=${{ github.ref_name }}
-          number=${{ version##*. }}
+          number=$(echo "${{ github.ref_name }}" | grep -oP '(?<=\.\d\.)\d+$')
           flutter build apk 
           --dart-define=host=${{ vars.SERVER_HOST }} 
           --dart-define=port=${{ vars.SERVER_PORT }} 
@@ -214,7 +213,7 @@ jobs:
           --dart-define=regionsEndpoint=/${{ vars.SERVER_REGIONS_EP }}
           --dart-define=rcm=/${{ vars.SERVER_RCM_EP }}
           --dart-define=production=true
-          --build-number=${{ number }}
+          --build-number=$number
         working-directory: ${{ env.working-directory }}
           
       - name: Rename apk
