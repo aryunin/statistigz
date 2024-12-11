@@ -205,8 +205,8 @@ jobs:
         
       - name: Build apk
         run: >
-          tag_version=${github.ref_name}
-          number=${version##*.}
+          tag_version=${{ github.ref_name }}
+          number=${{ version##*. }}
           flutter build apk 
           --dart-define=host=${{ vars.SERVER_HOST }} 
           --dart-define=port=${{ vars.SERVER_PORT }} 
