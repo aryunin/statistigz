@@ -44,7 +44,7 @@ class _SurveyPageState extends State<SurveyPage> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 204, 142),
         centerTitle: true,
-        title: const Text('Опросник',
+        title: const Text('Заполните анкету',
           style: TextStyle(color: Colors.black, fontSize: 16)),
       ),
       body: SingleChildScrollView(

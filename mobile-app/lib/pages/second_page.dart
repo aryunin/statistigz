@@ -82,8 +82,7 @@ class _second_page extends State<second_page>{
                                 child: Text(post!.description, 
                                   style: TextStyle(
                                     color: colorForText,
-                                    fontSize: textSizeForTable + 1,
-                                    fontWeight: FontWeight.w500
+                                    fontSize: textSizeForTable + 1
                                   )
                                 )
                               ),
