@@ -9,7 +9,7 @@ void main(){
 List<String> title = <String>[
   'Главная',
   'Критерии',
-  'Кластер'
+  'Регионы для вас'
 ];
 class HomePage extends StatelessWidget{
   const HomePage({super.key});
