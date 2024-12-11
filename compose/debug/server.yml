@@ -15,6 +15,7 @@ services:
       - SERVICE_PORT=8080
       - LOG_LEVEL=DEBUG
       - ALLOWED_ORIGIN=*
+      - SPRING_PROFILES_ACTIVE=dev
     ports: 
       - ${GATEWAY_PORT}:8080
     restart: always
@@ -33,6 +34,7 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - SERVICE_PORT=8080
       - LOG_LEVEL=INFO
+      - SPRING_PROFILES_ACTIVE=dev
     restart: always
     
   server-rcm:
@@ -51,6 +53,7 @@ services:
       - CLASSIFIER_HOST=classifier
       - CLASSIFIER_PORT=8080
       - LOG_LEVEL=INFO
+      - SPRING_PROFILES_ACTIVE=dev
     restart: always
     
   server-cp:
@@ -68,6 +71,7 @@ services:
       - SERVICE_PORT=8080
       - LOG_LEVEL=INFO
       - PASSWORD_CHANGE_DELAY=1440
+      - SPRING_PROFILES_ACTIVE=dev
     profiles: 
       - cp
     restart: 'no'

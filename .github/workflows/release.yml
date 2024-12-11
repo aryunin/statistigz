@@ -213,7 +213,7 @@ jobs:
           --dart-define=regionsEndpoint=/${{ vars.SERVER_REGIONS_EP }}
           --dart-define=rcm=/${{ vars.SERVER_RCM_EP }}
           --dart-define=production=true
-          --build-number=${{ number }}
+          --build-number=$number
         working-directory: ${{ env.working-directory }}
           
       - name: Rename apk

@@ -22,7 +22,7 @@ jobs:
           cache: maven
           
       - name: Build with Maven
-        run: mvn -B clean package -DskipTests -Drevision=${{ vars.SERVER_DEV_REVISION }} -Pproduction -Dspring.profiles.active=dev
+        run: mvn -B clean package -DskipTests -Drevision=${{ vars.SERVER_DEV_REVISION }} -Pproduction
         working-directory: ${{ env.working-directory }}
         
       - name: Log in to Docker Hub
