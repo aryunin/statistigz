@@ -178,7 +178,7 @@ jobs:
             REACT_APP_API_PREFIX=${{ vars.SERVER_API }}
             REACT_APP_API_PROTOCOL=https
             
-  mobile:
+  mobile-android:
     runs-on: ubuntu-latest
     env:
       working-directory: ./mobile-app
@@ -226,3 +226,47 @@ jobs:
           retention-days: 90
           compression-level: 0
           path: ${{ env.working-directory }}/build/app/outputs/apk/release/app-${{ github.ref_name }}-release.apk          
+
+  mobile-ios:
+    runs-on: macos-latest
+    env:
+      working-directory: ./mobile-app
+    steps: 
+      - uses: actions/checkout@v4  
+          
+      - uses: subosito/flutter-action@v2.12.0
+        with:
+          flutter-version: '3.13.9'
+          
+      - name: Dependencies
+        run: flutter pub get
+        working-directory: ${{ env.working-directory }}
+        
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos --no-fatal-warnings
+        working-directory: ${{ env.working-directory }}
+        
+      - name: Build ios
+        run: >
+          flutter build ios --release --no-codesign
+          --dart-define=host=${{ vars.SERVER_HOST }}
+          --dart-define=port=${{ vars.SERVER_PORT }}
+          --dart-define=projectionsEndpoint=/${{ vars.SERVER_PROJECTIONS_EP }}
+          --dart-define=regionsEndpoint=/${{ vars.SERVER_REGIONS_EP }}
+          --dart-define=rcm=/${{ vars.SERVER_RCM_EP }}
+          --dart-define=production=true
+          --build-number=${{ github.run_number }}
+        working-directory: ${{ env.working-directory }}
+          
+      - name: Rename app
+        run: mv ./build/ios/iphoneos/*.app ./build/app/outputs/apk/release/app-${{ github.ref_name }}-release.app
+        working-directory: ${{ env.working-directory }}       
+        
+      - name: Upload artifacts   
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ github.ref_name }}-release
+          retention-days: 90
+          compression-level: 0
+          path: ${{ env.working-directory }}/build/app/outputs/apk/release/app-${{ github.ref_name }}-release.app         
+          
