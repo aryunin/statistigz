@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:mprr/models/projection_criteria.dart';
 import 'package:mprr/models/ratingProjection.dart';
@@ -58,8 +56,8 @@ class list_criteria extends StatelessWidget {
                   // TODO requreData нехорошо, наверное
                   child: CriteriaTable(
                       data: snapshot.requireData,
-                      callback: (int criteriaId) => callback(clicked_criteria(
-                          criteriaId: criteriaId, callback: callback))));
+                      callback: (int criteriaId, String criteriaName, List<Criteria> criteria) => callback(clicked_criteria(
+                          criteriaId: criteriaId, callback: callback, criteriaName: criteriaName, criteria: criteria))));
             } else if (snapshot.hasError) {
               child = const Text(
                   'something goes wrong'); // TODO сделать общее сообщение об ошибке
@@ -81,16 +79,19 @@ class list_criteria extends StatelessWidget {
 class clicked_criteria extends StatelessWidget {
   final int criteriaId;
   final Function callback;
+  final String criteriaName;
+  final List<Criteria> criteria;
 
   const clicked_criteria(
-      {super.key, required this.criteriaId, required this.callback});
+      {super.key, required this.criteriaId, required this.callback, required this.criteriaName, required this.criteria});
 
   @override
   Widget build(BuildContext context) {
+    const String iconsPath = 'assets/images/criteria/';
     double textSizeForTable = 13.8;
-      Color colorForBackGround = Color.fromARGB(255, 255, 204, 142);
-      Color colorForText = Color.fromARGB(255, 47, 126, 113);
-      Color colorFromAppBarBack = Color.fromARGB(255, 146, 194, 186);
+    Color colorForBackGround = Color.fromARGB(255, 255, 204, 142);
+    Color colorForText = Color.fromARGB(255, 47, 126, 113);
+    Color colorFromAppBarBack = Color.fromARGB(255, 146, 194, 186);
     return Container(
       color: colorForBackGround,
       child: FutureBuilder<List<RatingProjection>>(
@@ -103,22 +104,61 @@ class clicked_criteria extends StatelessWidget {
           } else {
             final post = snapshot.data;
             final length = post!.length;
-            return SingleChildScrollView(
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                child: Container(
+            final description = criteria.map((element) => element.name).join(', ');
+            return ListView(
+              children: <Widget>[
+
+                Container(
+                  color: Colors.white,
+                  margin: const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 5),
+                  child: Column(
+                    children: <Widget>[
+                      
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 5, top: 10, left: 10, right: 10),
+                        child: Text(
+                          criteriaName,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: colorForText,
+                            fontSize: textSizeForTable,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      ),
+
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 10, left: 5, right: 10),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          description,
+                          style: TextStyle(
+                            color: colorForText,
+                            fontSize: textSizeForTable
+                          ),
+                        )
+                      )
+                    ]
+                  )
+                ),
+
+                ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  child: Container(
                     margin: EdgeInsets.all(10),
                     color: Colors.white,
                     child: DataTable(
                       dataRowMinHeight: 50,
+                      showCheckboxColumn: false,
                       dataRowMaxHeight: 75,
                       horizontalMargin: 15,
-                      columnSpacing: MediaQuery.of(context).size.width * 0.1,
+                      columnSpacing: MediaQuery.of(context).size.width * 0.05,
                       dataTextStyle: TextStyle(fontSize: textSizeForTable),
                       border: const TableBorder(horizontalInside: BorderSide(color: Color.fromARGB(255, 255, 204, 142), width: 2.5)),
                       columns: [
                         DataColumn(label: Text('Место', style: TextStyle(color: colorForText, fontSize: textSizeForTable),)),
                         DataColumn(label: Text('Регион', style: TextStyle(color: colorForText, fontSize: textSizeForTable))),
+                        const DataColumn(label: Text('')),
                         DataColumn(label: Text('Баллы', style: TextStyle(color: colorForText, fontSize: textSizeForTable),)),
                       ],
 
@@ -127,15 +167,18 @@ class clicked_criteria extends StatelessWidget {
                           
                           DataCell(Text('${index + 1}', style: TextStyle(color: colorForText, fontSize: textSizeForTable),)),
 
-                          DataCell(Text('${post[index].name}', style: TextStyle(color: colorForText, fontSize: textSizeForTable),)),
+                          DataCell(Text(post[index].name, style: TextStyle(color: colorForText, fontSize: textSizeForTable),)),
+
+                          DataCell(Image(image: AssetImage('${iconsPath + criteriaId.toString()}.png',), width: 30, height: 30, alignment: Alignment.centerRight)),
 
                           DataCell(Text('${post[index].score}', style: TextStyle(color: colorForText, fontSize: textSizeForTable))),
                         ]
                       ))
                     )
                   )
-                ),
-              );
+                )
+              ]  
+            );
           }
         }  
       )
