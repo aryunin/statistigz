@@ -27,7 +27,7 @@ class _CriteriaTableState extends State<CriteriaTable> {
   void initState() {
     for (var el in widget.data) {
       _rows.add(DataRow(
-          onSelectChanged: (x) => widget.callback(el.id),
+          onSelectChanged: (x) => widget.callback(el.id, el.name, el.criteria),
           cells: <DataCell>[
             DataCell(SizedBox(
                 height: 75,

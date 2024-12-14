@@ -1,14 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:mprr/models/post.dart';
-import 'package:mprr/models/projection_criteria.dart';
 import 'package:mprr/pages/second_page.dart';
 import 'package:mprr/services/remote_serveices.dart';
-import 'package:http/http.dart';
 
 class first_page extends StatefulWidget {
   const first_page({super.key});
