@@ -222,7 +222,7 @@ jobs:
       - name: Upload artifacts   
         uses: actions/upload-artifact@v4
         with:
-          name: app-${{ github.ref_name }}-release
+          name: app-${{ github.ref_name }}-release-android
           retention-days: 90
           compression-level: 0
           path: ${{ env.working-directory }}/build/app/outputs/apk/release/app-${{ github.ref_name }}-release.apk          
@@ -265,7 +265,7 @@ jobs:
       - name: Upload artifacts   
         uses: actions/upload-artifact@v4
         with:
-          name: app-${{ github.ref_name }}-release
+          name: app-${{ github.ref_name }}-release-ios
           retention-days: 90
           compression-level: 0
           path: ${{ env.working-directory }}/build/ios/iphoneos/app-${{ github.ref_name }}-release.app         
