@@ -5,27 +5,86 @@ import { useParams } from "react-router-dom";
 import './../style_page_criterion.css';
 // import Background from './../img/criterion_back.png';
 import Background from './../img/criterion_back.jpg';
+import { useRef } from 'react';
 
 import axios from "axios";
 import HeaderComponent from "../components/HeaderComponent";
 
+
 export default function CriterionPage() {
 
+    const resultRef = useRef(null);
     const [regions, setRegions] = useState([]);
     const [projectionId, setProjectionId] = useState(0);
     const [tableIsShow, setTableIsShow] = useState(false);
 
-    function showTable(_projectionId) {
-        if (_projectionId == projectionId) {
-            setTableIsShow(false)
+    const idToName = {
+        1: "Экономика",
+        2: "Образование",
+        3: "Труд и занятость",
+        4: "Семья",
+        5: "Уровень жизни",
+        6: "Демография",
+        7: "Экология",
+        8: "Внешняя торговля",
+        9: "Инвестиции",
+        10: "Здравоохранение",
+        11: "Транспорт",
+        12: "Культура и досуг",
+        13: "Финансы",
+        14: "Инновации",
+        15: "Торговля и услуги",
+        16: "Жильё",
+        17: "Обобщённый критерий"
+    };
+
+
+    function selectedButtonStyle(id)
+    {
+        if (id == projectionId)
+        {
+            return { border: "5px solid white", cursor: "default"}
         }
-        else {
+        else
+        {
+            return { cursor: "pointer"}
+        }
+    }
+
+
+    function selectedButtonClass(id)
+    {
+        if (id == projectionId)
+        {
+            return "circle-item"
+        }
+        else
+        {
+            return "circle-item non-active"
+        }
+    }
+
+    function showTable(_projectionId) {
+        if (_projectionId != projectionId) {
             fetch(`${process.env.REACT_APP_API_PROTOCOL}://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/regions?projectionId=${_projectionId}`)
                 .then((response) => response.json())
                 .then((data) => {
                     setRegions(data);
-                    setProjectionId(_projectionId)
                     setTableIsShow(true)
+                    if (projectionId == 0)
+                    {
+                        setTimeout(() => {
+                            resultRef.current?.scrollIntoView({
+                                behavior: 'smooth'
+                              })
+                          }, 250)
+                    }
+                    else{
+                        resultRef.current?.scrollIntoView({
+                            behavior: 'smooth'
+                          })
+                    }
+                    setProjectionId(_projectionId)
                 })
                 .catch((err) => {
                     console.log(err.message);
@@ -117,72 +176,72 @@ export default function CriterionPage() {
 
                         <div class="criterion-circle">
 
-                            <button href="#" class="circle-item" onClick={() => showTable(1)}>
+                            <button title={idToName['1']} style={selectedButtonStyle(1)} class={selectedButtonClass(1)} onClick={() => showTable(1)}>
                                 <img src="img/crit-economy.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(2)}>
+                            <button title={idToName['2']} style={selectedButtonStyle(2)} class={selectedButtonClass(2)} onClick={() => showTable(2)}>
                                 <img src="img/crit-study.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(3)}>
+                            <button title={idToName['3']} style={selectedButtonStyle(3)} class={selectedButtonClass(3)} onClick={() => showTable(3)}>
                                 <img src="img/crit-working-conditions.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(4)}>
+                            <button title={idToName['4']} style={selectedButtonStyle(4)} class={selectedButtonClass(4)} onClick={() => showTable(4)}>
                                 <img src="img/crit-fosterfamily.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(5)}>
+                            <button title={idToName['5']} style={selectedButtonStyle(5)} class={selectedButtonClass(5)} onClick={() => showTable(5)}>
                                 <img src="img/crit-life-insurance.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(6)}>
+                            <button title={idToName['6']} style={selectedButtonStyle(6)} class={selectedButtonClass(6)} onClick={() => showTable(6)}>
                                 <img src="img/crit-social.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(7)}>
+                            <button title={idToName['7']} style={selectedButtonStyle(7)} class={selectedButtonClass(7)} onClick={() => showTable(7)}>
                                 <img src="img/crit-ecology.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(8)}>
+                            <button title={idToName['8']} style={selectedButtonStyle(8)} class={selectedButtonClass(8)} onClick={() => showTable(8)}>
                                 <img src="img/crit-ecommerce.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(9)}>
+                            <button title={idToName['9']} style={selectedButtonStyle(9)} class={selectedButtonClass(9)} onClick={() => showTable(9)}>
                                 <img src="img/crit-investment.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(10)}>
+                            <button title={idToName['10']} style={selectedButtonStyle(10)} class={selectedButtonClass(10)} onClick={() => showTable(10)}>
                                 <img src="img/crit-doctor.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(11)}>
+                            <button title={idToName['11']} style={selectedButtonStyle(11)} class={selectedButtonClass(11)} onClick={() => showTable(11)}>
                                 <img src="img/crit-public-transport.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(12)}>
+                            <button title={idToName['12']} style={selectedButtonStyle(12)} class={selectedButtonClass(12)} onClick={() => showTable(12)}>
                                 <img src="img/crit-cinema.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(13)}>
+                            <button title={idToName['13']} style={selectedButtonStyle(13)} class={selectedButtonClass(13)} onClick={() => showTable(13)}>
                                 <img src="img/crit-calculator.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(14)}>
+                            <button title={idToName['14']} style={selectedButtonStyle(14)} class={selectedButtonClass(14)} onClick={() => showTable(14)}>
                                 <img src="img/crit-innovation.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(15)}>
+                            <button title={idToName['15']} style={selectedButtonStyle(15)} class={selectedButtonClass(15)} onClick={() => showTable(15)}>
                                 <img src="img/crit-ecommerce2.svg" alt=""/>
                             </button>
 
-                            <button href="#" class="circle-item" onClick={() => showTable(16)}>
+                            <button title={idToName['16']} style={selectedButtonStyle(16)} class={selectedButtonClass(16)} onClick={() => showTable(16)}>
                                 <img src="img/crit-house.svg" alt=""/>
                             </button>
 
 
-                            <button href="#" class="circle-item" onClick={() => showTable(17)}>
+                            <button title={idToName['17']} style={selectedButtonStyle(17)} class={selectedButtonClass(17)} onClick={() => showTable(17)}>
                                 <img src="img/crit_generic.svg" alt=""/>
                             </button>
                         </div>
@@ -208,7 +267,13 @@ export default function CriterionPage() {
                 </div>
             </section>
 
-            <HideComponent hidden={!tableIsShow} component={<RegionsTableComponent regions={regions}/>}/>
+            <section ref={resultRef}>
+                <HideComponent hidden={!tableIsShow} component={
+                    <div><h2 style={{  marginTop: "30px"}}>{idToName[projectionId]}</h2>
+                        <RegionsTableComponent regions={regions}/>
+                    </div>
+                    }/>
+            </section>
 
             <section class='reference_part'>
                 <div class="container">

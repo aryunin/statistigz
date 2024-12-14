@@ -239,16 +239,16 @@ export default function RegionPage() {
             <div style={galleryOutContainer}>
                 <div style={galleryContainer}>
                     <div style={imgStyle}>
-                        <img src={`data:image/jpeg;base64,${image1}`} alt="Moscow cityscape 1" class="gallery-image" />
+                        <img src={`data:image/jpeg;base64,${image1}`} alt="Cityscape 1" class="gallery-image" />
                     </div>
                     <div style={imgStyle}>
-                        <img src={`data:image/jpeg;base64,${image2}`} alt="Moscow cityscape 2" class="gallery-image" />
+                        <img src={`data:image/jpeg;base64,${image2}`} alt="Cityscape 2" class="gallery-image" />
                     </div>
                     <div style={imgStyle}>
-                        <img src={`data:image/jpeg;base64,${image3}`} alt="Moscow cityscape 3" class="gallery-image" />
+                        <img src={`data:image/jpeg;base64,${image3}`} alt="Cityscape 3" class="gallery-image" />
                     </div>
                     <div style={imgStyle}>
-                        <img src={`data:image/jpeg;base64,${image4}`} alt="Moscow cityscape 4" class="gallery-image" />
+                        <img src={`data:image/jpeg;base64,${image4}`} alt="Cityscape 4" class="gallery-image" />
                     </div>
                 </div>
             </div>
@@ -262,7 +262,7 @@ export default function RegionPage() {
             <br/>
             
             <p>Статистика</p>
-            <div style={{backgroundImage: `url(${RegionBackImg})`, backgroundRepeat: 'no-repeat', backgroundSize: '90% 95%', backgroundPosition: '50px 30px', minHeight: '1091px'}}>
+            <div style={{backgroundImage: `url(${RegionBackImg})`, backgroundRepeat: 'no-repeat', backgroundSize: '1091px 1082px', backgroundPosition: '50% 30px', minHeight: '1091px'}}>
                 <ProjectionsTableComponent projections={region.projections}></ProjectionsTableComponent>
             </div>
             <br/>
