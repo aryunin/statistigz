@@ -3,6 +3,7 @@ import RegionsTableComponent from "../components/RegionsTableComponent";
 import HeaderComponent from "../components/HeaderComponent";
 import Background from "../img/back_icons.png"
 
+
 export default function RegionsPage() {
 
     const [regions, setRegions] = useState([]);
@@ -51,7 +52,7 @@ export default function RegionsPage() {
                     </div>
                 </div>
             </section>
-            <div style={{backgroundImage: `url(${Background})`, backgroundRepeat: 'no-repeat', backgroundSize: '90% 95%', backgroundPosition: '50px 100px', minHeight: '5538px'}}>
+            <div style={{backgroundImage: `url(${Background})`, backgroundRepeat: 'no-repeat', backgroundSize: `${1097}px ${5538}px`, backgroundPosition: '50% 50px', minHeight: '5538px'}}>
                 <h2 style={{marginTop: "30px"}} class="name_overall">ОБЩИЙ РЕЙТИНГ ПРИВЛЕКАТЕЛЬНОСТИ РЕГИОНОВ</h2>
                 <div style={{display: 'flex',
                 justifyContent: 'center',

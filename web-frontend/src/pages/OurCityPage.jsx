@@ -5,6 +5,7 @@ import HeaderComponent from "../components/HeaderComponent";
 import './../ourcity.css';
 import Radio from "../img/radio.png"
 import RadioChecked from "../img/radiochecked.png"
+import { useRef } from 'react';
 
 function radioCircle(checked) {
     let radioStyle={marginTop: "0px",
@@ -61,6 +62,7 @@ function createQuestion(state, setState, labels, header) {
 
 
 export default function OurCityPage() {
+    const resultRef = useRef(null);
     
     const [filteredRegions, setFilteredRegions] = useState([]);
     const [regions, setRegions] = useState([]);
@@ -116,11 +118,15 @@ export default function OurCityPage() {
         fetch(`${process.env.REACT_APP_API_PROTOCOL}://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/${process.env.REACT_APP_API_PREFIX}/rcm`, requestOptions)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                setTableIsShow(true);
                 let ids = data.regionIds;  
                 let arr = ids.map(v => regions.get(v));
                 setFilteredRegions(arr);
-                setTableIsShow(true);
+                setTimeout(() => {
+                    resultRef.current?.scrollIntoView({
+                        behavior: 'smooth'
+                      })
+                  }, 250)
             })
             .catch((err) => {
                 console.log(err.message);
@@ -287,18 +293,20 @@ export default function OurCityPage() {
                                     "Да"],
                                      "17. Планируете ли вы устраиваться на работу в новом регионе?")}
                             </form>
-                            <div style={buttonDivStyle} onClick={() => {req(); setTableIsShow(true) }}>
+                            <div style={buttonDivStyle} onClick={() => {req();}}>
                                 <h5 style={headerStyle}>Отправить</h5>
                             </div>
                         </div>
                     </div>
                 </div>
-            <HideComponent hidden={!tableIsShow} component={
-                <div>
-                    <h3 style={{border: 0, textAlign: "center", width: "100%", paddingTop: "30px", paddingBottom: "30px", color: "#1F4C6A"}}>Ваши топ-5 регионов</h3>
-                    <RegionsTableComponent regions={filteredRegions}/>
-                </div>
-                }/>
+                <section ref={resultRef}>
+                    <HideComponent hidden={!tableIsShow} component={
+                        <div>
+                            <h3 style={{border: 0, textAlign: "center", width: "100%", paddingTop: "30px", paddingBottom: "30px", color: "#1F4C6A"}}>Ваши топ-5 регионов</h3>
+                            <RegionsTableComponent regions={filteredRegions}/>
+                        </div>
+                        }/>
+            </section>
         </div>
     );
 }
