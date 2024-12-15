@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mprr/models/projection_criteria.dart';
+import 'package:mprr/pages/clicked_criteria.dart';
 
 void _swapRows(List<DataRow> rows, int first, int second) {
   final temp = rows[first];
@@ -9,9 +10,8 @@ void _swapRows(List<DataRow> rows, int first, int second) {
 
 class CriteriaTable extends StatefulWidget {
   final List<ProjectionCriteria> data;
-  final Function callback;
 
-  const CriteriaTable({super.key, required this.data, required this.callback});
+  const CriteriaTable({super.key, required this.data});
 
   @override
   State<StatefulWidget> createState() {
@@ -27,7 +27,7 @@ class _CriteriaTableState extends State<CriteriaTable> {
   void initState() {
     for (var el in widget.data) {
       _rows.add(DataRow(
-          onSelectChanged: (x) => widget.callback(el.id, el.name, el.criteria),
+          onSelectChanged: (x) => Navigator.of(context).push(MaterialPageRoute(builder: (context) => clicked_criteria(criteriaId: el.id, criteriaName: el.name, criteria: el.criteria))),
           cells: <DataCell>[
             DataCell(SizedBox(
                 height: 75,
