@@ -1,0 +1,28 @@
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: region-recommendation
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  flyway:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
+    schemas: region_recommendation
+
+server:
+  port: ${SERVICE_PORT}
+
+service:
+  classifier:
+    host: ${CLASSIFIER_HOST}
+    port: ${CLASSIFIER_PORT}
+    protocol: http
+
+logging:
+  level:
+    org.springframework: ${LOG_LEVEL}
+    com.statistigz.rcm: ${LOG_LEVEL}

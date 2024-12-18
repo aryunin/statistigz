@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Yeseva+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="city.css">
+    <link rel="stylesheet" href="ourcity.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container d_f jc_sb ai_c header-home">
+            <div class="menu-section1">
+                <a class="menu-section1_MPRR" href="">МПРР</a>
+            </div>
+            <div class="menu-section2">
+                <nav>
+                    <ul class="header-menu d_f jc_sb">
+                        <li class="header-menu_listitem"><a class="passive-link" href="index.html">Главная</a></li>
+                        <li class="header-menu_listitem"><a class="passive-link" href="city.html">Города</a></li>
+                        <li class="header-menu_listitem"><a class="passive-link" href="">Критерии</a></li>
+                        <li class="header-menu_listitem"><a class="active-link" href="ourcity.html">Класстер</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="form_action">
+        <form action="" name="form-city">
+            <h3>Заполните анкету</h3>
+            <div class="question1">
+                <h5>1. Укажите ваш возраст</h5>
+                <input type="radio" name="old" value="12-16"> <label for="">12-16</label><br>
+                <input type="radio" name="old" value="17-22"> <label for="">17-22</label><br>
+                <input type="radio" name="old" value="23-27"> <label for="">23-27</label><br>
+                <input type="radio" name="old" value="28-25"> <label for="">27-45</label><br>
+                <input type="radio" name="old" value="b45"> <label for="">более 45</label><br>
+            </div>
+
+            <div class="question2">
+                <h5>2. Укажите ваш пол</h5>
+                <input type="radio" name="gender" value="M"> <label for="">Мужской</label><br>
+                <input type="radio" name="gender" value="W"> <label for="">Женский</label><br>
+            </div>
+
+            <div class="question3">
+                <h5>3. Представьте, что есть система персональной <br>подборки лучших регионов, которые вам наиболее всего подходят, <br>для чего вы бы рассматривали этот список?</h5>
+                <input type="radio" name="live" value="go1"> <label for="">Для переезда и постоянного
+                    проживания</label><br>
+                <input type="radio" name="live" value="go2"> <label for="">Для временного проживания (от
+                    месяца до года)</label><br>
+                <input type="radio" name="live" value="go3"> <label for="">Для временного проживания (от года
+                    до трёх лет)</label><br>
+                <input type="radio" name="live" value="go4"> <label for="">Для отдыха (до месяца)</label><br>
+            </div>
+
+            <div class="question4">
+                <h5>4. Семейное положение</h5>
+                <input type="radio" name="family" value="fam1"> <label for="">Замужем/женат (нет детей)</label><br>
+                <input type="radio" name="family" value="fam2"> <label for="">Замужем/женат (есть дети)</label><br>
+                <input type="radio" name="family" value="fam3"> <label for="">Не женат/ не замужем (нет детей)</label><br>
+                <input type="radio" name="family" value="fam4"> <label for="">Не женат/ не замужем (есть дети)</label><br>
+                <input type="radio" name="family" value="fam5"> <label for="">Планирую семью</label><br>
+            </div>
+
+            <div class="question5">
+                <h5>5. Насколько сильно вас интересует вопрос <br>экологии в регионе будущего проживания?</h5>
+                <input type="radio" name="ecolog" value="eco1"> <label for="">Не интересует совершенно</label><br>
+                <input type="radio" name="ecolog" value="eco2"> <label for="">Не интересует</label><br>
+                <input type="radio" name="ecolog" value="eco3"> <label for="">Безразлично</label><br>
+                <input type="radio" name="ecolog" value="eco4"> <label for="">Интересует</label><br>
+                <input type="radio" name="ecolog" value="eco5"> <label for="">Очень сильно интересует</label><br>
+            </div>
+
+            <div class="question6">
+                <h5>6. Условия вашего проживания</h5>
+                <input type="radio" name="home" value="hm1"> <label for="">Своё жильё</label><br>
+                <input type="radio" name="home" value="hm2"> <label for="">Живу с родителями</label><br>
+                <input type="radio" name="home" value="hm3"> <label for="">Съёмное</label><br>
+                <input type="radio" name="home" value="hm4"> <label for="">Общежитие</label><br>
+            </div>
+
+            <div class="question7">
+                <h5>7. Интересует ли вас уровень заработной платы в регионе?</h5>
+                <input type="radio" name="money" value="mon1"> <label for="">Не интересует совершенно</label><br>
+                <input type="radio" name="money" value="mon2"> <label for="">Не интересует</label><br>
+                <input type="radio" name="money" value="mon3"> <label for="">Безразлично</label><br>
+                <input type="radio" name="money" value="mon4"> <label for="">Интересует</label><br>
+                <input type="radio" name="money" value="mon5"> <label for="">Очень сильно интересует</label><br>
+            </div>
+
+            <div class="question8">
+                <h5>8. Насколько для вас важна оснащенность региона <br>местами культурного назначения (парки, театры, кинозалы)?</h5>
+                <input type="radio" name="arhit" value="arh1"> <label for="">Не интересует совершенно</label><br>
+                <input type="radio" name="arhit" value="arh2"> <label for="">Не интересует</label><br>
+                <input type="radio" name="arhit" value="arh3"> <label for="">Безразлично</label><br>
+                <input type="radio" name="arhit" value="arh4"> <label for="">Интересует</label><br>
+                <input type="radio" name="arhit" value="arh5"> <label for="">Очень сильно интересует</label><br>
+            </div>
+
+            <div class="question9">
+                <h5>9. Как часто вы пользуетесь общественным транспортом (личным авто)?</h5>
+                <input type="radio" name="auto" value="aut1"> <label for="">Не пользуюсь совсем</label><br>
+                <input type="radio" name="auto" value="aut2"> <label for="">Редко пользуюсь</label><br>
+                <input type="radio" name="auto" value="aut3"> <label for="">Пользуюсь время от времени</label><br>
+                <input type="radio" name="auto" value="aut4"> <label for="">Использую часто</label><br>
+                <input type="radio" name="auto" value="aut5"> <label for="">Пользуюсь ежедневно</label><br>
+            </div>
+
+            <div class="question10">
+                <h5>10. Насколько внимательно вы следите за новшествами в технической области?</h5>
+                <input type="radio" name="innovation" value="inn1"> <label for="">Не слежу совершенно</label><br>
+                <input type="radio" name="innovation" value="inn2"> <label for="">Не слежу</label><br>
+                <input type="radio" name="innovation" value="inn3"> <label for="">Безразлично</label><br>
+                <input type="radio" name="innovation" value="inn4"> <label for="">Слежу</label><br>
+                <input type="radio" name="innovation" value="inn5"> <label for="">Очень часто слежу</label><br>
+            </div>
+
+            <div class="question11">
+                <h5>11. Часто ли вы нуждаетесь в качественной медицинской помощи?</h5>
+                <input type="radio" name="medicine" value="med1"> <label for="">Нет, совершенно</label><br>
+                <input type="radio" name="medicine" value="med2"> <label for="">Скорее нет</label><br>
+                <input type="radio" name="medicine" value="med3"> <label for="">Не часто, но нуждаюсь</label><br>
+                <input type="radio" name="medicine" value="med4"> <label for="">Нуждаюсь переоически</label><br>
+                <input type="radio" name="medicine" value="med5"> <label for="">Часто нуждаюсь</label><br>
+            </div>
+
+            <div class="question12">
+                <h5>12. Часто ли пользуетесь различными услугами в регионе (например, доставкой)? </h5>
+                <input type="radio" name="services" value="ser1"> <label for="">Нет, совершенно</label><br>
+                <input type="radio" name="services" value="ser2"> <label for="">Скорее нет</label><br>
+                <input type="radio" name="services" value="ser3"> <label for="">Не часто, но нуждаюсь</label><br>
+                <input type="radio" name="services" value="ser4"> <label for="">Нуждаюсь переоически</label><br>
+                <input type="radio" name="services" value="ser5"> <label for="">Часто нуждаюсь</label><br>
+            </div>
+
+            <div class="question13">
+                <h5>13. Насколько для вас важен средний уровень жизни в регионе? </h5>
+                <input type="radio" name="average" value="aver1"> <label for="">Не важен совершенно</label><br>
+                <input type="radio" name="average" value="aver2"> <label for="">Не важен</label><br>
+                <input type="radio" name="average" value="aver3"> <label for="">Безразлично</label><br>
+                <input type="radio" name="average" value="aver4"> <label for="">Важен</label><br>
+                <input type="radio" name="average" value="aver5"> <label for="">Очень важен</label><br>
+            </div>
+
+            <div class="question14">
+                <h5>14. Важна ли для вас финансовая составляющая региона? <br>(Насколько он богат за счет собственных средств и налоговых сборов)</h5>
+                <input type="radio" name="finance" value="fin1"> <label for="">Не важна совершенно</label><br>
+                <input type="radio" name="finance" value="fin2"> <label for="">Не важна</label><br>
+                <input type="radio" name="finance" value="fin3"> <label for="">Безразлична</label><br>
+                <input type="radio" name="finance" value="fin4"> <label for="">Важна</label><br>
+                <input type="radio" name="finance" value="fin5"> <label for="">Очень важна</label><br>
+            </div>
+
+            <div class="question15">
+                <h5>15. Важен ли для вас показатель уровня образования в регионе?  </h5>
+                <input type="radio" name="education" value="edu1"> <label for="">Не важен совершенно</label><br>
+                <input type="radio" name="education" value="edu2"> <label for="">Не важен</label><br>
+                <input type="radio" name="education" value="edu3"> <label for="">Безразлично</label><br>
+                <input type="radio" name="education" value="edu4"> <label for="">Важен</label><br>
+                <input type="radio" name="education" value="edu5"> <label for="">Очень важен</label><br>
+            </div>
+
+            <div class="question16">
+                <h5>16. Насколько важна удовлетворенность от экономической деятельности региона? (для предпринимателей)</h5>
+                <input type="radio" name="economy" value="ecnm1"> <label for="">Не важна совершенно</label><br>
+                <input type="radio" name="economy" value="ecnm2"> <label for="">Не важна</label><br>
+                <input type="radio" name="economy" value="ecnm3"> <label for="">Безразлична</label><br>
+                <input type="radio" name="economy" value="ecnm4"> <label for="">Важна</label><br>
+                <input type="radio" name="economy" value="ecnm5"> <label for="">Очень важна</label><br>
+            </div>
+
+            <div class="question17">
+                <h5>17. Планируете ли вы устраиваться на работу в новом регионе?</h5>
+                <input type="radio" name="work" value="wrk1"> <label for="">Да</label><br>
+                <input type="radio" name="work" value="wrk2"> <label for="">Нет</label><br>
+                <input type="radio" name="work" value="wrk3"> <label for="">Затрудняюсь ответить</label><br>
+            </div>
+
+            <button>Отправить</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+Pyarrow
+python-dotenv
+pandas
+psycopg2-binary
+openpyxl
+sqlalchemy

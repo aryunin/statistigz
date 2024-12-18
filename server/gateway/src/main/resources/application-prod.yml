@@ -1,0 +1,48 @@
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      global-filter:
+        local-response-cache:
+          enabled: true
+      filter:
+        local-response-cache:
+          enabled: true
+          size: 100MB
+          time-to-live: 10s
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: ${ALLOWED_ORIGIN}
+            allowedMethods:
+              - GET
+              - POST
+            allowedHeaders: '*'
+      routes:
+        - id: rcm
+          uri: http://${RCM_HOST}:${RCM_PORT}
+          predicates:
+            - Path=${API_PREFIX}/rcm/**
+          filters:
+            - StripPrefix=2
+        - id: main
+          uri: http://${MAIN_HOST}:${MAIN_PORT}
+          predicates:
+            - Path=${API_PREFIX}/**
+          filters:
+            - StripPrefix=1
+
+server:
+  port: ${SERVICE_PORT}
+  ssl:
+    enabled: true
+    key-store-password: ${SSL_KEYSTORE_PASSWORD}
+    key-store: file:${SSL_KEYSTORE_PATH}
+    key-store-type: PKCS12
+logging:
+  level:
+    org.springframework: ${LOG_LEVEL}
+    com.statistigz.gateway: ${LOG_LEVEL}

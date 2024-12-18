@@ -1,0 +1,116 @@
+services:
+  server-gateway:
+    image: 'aryunin/marr-server-gateway:dev'
+    container_name: server-gateway
+    environment:
+      - MAIN_HOST=server-main
+      - MAIN_PORT=8080
+      - SURVEY_HOST=server-survey
+      - SURVEY_PORT=8080
+      - RCM_HOST=server-rcm
+      - RCM_PORT=8080
+      - API_PREFIX=/api
+      - SERVICE_PORT=8080
+      - LOG_LEVEL=DEBUG
+      - ALLOWED_ORIGIN=http://localhost:8080
+      - SPRING_PROFILES_ACTIVE=dev
+    ports: 
+      - 8081:8080
+    restart: always
+
+  server-main:
+    image: 'aryunin/marr-server-main:dev'
+    container_name: server-main
+    depends_on: 
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=statistigz
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - SERVICE_PORT=8080
+      - LOG_LEVEL=INFO
+      - SPRING_PROFILES_ACTIVE=dev
+    restart: always
+    
+  server-rcm:
+    image: 'aryunin/marr-server-rcm:dev'
+    container_name: server-rcm
+    depends_on: 
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=statistigz
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - SERVICE_PORT=8080
+      - CLASSIFIER_HOST=classifier
+      - CLASSIFIER_PORT=8080
+      - LOG_LEVEL=INFO
+      - SPRING_PROFILES_ACTIVE=dev
+    restart: always
+    
+  server-cp:
+    image: 'aryunin/marr-server-cp:dev'
+    container_name: server-cp
+    depends_on: 
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=statistigz
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - SERVICE_PORT=8080
+      - LOG_LEVEL=INFO
+      - PASSWORD_CHANGE_DELAY=1440
+      - SPRING_PROFILES_ACTIVE=dev
+    profiles: 
+      - fill
+    restart: 'no'
+    ports: 
+      - 9090:8080
+    
+  classifier:
+    image: 'aryunin/marr-classifier:dev'
+    container_name: classifier
+    environment:
+      - SERVICE_PORT=8080
+    restart: always
+    
+  excel-loader:
+    image: 'aryunin/marr-excel-loader:dev'
+    container_name: excel-loader
+    environment:
+      - HOST=db
+      - PORT=5432
+      - DB_NAME=statistigz
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_URL=postgresql+psycopg2://postgres:postgres@db:5432/statistigz
+      - PREV_SERVICE_HOST=server-main
+      - PREV_SERVICE_PORT=8080
+
+  db:
+    image: 'postgres:16.0'
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=statistigz
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 120s
+      retries: 5
+      
+volumes:
+  pgdata:
